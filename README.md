@@ -178,7 +178,7 @@ Zach Carter <hi@znc.dev>
 **Contributor**: Casiano Rodríguez León (2026). 
 
 - This version fixes a bug with the `--t --module-type` option and uses `commander` instead of `nomnom` for the command line interface. 
-
+- It also changes the way the function `lex` is exported
 
 ## license
 MIT
