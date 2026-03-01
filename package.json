@@ -5,7 +5,7 @@
   ],
   "name": "@ull-esit-pl/jison-lex",
   "description": "lexical analyzer generator used by jison",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "keywords": [
     "jison",
     "parser",
