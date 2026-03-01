@@ -43,6 +43,7 @@ lexer.lex();
 // => 'X'
 lexer.lex();
 // => 'Y'
+```
 
 ## Author
 
