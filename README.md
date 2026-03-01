@@ -3,7 +3,7 @@ A lexical analyzer generator used by [jison](http://jison.org). It takes a lexic
 
 ## install
 
-Be sure you have in your `~/.npmrc` file the following line to be able to install the package from the ULL-ESIT-PL npm registry:
+Be sure you have in your `~/.npmrc` file the following line to be able to install the package from the GitHub registry inside the ULL-ESIT-PL organization:
 
 ```ini
 @ull-esit-pl:registry=https://npm.pkg.github.com
