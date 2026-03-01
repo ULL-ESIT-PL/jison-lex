@@ -35,7 +35,9 @@
   },
   "scripts": {
     "test": "node tests/all-tests.js",
-    "pub": "source .env && npm publish"
+    "pub": "source .env && npm publish",
+    "grammar": "jison examples/grammar.jison -o examples/parser.js",
+    "clean": "rm -f examples/example.js examples/parser.js"
   },
   "directories": {
     "lib": "lib",
