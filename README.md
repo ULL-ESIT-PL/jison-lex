@@ -56,8 +56,7 @@ And the following `main.js` file:
 ➜  test-jison-lex cat main.js 
 ```
 ```js
-const { lexer } = require("./example.js");
-const lex = lexer.lex.bind(lexer);
+const { lexer, lex } = require("./example.js");
 const input = process.argv[2] || "2\n-/* a comment*/\n3";
 lexer.setInput(input);
 
