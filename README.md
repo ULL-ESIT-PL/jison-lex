@@ -171,7 +171,7 @@ Here is an example using the node.js REPL:
   'exports.lex = function () { return lexer.lex.apply(lexer, arguments); };'
 ```
 
-## Using with Jison
+## Use with Jison
 
 Given the grammar:
 
@@ -265,6 +265,10 @@ lrwxr-xr-x@ 1 casianorodriguezleon  staff  19  1 mar.  22:08 jison -> ../jison/l
 lrwxr-xr-x@ 1 casianorodriguezleon  staff  32  1 mar.  22:11 jison-lex -> ../@ull-esit-pl/jison-lex/cli.js
 lrwxr-xr-x@ 1 casianorodriguezleon  staff  22  1 mar.  22:08 jsonlint -> ../jsonlint/lib/cli.js
 ```
+
+## Writing a lexer for Jison by hand
+
+See [examples/manual-lexer.js](examples/manual-lexer.js) for an example of a lexer written by hand for use with Jison.
 
 ## Author
 
