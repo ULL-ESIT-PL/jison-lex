@@ -30,10 +30,11 @@ Options:
 
 ## Example 
 
+Given the following `example.l` file:
+
 ```console
 ➜  test-jison-lex cat example.l
 ```
-
 ```flex
 comment [/][*](.|[\r\n])*?[*][/]
 %%
@@ -43,6 +44,13 @@ comment [/][*](.|[\r\n])*?[*][/]
 <<EOF>>               return 'EOF';
 .                     return 'INVALID';
 ```
+Which we compile with the following command:
+
+```console
+test-jison-lex npx jison-lex -t commonjs example.l  -o example.js
+```
+
+And the following `main.js` file:
 
 ```console
 ➜  test-jison-lex cat main.js 
