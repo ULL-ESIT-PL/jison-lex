@@ -75,7 +75,7 @@ The output of running `main.js` should be the following:
 ```console
 ➜  test-jison-lex node main.js 
 ```
-```json
+```js
 [
   {
     type: 'NUMBER',
