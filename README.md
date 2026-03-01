@@ -3,6 +3,14 @@ A lexical analyzer generator used by [jison](http://jison.org). It takes a lexic
 
 ## install
 
+Be sure you have in your `~/.npmrc` file the following line to be able to install the package from the ULL-ESIT-PL npm registry:
+
+```ini
+@ull-esit-pl:registry=https://npm.pkg.github.com
+```
+
+Then you can install the package with npm:  
+
 ```console
 npm install @ull-esit-pl/jison-lex
 ```
