@@ -6,34 +6,23 @@ var path = require('path');
 var fs = require('fs');
 var lexParser = require('lex-parser');
 var RegExpLexer = require('./regexp-lexer.js');
+var { program } = require('commander');
 
+program
+  .version(version, '-V, --version')
+  .name('jison-lex')
+  .description('Lexical analyzer generator used by jison')
+  .argument('[file]', 'file containing a lexical grammar')
+  .option('-o, --outfile <FILE>', 'Filename and base module name of the generated parser')
+  .option('-t, --module-type <TYPE>', 'The type of module to generate (commonjs, js)', 'commonjs')
+  .parse(process.argv);
 
-var opts = require("nomnom")
-  .script('jison-lex')
-  .option('file', {
-    flag: true,
-    position: 0,
-    help: 'file containing a lexical grammar'
-  })
-  .option('outfile', {
-    abbr: 'o',
-    metavar: 'FILE',
-    help: 'Filename and base module name of the generated parser'
-  })
-  .option('module-type', {
-    abbr: 't',
-    default: 'commonjs',
-    metavar: 'TYPE',
-    help: 'The type of module to generate (commonjs, js)'
-  })
-  .option('version', {
-    abbr: 'V',
-    flag: true,
-    help: 'print version and exit',
-    callback: function() {
-       return version;
-    }
-  });
+var args = program.args;
+var opts = {
+  file: args[0],
+  outfile: program.opts().outfile,
+  'module-type': program.opts().moduleType
+};
 
 exports.main = function (opts) {
     if (opts.file) {
@@ -83,4 +72,4 @@ function readin (cb) {
 }
 
 if (require.main === module)
-    exports.main(opts.parse());
+    exports.main(opts);
