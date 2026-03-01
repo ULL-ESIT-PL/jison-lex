@@ -35,7 +35,7 @@
   },
   "scripts": {
     "test": "node tests/all-tests.js",
-    "pubminor": "npm version minor -ws && source .env && npm publish"
+    "pub": "source .env && npm publish"
   },
   "directories": {
     "lib": "lib",
