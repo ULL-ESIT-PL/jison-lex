@@ -28,6 +28,70 @@ Options:
    --version                     print version and exit
 ```
 
+## Example 
+
+```console
+➜  test-jison-lex cat example.l
+```
+
+```flex
+comment [/][*](.|[\r\n])*?[*][/]
+%%
+\s+|{comment}         /* skip whitespace */
+[0-9]+                return 'NUMBER';
+[-+*/]                return 'OPERATOR';
+<<EOF>>               return 'EOF';
+.                     return 'INVALID';
+```
+
+```console
+➜  test-jison-lex cat main.js 
+```
+```js
+const { lexer } = require("./example.js");
+const lex = lexer.lex.bind(lexer);
+const input = process.argv[2] || "2\n-/* a comment*/\n3";
+lexer.setInput(input);
+
+const results = [];
+
+results.push({ type: lex(), lexeme: lexer.yytext, loc: lexer.yylloc });
+
+results.push({ type: lex(), lexeme: lexer.yytext, loc: lexer.yylloc });
+results.push({ type: lex(), lexeme: lexer.yytext, loc: lexer.yylloc });
+results.push({ type: lex(), lexeme: lexer.yytext, loc: lexer.yylloc });
+
+console.log(results);
+```
+
+```console
+➜  test-jison-lex node main.js 
+```
+```json
+[
+  {
+    type: 'NUMBER',
+    lexeme: '2',
+    loc: { first_line: 1, last_line: 1, first_column: 0, last_column: 1 }
+  },
+  {
+    type: 'OPERATOR',
+    lexeme: '-',
+    loc: { first_line: 2, last_line: 2, first_column: 0, last_column: 1 }
+  },
+  {
+    type: 'NUMBER',
+    lexeme: '3',
+    loc: { first_line: 3, last_line: 3, first_column: 0, last_column: 1 }
+  },
+  {
+    type: 'EOF',
+    lexeme: '',
+    loc: { first_line: 3, last_line: 3, first_column: 1, last_column: 1 }
+  }
+]
+```
+
 ## programatic usage
 
 Here is an example using the node.js REPL:
