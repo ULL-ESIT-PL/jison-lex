@@ -592,8 +592,8 @@ function generateCommonJSModule(opt) {
     var moduleName = opt.moduleName || "lexer";
 
     out += generateModule(opt);
-    out += "\nexports.lexer = " + moduleName;
-    out += ";\nexports.lex = function () { return " + moduleName + ".lex.apply(lexer, arguments); };";
+    out += "\nexports.lexer = " + moduleName+";";
+    out += `\nexports.lex = ${moduleName}.lex.bind(${moduleName});`;
     return out;
 }
 

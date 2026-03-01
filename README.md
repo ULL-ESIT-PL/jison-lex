@@ -1,5 +1,5 @@
 # jison-lex
-A lexical analyzer generator used by [jison](http://jison.org). It takes a lexical grammar definition (either in JSON or Bison's lexical grammar format) and outputs a JavaScript lexer.
+A lexical analyzer generator used by [jison](https://gerhobbelt.github.io/jison/docs/). It takes a lexical grammar definition (either in JSON or Bison's lexical grammar format) and outputs a JavaScript lexer.
 
 ## install
 
