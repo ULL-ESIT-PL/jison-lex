@@ -36,6 +36,7 @@
   "scripts": {
     "test": "node tests/all-tests.js",
     "pub": "source .env && npm publish",
+    "publish": "npm run pub",
     "grammar": "jison examples/grammar.jison -o examples/parser.js",
     "clean": "rm -f examples/example.js examples/parser.js"
   },
