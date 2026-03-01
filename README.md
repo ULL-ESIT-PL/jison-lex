@@ -19,7 +19,7 @@ Options:
 
 ## programatic usage
 
-```
+```js
 var JisonLex = require('jison-lex');
 
 var grammar = {
