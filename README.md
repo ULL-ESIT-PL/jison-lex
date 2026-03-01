@@ -71,7 +71,7 @@ results.push({ type: lex(), lexeme: lexer.yytext, loc: lexer.yylloc });
 
 console.log(results);
 ```
-
+The output of running `main.js` should be the following:
 ```console
 ➜  test-jison-lex node main.js 
 ```
