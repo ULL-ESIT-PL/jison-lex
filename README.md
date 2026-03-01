@@ -2,9 +2,10 @@
 A lexical analyzer generator used by [jison](http://jison.org). It takes a lexical grammar definition (either in JSON or Bison's lexical grammar format) and outputs a JavaScript lexer.
 
 ## install
-npm install jison-lex -g
+npm install @ull-esit-pl/jison-lex
 
 ## usage
+
 ```
 Usage: jison-lex [file] [options]
 
@@ -42,6 +43,15 @@ lexer.lex();
 // => 'X'
 lexer.lex();
 // => 'Y'
+
+## Author
+
+Zach Carter <hi@znc.dev>
+
+**Contributor**: Casiano Rodríguez León (2026). 
+
+- This version fixes a bug with the `--t --module-type` option and uses `commander` instead of `nomnom` for the command line interface. 
+
 
 ## license
 MIT

@@ -1,8 +1,11 @@
 {
   "author": "Zach Carter <zach@carter.name> (http://zaa.ch)",
-  "name": "jison-lex",
+  "contributors": [
+    "Casiano Rodríguez León <crguezl@ull.edu.es>"
+  ],
+  "name": "@ull-esit-pl/jison-lex",
   "description": "lexical analyzer generator used by jison",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "keywords": [
     "jison",
     "parser",
@@ -13,11 +16,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/zaach/jison-lex.git"
+    "url": "https://github.com/ULL-ESIT-PL/jison-lex.git"
   },
   "bugs": {
-    "email": "jison@librelist.com",
-    "url": "http://github.com/zaach/jison-lex/issues"
+    "url": "https://github.com/ULL-ESIT-PL/jison-lex.git/issues"
   },
   "main": "regexp-lexer",
   "bin": "cli.js",
@@ -32,11 +34,12 @@
     "test": "0.4.4"
   },
   "scripts": {
-    "test": "node tests/all-tests.js"
+    "test": "node tests/all-tests.js",
+    "pubminor": "npm version minor -ws && source .env && npm publish"
   },
   "directories": {
     "lib": "lib",
     "tests": "tests"
   },
-  "homepage": "http://jison.org"
+  "homepage": "https://gerhobbelt.github.io/jison/docs/#lexical-analysis"
 }

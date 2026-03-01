@@ -1,5 +1,6 @@
+.env
+.npmrc
 node_modules/
-
 # Editor bak files
 *~
 *.bak
