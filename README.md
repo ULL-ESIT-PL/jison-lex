@@ -162,7 +162,7 @@ Here is an example using the node.js REPL:
 > target = lexer.generateCommonJSModule() // Creates a string containing the source code of a CommonJS module that
 > target.length                           // exports the lexer and lex
 11295
-> target.substr(11100)
+> target.substr(11100) // The last 195 characters of the generated module, which contains the export statements
 '?:y)/,/^(?:$)/],\n' +
   'conditions: {"INITIAL":{"rules":[0,1,2],"inclusive":true}}\n' +
   '});\n' +
