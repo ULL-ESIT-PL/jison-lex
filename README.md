@@ -3,7 +3,13 @@ A lexical analyzer generator used by [jison](https://gerhobbelt.github.io/jison/
 
 ## install
 
-Be sure you have in your `~/.npmrc` file the following line to be able to install the package from the GitHub registry inside the ULL-ESIT-PL organization:
+The easiest way is to install the package from the GitHub repository:
+
+```
+npm install https://github.com/ull-esit-pl/jison-lex.git
+```
+
+Alternatively, be sure you have in your `~/.npmrc` file the following line to be able to install the package from the GitHub registry inside the ULL-ESIT-PL organization:
 
 ```ini
 @ull-esit-pl:registry=https://npm.pkg.github.com
