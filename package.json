@@ -5,8 +5,10 @@
   ],
   "name": "@ull-esit-pl/jison-lex",
   "description": "lexical analyzer generator used by jison",
-  "version": "0.3.10",
-  "publishConfig": { "access": "public" },
+  "version": "0.3.11",
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "jison",
     "parser",
