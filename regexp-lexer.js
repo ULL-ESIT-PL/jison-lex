@@ -105,6 +105,7 @@ function buildActions (dict, tokens) {
         toks[tokens[tok]] = tok;
     }
 
+    debugger;
     if (dict.options && dict.options.flex) {
         dict.rules.push([".", "console.log(yytext);"]);
     }
