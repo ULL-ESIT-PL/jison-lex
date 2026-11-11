@@ -22,7 +22,7 @@ Replace `YOUR_GITHUB_TOKEN` with your personal GitHub token that has `read:packa
 npm install @ull-esit-pl/jison-lex
 ```
 
-For more information see the section : https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#authenticating-to-github-packages of the GitHub documentation.
+For more information see the section : https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#authenticating-with-a-personal-access-token of the GitHub documentation.
 
 ## usage
 
