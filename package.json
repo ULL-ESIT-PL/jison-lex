@@ -5,7 +5,7 @@
   ],
   "name": "@ull-esit-pl/jison-lex",
   "description": "lexical analyzer generator used by jison",
-  "version": "0.3.11",
+  "version": "0.3.12",
   "publishConfig": {
     "access": "public"
   },
@@ -19,13 +19,15 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ULL-ESIT-PL/jison-lex.git"
+    "url": "git+https://github.com/ULL-ESIT-PL/jison-lex.git"
   },
   "bugs": {
     "url": "https://github.com/ULL-ESIT-PL/jison-lex.git/issues"
   },
   "main": "regexp-lexer",
-  "bin": "cli.js",
+  "bin": {
+    "jison-lex": "cli.js"
+  },
   "engines": {
     "node": ">=0.4"
   },

@@ -11,7 +11,7 @@ var { program } = require('commander');
 program
   .version(version, '-V, --version')
   .name('jison-lex')
-  .description('Lexical analyzer generator used by jison')
+  .description('Lexical analyzer generator used by @ull-esit-pljison.\nSee https://github.com/ULL-ESIT-PL/jison-lex/blob/master/README.md for more information.')
   .argument('[file]', 'file containing a lexical grammar')
   .option('-o, --outfile <FILE>', 'Filename and base module name of the generated parser')
   .option('-t, --module-type <TYPE>', 'The type of module to generate (commonjs, js)', 'commonjs')

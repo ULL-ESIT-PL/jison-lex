@@ -108,7 +108,7 @@ The output of running `main.js` should be the following:
 ]
 ```
 
-## programatic usage
+## Programatic usage
 
 Here is an example using the node.js REPL:
 
