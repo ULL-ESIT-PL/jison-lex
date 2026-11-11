@@ -1,5 +1,5 @@
 # jison-lex
-A lexical analyzer generator used by [jison](https://gerhobbelt.github.io/jison/docs/). It takes a lexical grammar definition (either in JSON or Bison's lexical grammar format) and outputs a JavaScript lexer.
+A lexical analyzer generator used by [jison](https://github.com/ull-esit-pl/jison). It takes a lexical grammar definition (either in JSON or Bison's lexical grammar format) and outputs a JavaScript lexer.
 
 ## install
 
@@ -9,13 +9,14 @@ The easiest way is to install the package from the GitHub repository:
 npm install https://github.com/ull-esit-pl/jison-lex.git
 ```
 
-Alternatively, be sure you have in your `~/.npmrc` file the following line to be able to install the package from the GitHub registry inside the ULL-ESIT-PL organization:
+Alternatively, to install from the GitHub Package Registry, configure your `~/.npmrc` file with:
 
 ```ini
 @ull-esit-pl:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
 ```
 
-Then you can install the package with npm:  
+Replace `YOUR_GITHUB_TOKEN` with your personal GitHub token that has `read:packages` permissions. Then you can install the package with npm:  
 
 ```console
 npm install @ull-esit-pl/jison-lex
