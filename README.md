@@ -1,7 +1,8 @@
 # jison-lex
+
 A lexical analyzer generator used by [ull-esit-pl/jison](https://github.com/ull-esit-pl/jison). It takes a lexical grammar definition (either in JSON or Bison's lexical grammar format) and outputs a JavaScript lexer.
 
-## install
+## Installation
 
 The easiest way is to install the package from the GitHub repository:
 
@@ -33,7 +34,7 @@ npm install @ull-esit-pl/jison-lex
 
 For more information see the section : https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#authenticating-with-a-personal-access-token of the GitHub documentation.
 
-## usage
+## Usage
 
 ```
 Usage: jison-lex [file] [options]
@@ -288,9 +289,13 @@ lrwxr-xr-x@ 1 casianorodriguezleon  staff  22  1 mar.  22:08 jsonlint -> ../json
 
 See [examples/manual-lexer.js](examples/manual-lexer.js) for an example of a lexer written by hand for use with Jison.
 
+## Developers
+
+See [DEVELOPMENT.md](DEVELOPMENT.md) for instructions on how to publish the package and test it during development.
+
 ## Author
 
-Zach Carter <hi@znc.dev>
+[Zach Carter](https://github.com/zaach) <hi@znc.dev>
 
 **Contributor**: Casiano Rodríguez León (2026). 
 

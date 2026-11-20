@@ -1,0 +1,10 @@
+.env
+.git
+.gitignore
+.npmrc
+DEVELOPMENT.md
+examples/
+tests/
+tmp/
+*.js~
+.DS_Store
