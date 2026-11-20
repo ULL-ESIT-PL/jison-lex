@@ -12,7 +12,7 @@ The command above will install the latest version from the `master` branch of th
 
 ```json
 {
-"dependencies": {
+  "dependencies": {
     "@ull-esit-pl/jison-lex": "github:ull-esit-pl/jison-lex"
   }
 }
