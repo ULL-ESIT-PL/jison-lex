@@ -1,0 +1,30 @@
+package.json
+  s_e3975aedd30a9d::t_eb841b3b7c7277 27
+tests/regexplexer.js
+  s_e3975aedd30a9d::t_82420b80d69f04 1
+examples/yymore.js
+  s_e3975aedd30a9d::t_5923cd781662f2 1
+cli.js
+  s_e3975aedd30a9d::t_7e4f2f0dec1a80 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "ac48cebe0f021307ee2a4aada04012c68cca7b9e",
+  "prompts": {},
+  "humans": {
+    "h_a580421f60d2d7": {
+      "author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  },
+  "sessions": {
+    "s_e3975aedd30a9d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b37ecee8-1e3c-4315-8273-33b171a20fc1",
+        "model": "unknown"
+      },
+      "human_author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  }
+}
