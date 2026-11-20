@@ -54,7 +54,7 @@ function prepareRules(rules, macros, actions, tokens, startConditions, caseless)
         }
         newRules.push(m);
         if (typeof rules[i][1] === 'function') {
-            rules[i][1] = String(rules[i][1]).replace(/^\s*function \(\)\s?\{/, '').replace(/\}\s*$/, '');
+            rules[i][1] = String(rules[i][1]).replace(/^\s*function\s*\(\s*\)\s*\{/, '').replace(/\}\s*$/, '');
         }
         action = rules[i][1];
         if (tokens && action.match(/return '[^']+'/)) {
