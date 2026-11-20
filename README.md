@@ -8,6 +8,15 @@ The easiest way is to install the package from the GitHub repository:
 ```
 npm install https://github.com/ull-esit-pl/jison-lex.git
 ```
+The command above will install the latest version from the `master` branch of the repository and create a dependency like:
+
+```json
+{
+"dependencies": {
+    "@ull-esit-pl/jison-lex": "github:ull-esit-pl/jison-lex"
+  }
+}
+```
 
 Alternatively, to install from the GitHub Package Registry, configure your `~/.npmrc` file with:
 
