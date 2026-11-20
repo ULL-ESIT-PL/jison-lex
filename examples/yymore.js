@@ -1,4 +1,4 @@
-var RegExpLexer = require("../regexp-lexer");
+var RegExpLexer = require("../index");
 
 var test_more = function() {
     var dict = {
