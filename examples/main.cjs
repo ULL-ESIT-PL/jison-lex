@@ -1,3 +1,5 @@
+// Compile first `npx jison-lex examples/exammle.l -t commonjs -o examples/example.js` and 
+// then run `node examples/main.js 
 const { lexer, lex } = require("./example.js");
 const input = process.argv[2] || "2\n-/* a comment*/\n3";
 lexer.setInput(input);
