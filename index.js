@@ -7,6 +7,18 @@ var lexParser = require('lex-parser');
 var version = require('./package.json').version;
 
 // expand macros and convert matchers to RegExp's
+/**
+ * Prepares lexer rules by expanding macros, converting matchers to RegExp objects,
+ * and organizing rules by start conditions.
+ * @internal
+ * @param {Array} rules - Array of [pattern, action] rule pairs
+ * @param {Object} macros - Object containing macro definitions (e.g., {digit: '[0-9]'})
+ * @param {Array} actions - Accumulator array for building action code
+ * @param {Object} tokens - Token definitions object
+ * @param {Object} startConditions - Start conditions and their associated rules
+ * @param {boolean} caseless - Whether to generate case-insensitive regexes
+ * @returns {Array} Array of compiled RegExp patterns
+ */
 function prepareRules(rules, macros, actions, tokens, startConditions, caseless) {
     var m,i,k,action,conditions,
         newRules = [];
@@ -68,6 +80,12 @@ function prepareRules(rules, macros, actions, tokens, startConditions, caseless)
 }
 
 // expand macros within macros
+/**
+ * Recursively expands macro definitions within other macros to handle nested patterns.
+ * @internal
+ * @param {Object} macros - Object containing macro name/value pairs
+ * @returns {Object} Expanded macros object with all nested references resolved
+ */
 function prepareMacros (macros) {
     var cont = true,
         m,i,k,mnew;
@@ -87,6 +105,12 @@ function prepareMacros (macros) {
     return macros;
 }
 
+/**
+ * Prepares start condition definitions from grammar.
+ * @internal
+ * @param {Object} conditions - Start conditions from grammar
+ * @returns {Object} Processed start conditions with rules arrays and inclusive flags
+ */
 function prepareStartConditions (conditions) {
     var sc,
         hash = {};
@@ -96,6 +120,13 @@ function prepareStartConditions (conditions) {
     return hash;
 }
 
+/**
+ * Builds the action dispatcher function that routes matched tokens to their handlers.
+ * @internal
+ * @param {Object} dict - Lexer grammar dictionary
+ * @param {Object} tokens - Token name to ID mapping
+ * @returns {string} JavaScript function string that handles all token actions
+ */
 function buildActions (dict, tokens) {
     var actions = [dict.actionInclude || '', "var YYSTATE=YY_START;"];
     var tok;
@@ -119,6 +150,31 @@ function buildActions (dict, tokens) {
     return "function anonymous(yy,yy_,$avoiding_name_collisions,YY_START) {" + fun + "\n}";
 }
 
+/**
+ * Creates a RegExp-based lexer from a grammar dictionary.
+ * This is the primary constructor for creating lexers from jison-lex grammar.
+ * 
+ * @constructor
+ * @param {Object|string} dict - Lexer grammar definition (object or lex source string)
+ * @param {string} [input] - Optional input string to tokenize
+ * @param {Object} [tokens] - Optional token definitions
+ * @returns {Object} Lexer object with lex(), setInput(), and generate methods
+ * 
+ * @example
+ * const RegExpLexer = require('jison-lex');
+ * const lexer = new RegExpLexer({
+ *   rules: [
+ *     [/\d+/, "return 'NUMBER'"],
+ *     [/\+/, "return 'PLUS'"]
+ *   ]
+ * });
+ * 
+ * @example
+ * // With module generation
+ * const lexer = new RegExpLexer(grammar);
+ * const commonjsCode = lexer.generateCommonJSModule();
+ * const es6Code = lexer.generateESModule();
+ */
 function RegExpLexer (dict, input, tokens) {
     var opts = processGrammar(dict, tokens);
     var source = generateModuleBody(opts);
@@ -462,6 +518,30 @@ RegExpLexer.prototype = {
 
 
 // generate lexer source from a grammar
+/**
+ * Generates lexer source code from a grammar definition.
+ * This is the main entry point for generating lexer code in different module formats.
+ * 
+ * @static
+ * @param {Object|string} dict - Lexer grammar (object or lex source string)
+ * @param {Object} [tokens] - Optional token definitions
+ * @returns {string} Generated lexer source code (default IIFE format)
+ * 
+ * @example
+ * const RegExpLexer = require('jison-lex');
+ * const grammar = `
+ *   %%
+ *   \\d+        return 'NUMBER'
+ *   \\+         return 'PLUS'
+ *   \\s+        // skip whitespace
+ * `;
+ * const code = RegExpLexer.generate(grammar);
+ * console.log(code); // Generated lexer IIFE
+ * 
+ * @see generateCommonJSModule
+ * @see generateAMDModule
+ * @see generateESModule
+ */
 function generate (dict, tokens) {
     var opt = processGrammar(dict, tokens);
 
@@ -469,6 +549,18 @@ function generate (dict, tokens) {
 }
 
 // process the grammar and build final data structures and functions
+/**
+ * Processes a lexer grammar and builds the internal data structures needed for code generation.
+ * @internal
+ * @param {Object|string} dict - Lexer grammar definition
+ * @param {Object} [tokens] - Token definitions
+ * @returns {Object} Processed options object containing:
+ *   - options: Grammar options (moduleType, moduleName, etc.)
+ *   - conditions: Start conditions and their rules
+ *   - performAction: Compiled action dispatcher function
+ *   - conditionStack: Initial lexer state stack
+ *   - moduleInclude: Additional module-level code
+ */
 function processGrammar(dict, tokens) {
     var opts = {};
     if (typeof dict === 'string') {
@@ -491,6 +583,23 @@ function processGrammar(dict, tokens) {
 }
 
 // Assemble the final source from the processed grammar
+/**
+ * Routes code generation to the appropriate module format based on options.
+ * Assembles the final lexer source from processed grammar options.
+ * @internal
+ * @param {Object} opt - Processed grammar options from processGrammar()
+ * @param {string} [opt.moduleType] - Module format: 'commonjs', 'amd', 'es6', or undefined for IIFE
+ * @returns {string} Generated lexer source code in the requested module format
+ * 
+ * @example
+ * // Returns ES6 module-formatted lexer
+ * const code = generateFromOpts({ moduleType: 'es6', moduleName: 'myLexer' });
+ * 
+ * @see generateModule
+ * @see generateCommonJSModule
+ * @see generateAMDModule
+ * @see generateESModule
+ */
 function generateFromOpts (opt) {
     var code = "";
 
@@ -507,6 +616,13 @@ function generateFromOpts (opt) {
     return code;
 }
 
+/**
+ * Generates the core lexer function body containing all state machines and logic.
+ * This internal function is wrapped by module-specific generators.
+ * @internal
+ * @param {Object} opt - Processed grammar options
+ * @returns {string} JavaScript code for the lexer core implementation
+ */
 function generateModuleBody (opt) {
     var functionDescriptions = {
         setInput: "resets the lexer, sets new input",
@@ -555,6 +671,23 @@ function generateModuleBody (opt) {
     return out;
 }
 
+/**
+ * Generates a lexer in IIFE (Immediately Invoked Function Expression) format.
+ * This creates a standalone lexer with a global variable in browsers or Node.js.
+ * 
+ * @param {Object} opt - Code generation options
+ * @param {string} [opt.moduleName='lexer'] - Name of the global variable
+ * @param {string} [opt.moduleInclude] - Additional code to include in the module
+ * @returns {string} IIFE-wrapped lexer code
+ * 
+ * @example
+ * // Generates: var lexer = (function() { ... return lexer; })();
+ * const code = generateModule({ moduleName: 'myLexer' });
+ * 
+ * @see generateCommonJSModule
+ * @see generateAMDModule
+ * @see generateESModule
+ */
 function generateModule(opt) {
     opt = opt || {};
 
@@ -573,6 +706,26 @@ function generateModule(opt) {
     return out;
 }
 
+/**
+ * Generates a lexer in AMD (Asynchronous Module Definition) format for RequireJS.
+ * Use this for browser-based projects using the RequireJS loader.
+ * 
+ * @param {Object} opt - Code generation options
+ * @param {string} [opt.moduleInclude] - Additional code to include in the module
+ * @returns {string} AMD-wrapped lexer code (define() format)
+ * 
+ * @example
+ * // Generates: define([], function() { ... return lexer; });
+ * const code = generateAMDModule(opt);
+ * 
+ * // Usage in HTML:
+ * // <script data-main="app" src="require.js"></script>
+ * // require(['lexer'], function(lexer) { ... });
+ * 
+ * @see generateModule
+ * @see generateCommonJSModule
+ * @see generateESModule
+ */
 function generateAMDModule(opt) {
     var out = "/* generated by jison-lex " + version + " */";
 
@@ -589,6 +742,26 @@ function generateAMDModule(opt) {
     return out;
 }
 
+/**
+ * Generates a lexer in CommonJS format for Node.js.
+ * This is the standard format for Node.js modules using require() and exports.
+ * 
+ * @param {Object} opt - Code generation options
+ * @param {string} [opt.moduleName='lexer'] - Name of the exported variable
+ * @param {string} [opt.moduleInclude] - Additional code to include in the module
+ * @returns {string} CommonJS-wrapped lexer code with exports
+ * 
+ * @example
+ * // Generates exports.lexer and exports.lex
+ * const code = generateCommonJSModule({ moduleName: 'myLexer' });
+ * 
+ * // Usage:
+ * // const { lexer, lex } = require('./lexer.js');
+ * 
+ * @see generateModule
+ * @see generateAMDModule
+ * @see generateESModule
+ */
 function generateCommonJSModule(opt) {
     opt = opt || {};
 
@@ -603,6 +776,27 @@ function generateCommonJSModule(opt) {
     return out;
 }
 
+/**
+ * Generates a lexer in ES6 Module format (ESM) for modern browsers and Node.js.
+ * Use this for projects using native ES6/ESM module syntax with import/export.
+ * Supports tree-shaking in bundlers like Webpack, Vite, and Rollup.
+ * 
+ * @param {Object} opt - Code generation options
+ * @param {string} [opt.moduleName='lexer'] - Name of the exported variable
+ * @param {string} [opt.moduleInclude] - Additional code to include in the module
+ * @returns {string} ES6 module-wrapped lexer code with export statements
+ * 
+ * @example
+ * // Generates: export { lexer }; export const lex = ...;
+ * const code = generateESModule({ moduleName: 'myLexer' });
+ * 
+ * // Usage:
+ * // import { lexer, lex } from './lexer.mjs';
+ * 
+ * @see generateModule
+ * @see generateCommonJSModule
+ * @see generateAMDModule
+ */
 function generateESModule(opt) {
     opt = opt || {};
 
