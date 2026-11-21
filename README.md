@@ -395,7 +395,7 @@ See [DEVELOPMENT.md](DEVELOPMENT.md) for instructions on how to publish the pack
 
 ### Contributors 
 
--Casiano Rodríguez León (2026). 
+- Casiano Rodríguez León (2026). 
 
 ## Changelog
 
