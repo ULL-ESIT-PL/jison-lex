@@ -1,0 +1,14 @@
+README.md
+  h_a580421f60d2d7 249-250
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "75f2228d6ab65f06eac00ed42924e78fa26cef72",
+  "prompts": {},
+  "humans": {
+    "h_a580421f60d2d7": {
+      "author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  }
+}
