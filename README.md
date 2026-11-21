@@ -400,7 +400,7 @@ See [DEVELOPMENT.md](DEVELOPMENT.md) for instructions on how to publish the pack
 **Contributor**: Casiano Rodríguez León (2026). 
 
 - This version fixes a bug with the `--t --module-type` option and uses `commander` instead of `nomnom` for the command line interface. 
-- It also changes the way the function `lex` is exported
+- It also changes the way the function `lex` is exported.
 
 ## license
 MIT
