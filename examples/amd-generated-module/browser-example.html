@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jison-lex AMD Example with RequireJS</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <h1>jison-lex AMD Example (RequireJS)</h1>
+    
+    <div class="input-section">
+        <label for="input">Enter input to tokenize:</label>
+        <input 
+            type="text" 
+            id="input" 
+            placeholder='e.g., 2 - /* comment */ 3'
+            value="2 - /* comment */ 3"
+        >
+        <button onclick="tokenize()">Tokenize</button>
+    </div>
+
+    <div id="results"></div>
+
+    <!-- Load RequireJS from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+    
+    <!-- Load the application using RequireJS -->
+    <script>
+        require.config({
+            paths: {
+                // Map the app module
+                app: './app'
+            }
+        });
+        
+        // Load the app module
+        require(['./app']);
+    </script>
+</body>
+</html>
