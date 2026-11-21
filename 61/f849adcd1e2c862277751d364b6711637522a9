@@ -1,0 +1,15 @@
+examples/ecma-generated-module/README.md
+  h_a580421f60d2d7 132-135,145,150-152,164-168,173,178-179,183-185,192,198,200-201
+  h_a580421f60d2d7 136-144,146-149,153-163,169-172,174-177,180-182,186-191,193-197,199
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "61f849adcd1e2c862277751d364b6711637522a9",
+  "prompts": {},
+  "humans": {
+    "h_a580421f60d2d7": {
+      "author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  }
+}
