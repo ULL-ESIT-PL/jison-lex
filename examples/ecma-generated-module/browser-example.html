@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jison-lex ES6 Modules Example</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <h1>jison-lex ES6 Modules Example</h1>
+    
+    <div class="input-section">
+        <label for="input">Enter input to tokenize:</label>
+        <input 
+            type="text" 
+            id="input" 
+            placeholder='e.g., 2 - /* comment */ 3'
+            value="2 - /* comment */ 3"
+        >
+        <button onclick="tokenize()">Tokenize</button>
+    </div>
+
+    <div id="results"></div>
+
+    <!-- Load the app module (ES6 Module) -->
+    <script type="module">
+        // Import the tokenize function
+        import { tokenize } from './app.mjs';
+        
+        // Export to global scope for button click handler
+        window.tokenize = tokenize;
+    </script>
+</body>
+</html>
