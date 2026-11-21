@@ -426,6 +426,8 @@ npm run docs:serve
 
 Then open `http://localhost:8080/docs` in your browser.
 
+**📖 Online Documentation:** Documentation is automatically deployed to GitHub Pages on every push to `master`/`main` branch. View it at: **[https://ull-esit-pl.github.io/jison-lex/](https://ull-esit-pl.github.io/jison-lex/)**
+
 ### Available npm Scripts
 
 ```bash
