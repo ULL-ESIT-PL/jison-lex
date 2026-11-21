@@ -35,6 +35,7 @@ const lexer = {
 
     // OPERATOR
     if (/[-+*\/]/.test(char)) {
+        console.log(`Recognized operator: ${char} at line ${startLine}, column ${startColumn}`);
       this.yytext = char;
       this.advance(char);
 
