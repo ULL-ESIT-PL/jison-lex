@@ -32,10 +32,11 @@
     "node": ">=0.4"
   },
   "dependencies": {
-    "lex-parser": "0.1.x",
-    "commander": "^11.0.3"
+    "commander": "^11.0.3",
+    "lex-parser": "0.1.x"
   },
   "devDependencies": {
+    "@ull-esit-pl/jison": "^0.6.5",
     "test": "0.4.4"
   },
   "scripts": {
