@@ -398,5 +398,42 @@ See [DEVELOPMENT.md](DEVELOPMENT.md) for instructions on how to publish the pack
 - This version fixes a bug with the `--t --module-type` option and uses `commander` instead of `nomnom` for the command line interface. 
 - It also changes the way the function `lex` is exported.
 
+## Development
+
+### Running Tests
+
+```bash
+npm test
+```
+
+### Generating API Documentation
+
+JSDoc documentation is available for the main API functions. To generate HTML documentation:
+
+```bash
+npm run docs
+```
+
+Documentation will be generated in the `./docs` directory.
+
+To serve the documentation locally:
+
+```bash
+npm run docs:serve
+```
+
+Then open `http://localhost:8080/docs` in your browser.
+
+### Available npm Scripts
+
+```bash
+npm test              # Run test suite
+npm run docs          # Generate JSDoc HTML documentation
+npm run docs:serve    # Serve docs on http://localhost:8080
+npm run grammar       # Regenerate parser grammar (examples/parser.js)
+npm run clean         # Remove generated files (examples/example.js, examples/parser.js)
+npm run pub           # Publish to registry (requires .env configuration)
+```
+
 ## license
 MIT
