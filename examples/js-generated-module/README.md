@@ -84,7 +84,7 @@ The interactive tokenizer will display:
 
 ## Lexer Grammar
 
-The example uses [example.l](../example.ls) with the following rules:
+The example uses [example.l](../example.l) with the following rules:
 
 ```flex
 comment [/][*](.|[\r\n])*?[*][/]
