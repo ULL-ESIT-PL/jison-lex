@@ -7,6 +7,8 @@ This directory contains examples demonstrating different ways to use jison-lex i
 ### 1. **Node.js / CommonJS** (`main.cjs`)
 Simple Node.js example using the default CommonJS module format.
 
+See files [examples/example.l](examples/example.l) and [examples/main.cjs](examples/main.cjs).
+
 **Usage:**
 ```bash
 # First compile the lexer
