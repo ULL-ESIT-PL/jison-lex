@@ -105,17 +105,57 @@ python -m http.server 8000
 
 ---
 
+### 4. **ES6 Native Modules** (`ecma-generated-module/`)
+Modern browser and Node.js example using native ES6 modules.
+
+**Features:**
+- Module type: `-t es6` (ES6/ESM)
+- Native browser support (no loaders needed)
+- Official JavaScript standard
+- Tree-shaking support with bundlers
+- Works in modern browsers and Node.js
+- Uses `.mjs` file extension
+
+**Files:**
+- `browser-example.html` - Native module loading with `<script type="module">`
+- `app.mjs` - Application module using `import`/`export`
+- `styles.css` - Styling
+- `example-es6.mjs` - Generated lexer in ES6 module format
+
+**Setup:**
+```bash
+# Generate the lexer
+jison-lex -t es6 examples/example.l -o examples/ecma-generated-module/example-es6.mjs
+
+# Start HTTP server (required for module security)
+python -m http.server 8000
+# Navigate to: http://localhost:8000/examples/ecma-generated-module/browser-example.html
+```
+
+**Key Concepts:**
+- ES6 Modules (official JavaScript standard)
+- Native browser support (Chrome 61+, Firefox 67+, Safari 10.1+)
+- `import` and `export` syntax
+- Tree-shaking and bundler optimization
+- Dynamic imports
+
+**Documentation:** See [ecma-generated-module/README.md](./ecma-generated-module/README.md)
+
+---
+
 ## Module Types Comparison
 
-| Feature | CommonJS | IIFE Standalone | AMD/RequireJS |
-|---------|----------|-----------------|---------------|
-| **Command** | `-t commonjs` | `-t js` | `-t amd` |
-| **Environment** | Node.js | Browser | Browser |
-| **Syntax** | `exports` | Global var | `define()` / `require()` |
-| **Dependencies** | Synchronous | None (global) | Asynchronous |
-| **Setup Complexity** | Minimal | Minimal | Moderate |
-| **Use Case** | Server-side apps | Simple scripts | Complex SPAs |
-| **Example File** | `main.cjs` | `js-generated-module/` | `amd-generated-module/` |
+| Feature | CommonJS | IIFE Standalone | AMD/RequireJS | ES6 Modules |
+|---------|----------|-----------------|---------------|-------------|
+| **Command** | `-t commonjs` | `-t js` | `-t amd` | `-t es6` |
+| **Environment** | Node.js | Browser | Browser | Browser + Node.js |
+| **Syntax** | `exports` | Global var | `define()` / `require()` | `import` / `export` |
+| **Dependencies** | Synchronous | None (global) | Asynchronous | Async (browsers) |
+| **Setup Complexity** | Minimal | Minimal | Moderate | Low-Moderate |
+| **Use Case** | Server-side apps | Simple scripts | Legacy SPAs | Modern apps |
+| **Tree-shaking** | ❌ No | ❌ No | ❌ No | ✅ Yes |
+| **Standard** | Node.js custom | None (IIFE) | AMD spec | ES6/ESM |
+| **Example File** | `main.cjs` | `js-generated-module/` | `amd-generated-module/` | `ecma-generated-module/` |
 
 ## Lexer Grammar
 
@@ -155,6 +195,16 @@ python -m http.server 8000
 # Open: http://localhost:8000/examples/amd-generated-module/browser-example.html
 ```
 
+### ES6 Modules (Browser or Node.js)
+```bash
+# Browser: MUST use HTTP server (security restrictions)
+python -m http.server 8000
+# Open: http://localhost:8000/examples/ecma-generated-module/browser-example.html
+
+# Node.js (.mjs):
+node examples/ecma-generated-module/app.mjs
+```
+
 ## Quick Reference
 
 ### Generate Lexer for Different Environments
@@ -168,6 +218,9 @@ jison-lex -t js examples/example.l -o examples/example-browser.js
 
 # Browser / AMD RequireJS
 jison-lex -t amd examples/example.l -o examples/example-amd.js
+
+# Browser + Node.js / ES6 Modules
+jison-lex -t es6 examples/example.l -o examples/example-es6.mjs
 ```
 
 ### Basic API (Same for All Formats)
@@ -194,7 +247,8 @@ lexer.matched;      // All matched text so far
 
 1. **Start with** `main.cjs` - Understand basic lexer API
 2. **Then try** `js-generated-module/` - Learn browser usage with global vars
-3. **Finally explore** `amd-generated-module/` - Understand modular architecture
+3. **Next explore** `amd-generated-module/` - Understand modular architecture with RequireJS
+4. **Finally** `ecma-generated-module/` - Learn modern ES6 modules approach
 
 ## Troubleshooting
 
@@ -202,6 +256,7 @@ lexer.matched;      // All matched text so far
 - Ensure files are served over HTTP (not `file://`)
 - Check browser DevTools console for specific errors
 - Verify file paths are correct relative to HTML
+- For ES6 modules, ensure `.mjs` extension or `type="module"` configuration
 
 ### CommonJS example doesn't run
 - Ensure Node.js is installed: `node --version`
@@ -212,6 +267,44 @@ lexer.matched;      // All matched text so far
 - Start an HTTP server (required for dynamic module loading)
 - Check RequireJS CDN is reachable
 - Verify module paths in require.config match file paths
+
+### ES6 Modules not loading
+- Use HTTP server instead of `file://` protocol
+- Check DevTools console for CORS errors
+- Verify `.mjs` file extensions or `"type": "module"` in package.json
+- For Node.js usage, ensure Node.js version 12.20+ is installed
+
+## Module Format Guide
+
+### CommonJS (Best for Node.js)
+- Use when: Building server-side applications
+- Syntax: `require()`, `module.exports`
+- File extension: `.js` or `.cjs`
+- Example: `examples/main.cjs`
+
+### IIFE Standalone (Best for simple browser usage)
+- Use when: Simple scripts, legacy browsers, no build tools
+- Syntax: Global variables
+- File extension: `.js`
+- Example: `examples/js-generated-module/`
+- Pros: No dependencies, straightforward
+- Cons: Global namespace pollution
+
+### AMD/RequireJS (Best for complex browser applications)
+- Use when: Complex SPAs, need asynchronous loading
+- Syntax: `define()`, `require()`
+- File extension: `.js`
+- Example: `examples/amd-generated-module/`
+- Pros: Modular, asynchronous, good for large applications
+- Cons: Requires RequireJS library, more complex setup
+
+### ES6 Modules (Best for modern applications)
+- Use when: Modern browsers, Node.js 12.20+, using bundlers
+- Syntax: `import`, `export`
+- File extension: `.mjs` or `.js` (with `"type": "module"`)
+- Example: `examples/ecma-generated-module/`
+- Pros: Official standard, tree-shaking, native browser support
+- Cons: Requires HTTP for browser loading, needs modern environment
 
 ## Further Reading
 
