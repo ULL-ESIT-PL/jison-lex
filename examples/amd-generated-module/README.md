@@ -27,7 +27,7 @@ amd-generated-module/
     └── README.md                # This file
 ```
 
-- **`browser-example.html`** - Entry point with RequireJS configuration and module loading
+- **`browser-example.html`** - Entry point with [RequireJS](https://requirejs.org/) configuration and module loading
 - **`styles.css`** - Styling for the UI
 - **`app.js`** - Application module that depends on the lexer
   - Declares dependency on `./example-amd`
