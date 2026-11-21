@@ -71,7 +71,7 @@ const lexer = {
       return "NUMBER";
     }
 
-    throw new Error("Carácter inesperado: " + char);
+    throw new Error("Unexpected character: " + char);
   },
 
   advance(char) {

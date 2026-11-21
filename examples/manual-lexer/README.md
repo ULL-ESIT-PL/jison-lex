@@ -157,48 +157,13 @@ This creates a simple calculator AST for expressions like:
 - `2 + 3` → `{ type: "OPERATOR", lexeme: "+", left: {type: "number", value: 2}, right: {type: "number", value: 3} }`
 - `10 * 5 - 2` → Nested structure with left-to-right evaluation
 
-## Setup
-
-### 1. Generate the Parser
-
-The parser needs to be generated once from the grammar:
-
-```bash
-npx jison grammar.jison -o parser.js
-```
-
-This creates `parser.js` from `grammar.jison`.
-
-### 2. Integrate the Manual Lexer
-
-The generated parser expects a `lexer` object with:
-- `setInput(input)` method
-- `lex()` method
-- `yytext`, `yylineno`, `yylloc` properties
-
-Our manual lexer provides all of these!
-
 ## Usage
 
 ### Running the Example
 
 ```bash
+npx jison grammar.jison -o parser.js
 node use-manual-lexer.cjs
-```
-
-**Example code from `use-manual-lexer.cjs`:**
-
-```javascript
-const lexer = require('./manual-lexer.js');
-const parser = require('./parser.js');
-
-// Connect the manual lexer to the parser
-// Note: parser.parser is the actual parser object (Jison wraps it)
-parser.parser.lexer = lexer;
-
-// Parse an expression
-const result = parser.parse('2+3');
-console.log(result);
 ```
 
 **Output:**
@@ -214,60 +179,7 @@ console.log(result);
 
 **Important:** Jison wraps the parser object, so you must use `parser.parser.lexer` (not `parser.lexer`) to access the actual parser's lexer property.
 
-## Why Write Lexers Manually?
-
-### When to Use Manual Lexing
-
-✅ **Good for:**
-- Learning how lexers work internally
-- Simple grammars with few token types
-- Embedded lexing (lexer inline in parser)
-- Performance-critical systems (less overhead)
-- Languages with unusual tokenization needs
-- Building custom lexers for DSLs
-
-❌ **Not ideal for:**
-- Complex grammars with many tokens
-- Detailed location tracking
-- Error recovery and reporting
-- Maintenance (easier to maintain generated code)
-- Large projects (generator scales better)
-
-### Comparison: Manual vs Generated
-
-| Aspect | Manual Lexer | Generated (jison-lex) |
-|--------|------------|----------------------|
-| **Learning** | Shows internals clearly | Black box |
-| **Maintenance** | Manual updates needed | Auto-regenerated |
-| **Features** | Only what you code | Automatic location, state |
-| **Debugging** | Manual inspection | Generated, harder to debug |
-| **Performance** | Often faster | Slightly more overhead |
-| **Complexity** | Grows with token count | Same regardless |
-
 ## Understanding Lexer Concepts
-
-### Character-by-Character Processing
-
-The lexer reads one character at a time:
-
-```
-Input: "2 + 3"
-       ↑
-       └─ Read '2'
-          └─ Token: NUMBER, yytext: "2"
-       
-       ↑ (skip space)
-       └─ Read '+'
-          └─ Token: OPERATOR, yytext: "+"
-       
-       ↑ (skip space)
-       └─ Read '3'
-          └─ Token: NUMBER, yytext: "3"
-       
-       ↑
-       └─ EOF reached
-          └─ Token: EOF
-```
 
 ### State Tracking
 
@@ -292,7 +204,7 @@ The lexer uses regex for pattern matching:
 /\d/        // Single digit
 ```
 
-## Advanced: Extending the Lexer
+## Extending the Lexer
 
 ### Add More Tokens
 
@@ -351,76 +263,8 @@ if (char === '"') {
 }
 ```
 
-## Troubleshooting
-
-### "Unexpected character" Error
-
-The input contains a character the lexer doesn't recognize.
-
-```
-Error: Unexpected character: @
-```
-
-**Solution:** Add token recognition for that character or update the grammar.
-
-### Parser expects different tokens
-
-If you change tokens in the lexer, update `grammar.jison`:
-
-```jison
-%token NUMBER OPERATOR IDENTIFIER EOF
-```
-
-Then regenerate: `npx jison grammar.jison -o parser.js`
-
-### Location information is wrong
-
-Ensure `advance()` is called for every character:
-
-```javascript
-// WRONG - doesn't track position
-this.yytext = char;
-
-// RIGHT - tracks position
-this.advance(char);
-```
-
-## Comparison with jison-lex Generated Lexer
-
-**Manual approach (this example):**
-- 80 lines of code
-- Full control and understanding
-- Easier to debug
-- Good for learning
-- Harder to maintain complex grammars
-
-**Generated with jison-lex:**
-- 300+ lines of generated code
-- Automatic handling of regex, state machine, location tracking
-- More features (lexer conditions, exclusion ranges, etc.)
-- Easier for complex grammars
-- Black box (harder to understand internals)
-
-## Learning Path
-
-1. **Study this example** - Understand how lexers work at the character level
-2. **Try modifying the grammar** - Add new operators or token types
-3. **Look at generated lexers** - Compare with output from jison-lex
-4. **Use jison-lex for real projects** - Leverage automatic generation for complex lexers
-
 ## Further Reading
 
-- [Lexical Analysis (Wikipedia)](https://en.wikipedia.org/wiki/Lexical_analysis)
-- [Finite State Machines](https://en.wikipedia.org/wiki/Finite-state_machine)
-- [Jison Manual](https://jison.org/)
 - [jison-lex README](../../README.md)
 - [Other Examples](../README.md)
 
-## Related Examples
-
-- **[CommonJS Example](../main.cjs)** - Using generated CommonJS lexer with Node.js
-- **[ES6 Modules](../ecma-generated-module/)** - Generated lexer with modern modules
-- **[AMD/RequireJS](../amd-generated-module/)** - Generated lexer with AMD
-- **[IIFE Standalone](../js-generated-module/)** - Generated lexer in browser
-
-This manual example is perfect for understanding the foundations that all lexers build upon!
