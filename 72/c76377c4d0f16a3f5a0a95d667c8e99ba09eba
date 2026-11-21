@@ -1,0 +1,31 @@
+.gitignore
+  s_e3975aedd30a9d::t_5919513fc50c4c 10
+jsdoc.json
+  s_e3975aedd30a9d::t_238a0df6e2f320 1-31
+package.json
+  s_e3975aedd30a9d::t_b53b4122643861 47-49
+  s_e3975aedd30a9d::t_43bde548895d01 40
+README.md
+  s_e3975aedd30a9d::t_36a73b1d20ce60 401-437
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "72c76377c4d0f16a3f5a0a95d667c8e99ba09eba",
+  "prompts": {},
+  "humans": {
+    "h_a580421f60d2d7": {
+      "author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  },
+  "sessions": {
+    "s_e3975aedd30a9d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b37ecee8-1e3c-4315-8273-33b171a20fc1",
+        "model": "unknown"
+      },
+      "human_author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  }
+}
