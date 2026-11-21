@@ -20,12 +20,32 @@ The example is organized using ES6 module imports/exports:
 
 ```
 ecma-generated-module/
-├── browser-example.html      # HTML with native module loading
+├── browser-example.html     # HTML with native module loading
 ├── styles.css               # CSS styling
 ├── app.mjs                  # Application module (imports lexer)
 ├── example-es6.mjs          # Generated lexer (ES6 module)
-└── README.md               # This file
+├── node-main.mjs            # Node.js example using the lexer
+└── README.md                # This file
 ```
+
+## File Descriptions
+
+- **`browser-example.html`** - Entry point using native module loading
+  - Uses `<script type="module">` for ES6 module support
+  - Imports `app.mjs` and exposes `tokenize()` globally
+  
+- **`styles.css`** - Styling for the UI (shared from IIFE example)
+
+- **`app.mjs`** - Application module
+  - Imports lexer from `example-es6.mjs`
+  - Exports `tokenize()` function
+  - Handles UI events
+  - Uses `.mjs` extension for clarity
+
+- **`example-es6.mjs`** - Generated lexer in ES6 module format
+  - Exports `lexer` object
+  - Exports `lex` convenience function
+  - Uses `.mjs` extension (ES6 Module JavaScript)
 
 ### 3. How ES6 Modules Work
 
@@ -238,78 +258,6 @@ Try tokenizing inputs like:
 | **Tree-shaking** | ❌ No | ❌ No | ❌ No | ✅ Yes |
 | **Native Support** | Node.js | ✅ Browser | No (needs RequireJS) | ✅ Modern browsers |
 | **Complexity** | Low | Very low | Moderate | Low-Moderate |
-
-## File Descriptions
-
-- **`browser-example.html`** - Entry point using native module loading
-  - Uses `<script type="module">` for ES6 module support
-  - Imports `app.mjs` and exposes `tokenize()` globally
-  
-- **`styles.css`** - Styling for the UI (shared from IIFE example)
-
-- **`app.mjs`** - Application module
-  - Imports lexer from `example-es6.mjs`
-  - Exports `tokenize()` function
-  - Handles UI events
-  - Uses `.mjs` extension for clarity
-
-- **`example-es6.mjs`** - Generated lexer in ES6 module format
-  - Exports `lexer` object
-  - Exports `lex` convenience function
-  - Uses `.mjs` extension (ES6 Module JavaScript)
-
-## Key Concepts
-
-### ES6 Modules (ESM)
-
-ES6 modules are the **official JavaScript module standard**:
-
-1. **Static Imports:** Dependencies are declared at the top
-   ```javascript
-   import { lexer } from './lexer.mjs';
-   ```
-
-2. **Explicit Exports:** Modules export specific items
-   ```javascript
-   export { lexer };
-   export const lex = ...;
-   ```
-
-3. **Automatic Dependency Resolution:** No build tools needed (browsers handle it)
-
-4. **Tree-shaking:** Bundlers can eliminate unused code
-
-### Native Browser Support
-
-Modern browsers support ES6 modules natively:
-
-```html
-<!-- This works directly in browsers! -->
-<script type="module">
-  import { lexer } from './lexer.mjs';
-  lexer.lex();
-</script>
-```
-
-**Browser support:**
-- Chrome 61+
-- Firefox 67+
-- Safari 10.1+
-- Edge 79+
-
-### CommonJS vs ES6 Modules
-
-**CommonJS (Node.js):**
-```javascript
-const { lexer } = require('./lexer.js');
-module.exports = { lexer };
-```
-
-**ES6 Modules:**
-```javascript
-import { lexer } from './lexer.mjs';
-export { lexer };
-```
 
 ## Node.js Usage
 
