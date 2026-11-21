@@ -296,6 +296,8 @@ lrwxr-xr-x@ 1 casianorodriguezleon  staff  22  1 mar.  22:08 jsonlint -> ../json
 
 See [examples/js-generated-module/](examples/js-generated-module/) for an example of using jison-lex in a browser environment with the IIFE standalone module type.
 
+See [examples/amd-generated-module/](examples/amd-generated-module/) for an example of using jison-lex in a browser environment with the AMD module type.
+
 ## Writing a lexer for Jison by hand
 
 See [examples/manual-lexer.js](examples/manual-lexer.js) for an example of a lexer written by hand for use with Jison.

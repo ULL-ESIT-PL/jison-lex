@@ -108,7 +108,7 @@ Since modern browsers block local file loading for security reasons, you need an
 python -m http.server 8000
 
 # Using Node.js
-npx http-server
+npx http-server -p 8000
 
 # Using Ruby
 ruby -run -ehttpd . -p8000
