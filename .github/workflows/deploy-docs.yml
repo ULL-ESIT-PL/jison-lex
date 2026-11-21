@@ -33,6 +33,8 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        env:
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate documentation
         run: npm run docs
