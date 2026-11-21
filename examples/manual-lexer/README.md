@@ -161,8 +161,10 @@ This creates a simple calculator AST for expressions like:
 
 ### Running the Example
 
+Use `@ull-esit-pl/jison` to generate the parser and run the example (`npm i -g @ull-esit-pl/jison` if not installed):
+
 ```bash
-npx jison grammar.jison -o parser.js
+jison grammar.jison -o parser.js
 node use-manual-lexer.cjs
 ```
 
