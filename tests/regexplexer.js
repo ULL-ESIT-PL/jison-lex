@@ -474,6 +474,100 @@ exports["test amd module generator"] = function() {
     assert.equal(lexer.lex(), "EOF");
 };
 
+exports["test es6 module generator"] = function() {
+    var dict = {
+        rules: [
+           ["x", "return 'X';" ],
+           ["y", "return 'Y';" ],
+           ["$", "return 'EOF';" ]
+       ]
+    };
+
+    var input = "xxyx";
+
+    var lexer_ = new RegExpLexer(dict);
+    var lexerSource = lexer_.generateESModule();
+
+    // Verify ES6 module has the correct structure
+    assert(lexerSource.indexOf("export {") !== -1, "ES6 module should have export statement");
+    assert(lexerSource.indexOf("export const lex") !== -1, "ES6 module should export lex function");
+    
+    // Test that the generated code contains the IIFE wrapper and exports
+    var lexer;
+    eval("var lexer; " + lexerSource.replace(/export\s*\{\s*lexer\s*\};/, "").replace(/export\s+const\s+lex\s*=.*/, ""));
+    lexer.setInput(input);
+
+    assert.equal(lexer.lex(), "X");
+    assert.equal(lexer.lex(), "X");
+    assert.equal(lexer.lex(), "Y");
+    assert.equal(lexer.lex(), "X");
+    assert.equal(lexer.lex(), "EOF");
+};
+
+exports["test generate with es6 moduleType option"] = function() {
+    var dict = {
+        rules: [
+           ["x", "return 'X';" ],
+           ["y", "return 'Y';" ],
+           ["$", "return 'EOF';" ]
+       ],
+       options: {
+           moduleType: 'es6'
+       }
+    };
+
+    var input = "xxyx";
+
+    var lexerSource = RegExpLexer.generate(dict);
+    
+    // Verify ES6 module has the correct structure
+    assert(lexerSource.indexOf("export {") !== -1, "Generated ES6 module should have export statement");
+    assert(lexerSource.indexOf("export const lex") !== -1, "Generated ES6 module should export lex function");
+    
+    // Test that the generated code contains the IIFE wrapper and exports
+    var lexer;
+    eval("var lexer; " + lexerSource.replace(/export\s*\{\s*lexer\s*\};/, "").replace(/export\s+const\s+lex\s*=.*/, ""));
+    lexer.setInput(input);
+
+    assert.equal(lexer.lex(), "X");
+    assert.equal(lexer.lex(), "X");
+    assert.equal(lexer.lex(), "Y");
+    assert.equal(lexer.lex(), "X");
+    assert.equal(lexer.lex(), "EOF");
+};
+
+exports["test generate with esm moduleType option"] = function() {
+    var dict = {
+        rules: [
+           ["x", "return 'X';" ],
+           ["y", "return 'Y';" ],
+           ["$", "return 'EOF';" ]
+       ],
+       options: {
+           moduleType: 'esm'
+       }
+    };
+
+    var input = "xxyx";
+
+    var lexerSource = RegExpLexer.generate(dict);
+    
+    // Verify ESM module has the correct structure (esm is alias for es6)
+    assert(lexerSource.indexOf("export {") !== -1, "Generated ESM module should have export statement");
+    assert(lexerSource.indexOf("export const lex") !== -1, "Generated ESM module should export lex function");
+    
+    // Test that the generated code contains the IIFE wrapper and exports
+    var lexer;
+    eval("var lexer; " + lexerSource.replace(/export\s*\{\s*lexer\s*\};/, "").replace(/export\s+const\s+lex\s*=.*/, ""));
+    lexer.setInput(input);
+
+    assert.equal(lexer.lex(), "X");
+    assert.equal(lexer.lex(), "X");
+    assert.equal(lexer.lex(), "Y");
+    assert.equal(lexer.lex(), "X");
+    assert.equal(lexer.lex(), "EOF");
+};
+
 exports["test DJ lexer"] = function() {
     var dict = {
     "lex": {
