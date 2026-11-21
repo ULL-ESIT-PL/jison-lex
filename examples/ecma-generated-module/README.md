@@ -295,7 +295,6 @@ lexer.setInput("text");
 const token = lex();
 ```
 
-## Resources
 
 - [MDN: ES6 Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
 - [Node.js: ES Modules](https://nodejs.org/en/docs/guides/ecmascript-modules/)
