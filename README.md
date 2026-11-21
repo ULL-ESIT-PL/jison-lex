@@ -353,6 +353,15 @@ For detailed documentation and setup instructions for each module type, see [exa
 
 See [examples/manual-lexer.js](examples/manual-lexer.js) for an example of a lexer written by hand for use with Jison.
 
+### Usage from Jison of a manually written lexer
+
+```js
+const { lexer } = require('./manual-lexer.js');
+const parser = require('./parser.js');
+parser.lexer = lexer;
+const result = parser.parse('input string');
+```
+
 ## ES6 Modules Support
 
 This version of jison-lex supports generating lexers as ES6 Modules, the official JavaScript module standard. This allows for:

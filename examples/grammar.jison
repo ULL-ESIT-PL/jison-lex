@@ -30,7 +30,3 @@ expr
 
 %%
 
-const { lexer, lex } = require("./example.js");
-//const lexer = require("./manual-lexer.js");
-
-parser.lexer = lexer;
