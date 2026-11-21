@@ -20,11 +20,11 @@ The example is organized to demonstrate AMD module loading:
 
 ```
 amd-generated-module/
-├── browser-example.html      # HTML with RequireJS configuration
-├── styles.css                # CSS styling
-├── app.js                    # Application module (depends on lexer)
-├── example-amd.js            # Generated lexer (AMD module)
-└── README.md                # This file
+    ├── browser-example.html      # HTML with RequireJS configuration
+    ├── styles.css                # CSS styling
+    ├── app.js                    # Application module (depends on lexer)
+    ├── example-amd.js            # Generated lexer (AMD module)
+    └── README.md                # This file
 ```
 
 ### 3. How AMD Works
