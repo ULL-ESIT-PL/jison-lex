@@ -43,7 +43,11 @@ file     file containing a lexical grammar
 
 Options:
    -o FILE, --outfile FILE       Filename and base module name of the generated parser
-   -t TYPE, --module-type TYPE   The type of module to generate (commonjs, js)
+   -t TYPE, --module-type TYPE   Module type to generate:
+                                 "commonjs" - CommonJS (Node.js require/exports)
+                                 "js" - IIFE standalone (global variable)
+                                 "amd" - AMD/RequireJS modules
+                                 "es6" (or "esm") - ES6 Modules (import/export)
    --version                     print version and exit
 ```
 
@@ -188,6 +192,14 @@ Here is an example using the node.js REPL:
   '})();\n' +
   'exports.lexer = lexer;\n' +
   'exports.lex = function () { return lexer.lex.apply(lexer, arguments); };'
+> 
+> // You can also generate ES6 modules
+> target = lexer.generateESModule()
+> target.substr(-100)  // Shows the ES6 export statements
+'})();\n' +
+  '\n' +
+  'export { lexer };\n' +
+  'export const lex = lexer.lex.bind(lexer);'
 ```
 
 ## Use with Jison
@@ -287,20 +299,95 @@ lrwxr-xr-x@ 1 casianorodriguezleon  staff  22  1 mar.  22:08 jsonlint -> ../json
 
 ## Module Types Comparison
 
-| Feature | CommonJS | IIFE Standalone (js) | AMD |
-|---------|----------|----------------------|-----|
-| **Command** | `-t commonjs` | `-t js` | `-t amd` |
-| **Environment** | Node.js | Browser | RequireJS |
-| **Export** | `exports.lexer` | Global var | AMD module |
-| **Usage** | `const { lexer } = require()` | `<script>` tag | `require(['lexer'])` |
+| Feature | CommonJS | IIFE Standalone | AMD/RequireJS | ES6 Modules |
+|---------|----------|-----------------|---------------|-------------|
+| **Command** | `-t commonjs` | `-t js` | `-t amd` | `-t es6` / `-t esm` |
+| **Environment** | Node.js | Browser | Browser + RequireJS | Browser + Node.js |
+| **Export Syntax** | `exports.lexer` | Global variable | AMD `define()` | ES6 `export { }` |
+| **Import Syntax** | `require()` | `<script>` tag | `require()` | `import` |
+| **Tree-shaking** | ❌ No | ❌ No | ❌ No | ✅ Yes |
+| **Standard** | Node.js custom | IIFE pattern | AMD spec | ES6/ESM official |
+| **Bundler Support** | ✅ All | ✅ All | ✅ All | ✅ Vite, Webpack, Rollup |
+| **Use Case** | Server-side apps | Simple scripts | Legacy SPAs | Modern apps |
 
-See [examples/js-generated-module/](examples/js-generated-module/) for an example of using jison-lex in a browser environment with the IIFE standalone module type.
+### Module Type Examples
 
-See [examples/amd-generated-module/](examples/amd-generated-module/) for an example of using jison-lex in a browser environment with the AMD module type.
+**CommonJS (Node.js):**
+```js
+const { lexer, lex } = require('./lexer.js');
+lexer.setInput('input');
+```
+
+**IIFE Standalone (Browser):**
+```html
+<script src="lexer.js"></script>
+<script>
+  lexer.setInput('input');  // lexer is global
+</script>
+```
+
+**AMD/RequireJS (Browser):**
+```js
+require(['lexer'], function(lexer) {
+  lexer.setInput('input');
+});
+```
+
+**ES6 Modules (Browser + Node.js):**
+```js
+import { lexer } from './lexer.mjs';
+lexer.setInput('input');
+```
+
+### Quick Links to Examples
+
+- **[CommonJS Example](examples/main.cjs)** - Node.js usage
+- **[IIFE Standalone Example](examples/js-generated-module/)** - Browser with global variable
+- **[AMD/RequireJS Example](examples/amd-generated-module/)** - Browser with RequireJS
+- **[ES6 Modules Example](examples/ecma-generated-module/)** - Modern browser and Node.js
+
+For detailed documentation and setup instructions for each module type, see [examples/README.md](examples/README.md).
 
 ## Writing a lexer for Jison by hand
 
 See [examples/manual-lexer.js](examples/manual-lexer.js) for an example of a lexer written by hand for use with Jison.
+
+## ES6 Modules Support
+
+This version of jison-lex supports generating lexers as ES6 Modules, the official JavaScript module standard. This allows for:
+
+- **Tree-shaking** in modern bundlers (Webpack, Vite, Rollup)
+- **Native browser support** in modern browsers without external loaders
+- **Future-proof code** using the official JavaScript standard
+- **Works in Node.js 12.20+** with `.mjs` files or `"type": "module"` in package.json
+
+### Generate ES6 Module Lexer
+
+```bash
+jison-lex -t es6 input.l -o output.mjs
+# or use the esm alias:
+jison-lex -t esm input.l -o output.mjs
+```
+
+### Use in Node.js
+
+```js
+import { lexer, lex } from './lexer.mjs';
+
+lexer.setInput('input text');
+const token = lexer.lex();
+```
+
+### Use in Browser
+
+```html
+<script type="module">
+  import { lexer } from './lexer.mjs';
+  window.lexer = lexer;
+</script>
+```
+
+For a complete example with HTML, CSS, and application code, see [examples/ecma-generated-module/](examples/ecma-generated-module/).
 
 ## Developers
 
