@@ -246,6 +246,8 @@ const { lexer, lex } = require("./example.js");
 parser.lexer = lexer;
 ```
 
+**The `parser` variable is available in the tail section of the grammar file**, and we can assign the lexer to it. The generated parser will then use the provided lexer to tokenize the input.
+
 We compile it with the following command:
 
 ```
