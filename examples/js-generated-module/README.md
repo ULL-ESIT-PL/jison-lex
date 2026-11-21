@@ -33,7 +33,7 @@ Include the generated lexer and application files in your HTML:
 
 ```html
 <link rel="stylesheet" href="./styles.css">
-<script src="./example-browser.js"></script>
+<script src="./example-browser.js"></script> <!-- The variable `exampleBrowser` will be available globally and contain the lexer -->
 <script src="./app.js"></script>
 ```
 
@@ -84,7 +84,7 @@ The interactive tokenizer will display:
 
 ## Lexer Grammar
 
-The example uses `example.l` with the following rules:
+The example uses [example.l](../example.ls) with the following rules:
 
 ```flex
 comment [/][*](.|[\r\n])*?[*][/]
