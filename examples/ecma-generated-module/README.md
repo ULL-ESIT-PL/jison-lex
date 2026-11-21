@@ -90,12 +90,6 @@ Modern browsers support native module loading:
 </script>
 ```
 
-Key differences from other module systems:
-- **No external loaders required** (unlike AMD/RequireJS)
-- **Native browser support** (modern browsers)
-- **Synchronous resolution** but asynchronous loading
-- **Automatic dependency management**
-
 ### 5. Tokenize Input
 
 The lexer works the same way, imported directly at the top:
