@@ -167,7 +167,7 @@ Try tokenizing inputs like:
 
 ### AMD (Asynchronous Module Definition)
 
-AMD is a module format designed for browser-based applications with asynchronous module loading. Key features:
+[AMD is a module format](https://requirejs.org/docs/whyamd.html) designed for browser-based applications with asynchronous module loading. Key features:
 
 1. **Declarative Dependencies:** Dependencies are declared upfront
    ```javascript
