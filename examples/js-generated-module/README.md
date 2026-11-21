@@ -12,39 +12,94 @@ First, compile the lexer with the `-t js` option to create an IIFE standalone mo
 jison-lex -t js examples/example.l -o examples/js-generated-module/example-browser.js
 ```
 
-**Note:** The module-type flag `-t js` generates a self-executing function that creates a global `exampleBrowser` variable based in the name of the output file, which contains the lexer. This allows you to use the lexer directly in a browser environment, making it suitable for direct inclusion in HTML via `<script>` tags.
+**Note:** The module-type flag `-t js` generates a self-executing function that creates a global variable based on the output filename. In this case, `example-browser.js` becomes `var exampleBrowser = (function(){...})()`. This allows you to use the lexer directly in a browser environment via `<script>` tags.
 
-### 2. Use in HTML
+### 2. Project Structure
 
-Include the generated lexer file in your HTML:
+The example is organized with separation of concerns:
 
-```html
-<script src="./example-browser.js"></script>
+```
+js-generated-module/
+├── browser-example.html      # HTML structure
+├── styles.css               # CSS styling
+├── app.js                   # JavaScript application logic
+├── example-browser.js       # Generated lexer (IIFE standalone)
+└── README.md               # This file
 ```
 
-The `lexer` variable will be available globally in your page.
+### 3. Use in HTML
 
-### 3. Tokenize Input
+Include the generated lexer and application files in your HTML:
 
-The lexer works the same way, but accessed through the global `lexer` variable:
+```html
+<link rel="stylesheet" href="./styles.css">
+<script src="./example-browser.js"></script>
+<script src="./app.js"></script>
+```
+
+The `exampleBrowser` variable (the lexer) will be available globally, and the `app.js` script will initialize the event listeners.
+
+### 4. Tokenize Input
+
+In your JavaScript, access the global lexer and tokenize:
 
 ```javascript
 // Set the input
-lexer.setInput("2 - 3");
+exampleBrowser.setInput("2 - 3");
 
 // Get tokens
-while ((token = lexer.lex()) !== 1) { // 1 is EOF
+let token;
+while ((token = exampleBrowser.lex()) !== 'EOF') {
     console.log({
         type: token,
-        lexeme: lexer.yytext,
-        location: lexer.yylloc
+        lexeme: exampleBrowser.yytext,
+        location: exampleBrowser.yylloc
     });
 }
+// Add EOF token
+console.log({
+    type: 'EOF',
+    lexeme: exampleBrowser.yytext,
+    location: exampleBrowser.yylloc
+});
 ```
+
+**Note:** The EOF token is the string `'EOF'` (as defined in the grammar), not a numeric constant.
 
 ## Running the Example
 
-Open `browser-example.html` in your web browser to see the interactive tokenizer in action.
+1. **In a browser:** Open `browser-example.html` directly in your web browser
+2. **With a local server:** Serve the directory with any HTTP server:
+   ```bash
+   python -m http.server 8000
+   # or with Node.js
+   npx http-server
+   ```
+3. Then navigate to `http://localhost:8000/browser-example.html`
+
+The interactive tokenizer will display:
+- Input field with sample text
+- Tokenize button
+- Detailed token output with type, lexeme, and location
+
+## Lexer Grammar
+
+The example uses `example.l` with the following rules:
+
+```flex
+comment [/][*](.|[\r\n])*?[*][/]
+%%
+\s+|{comment}         /* skip whitespace */
+[0-9]+                return 'NUMBER';
+[-+*/]                return 'OPERATOR';
+<<EOF>>               return 'EOF';
+.                     return 'INVALID';
+```
+
+Try tokenizing inputs like:
+- `2 - 3`
+- `10 + /* comment */ 20`
+- `42`
 
 ## Module Types Comparison
 
@@ -55,8 +110,42 @@ Open `browser-example.html` in your web browser to see the interactive tokenizer
 | **Export** | `exports.lexer` | Global var | AMD module |
 | **Usage** | `const { lexer } = require()` | `<script>` tag | `require(['lexer'])` |
 
-## Example Files
+## File Descriptions
 
-- `example.l` - Lexer grammar definition
-- `example-browser.js` - Generated lexer (IIFE standalone)
-- `browser-example.html` - Interactive HTML demo
+- **`browser-example.html`** - Clean HTML structure with form and results container
+- **`styles.css`** - Styling for a professional UI with form inputs and token display
+- **`app.js`** - Application logic including:
+  - `tokenize()` function to process input
+  - Event listeners for button clicks and Enter key
+  - Error handling and token display
+- **`example-browser.js`** - Generated lexer (IIFE standalone module)
+- **`example.l`** - Lexer grammar definition (in parent directory)
+
+## Key Concepts
+
+### IIFE Standalone Module
+
+The `-t js` option generates code like:
+
+```javascript
+var exampleBrowser = (function(){
+  var lexer = {
+    // lexer implementation
+    lex: function() { ... },
+    setInput: function(input) { ... },
+    // ... other methods
+  };
+  return lexer;
+})();
+```
+
+The outer IIFE immediately executes and returns the lexer object, making `exampleBrowser` available globally.
+
+### Why Separate Files?
+
+Separating HTML, CSS, and JavaScript follows web development best practices:
+- **Single Responsibility:** Each file has one purpose
+- **Reusability:** CSS styles can be shared across multiple pages
+- **Maintainability:** Easier to locate and update specific concerns
+- **Testing:** JavaScript logic can be tested independently
+
