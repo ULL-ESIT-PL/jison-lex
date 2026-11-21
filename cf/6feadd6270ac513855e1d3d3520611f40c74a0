@@ -1,0 +1,32 @@
+examples/ecma-generated-module/app.mjs
+  s_e3975aedd30a9d::t_a362e2b7857c1d 1-60
+examples/ecma-generated-module/README.md
+  s_e3975aedd30a9d::t_bfc1eb9c7c7a93 1-402
+examples/ecma-generated-module/browser-example.html
+  s_e3975aedd30a9d::t_361accb21986e9 1-34
+examples/ecma-generated-module/example-es6.mjs
+  s_e3975aedd30a9d::t_9fb31ffb4c6667 1-339
+examples/ecma-generated-module/styles.css
+  s_e3975aedd30a9d::t_2cdf144d66138d 1-100
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "cf6feadd6270ac513855e1d3d3520611f40c74a0",
+  "prompts": {},
+  "humans": {
+    "h_a580421f60d2d7": {
+      "author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  },
+  "sessions": {
+    "s_e3975aedd30a9d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b37ecee8-1e3c-4315-8273-33b171a20fc1",
+        "model": "unknown"
+      },
+      "human_author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  }
+}
