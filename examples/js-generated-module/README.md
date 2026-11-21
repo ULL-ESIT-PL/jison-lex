@@ -141,11 +141,4 @@ var exampleBrowser = (function(){
 
 The outer IIFE immediately executes and returns the lexer object, making `exampleBrowser` available globally. See [example-browser.js](./example-browser.js) for the full generated code.
 
-### Why Separate Files?
-
-Separating HTML, CSS, and JavaScript follows web development best practices:
-- **Single Responsibility:** Each file has one purpose
-- **Reusability:** CSS styles can be shared across multiple pages
-- **Maintainability:** Easier to locate and update specific concerns
-- **Testing:** JavaScript logic can be tested independently
 
