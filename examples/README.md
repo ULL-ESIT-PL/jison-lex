@@ -7,12 +7,6 @@ This directory contains examples demonstrating different ways to use jison-lex i
 ### 1. **Node.js / CommonJS** (`main.cjs`)
 Simple Node.js example using the default CommonJS module format.
 
-**Features:**
-- Uses CommonJS (`require()` syntax)
-- Runs directly with `node`
-- Best for server-side applications
-- No build tools needed
-
 **Usage:**
 ```bash
 # First compile the lexer
@@ -36,13 +30,6 @@ node examples/main.cjs
 
 ### 2. **Browser with IIFE Standalone** (`js-generated-module/`)
 Interactive browser example using IIFE standalone modules.
-
-**Features:**
-- Module type: `-t js` (IIFE standalone)
-- Global variable access in browser
-- Minimal setup required
-- Separated HTML, CSS, and JavaScript
-- Interactive UI with real-time tokenization
 
 **Files:**
 - `browser-example.html` - Main HTML page
@@ -71,13 +58,6 @@ python -m http.server 8000
 
 ### 3. **Browser with AMD/RequireJS** (`amd-generated-module/`)
 Modern browser example using AMD modules with RequireJS.
-
-**Features:**
-- Module type: `-t amd` (AMD/RequireJS)
-- Asynchronous module loading
-- Dependency injection
-- Scalable for complex applications
-- Works with RequireJS
 
 **Files:**
 - `browser-example.html` - RequireJS configuration
