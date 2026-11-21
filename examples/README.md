@@ -47,11 +47,6 @@ python -m http.server 8000
 # Navigate to: http://localhost:8000/examples/js-generated-module/browser-example.html
 ```
 
-**Key Concepts:**
-- IIFE (Immediately Invoked Function Expression)
-- Global variable creation
-- Simple, no dependencies
-
 **Documentation:** See [js-generated-module/README.md](./js-generated-module/README.md)
 
 ---
@@ -74,12 +69,6 @@ jison-lex -t amd examples/example.l -o examples/amd-generated-module/example-amd
 python -m http.server 8000
 # Navigate to: http://localhost:8000/examples/amd-generated-module/browser-example.html
 ```
-
-**Key Concepts:**
-- AMD (Asynchronous Module Definition)
-- RequireJS module loader
-- Declarative dependencies
-- Dependency injection pattern
 
 **Documentation:** See [amd-generated-module/README.md](./amd-generated-module/README.md)
 
