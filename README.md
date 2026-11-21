@@ -355,12 +355,7 @@ See [examples/manual-lexer.js](examples/manual-lexer.js) for an example of a lex
 
 ## ES6 Modules Support
 
-This version of jison-lex supports generating lexers as ES6 Modules, the official JavaScript module standard. This allows for:
-
-- **Tree-shaking** in modern bundlers (Webpack, Vite, Rollup)
-- **Native browser support** in modern browsers without external loaders
-- **Future-proof code** using the official JavaScript standard
-- **Works in Node.js 12.20+** with `.mjs` files or `"type": "module"` in package.json
+This version of jison-lex supports generating lexers as ES6 Modules, the official JavaScript module standard.
 
 ### Generate ES6 Module Lexer
 
@@ -398,7 +393,11 @@ See [DEVELOPMENT.md](DEVELOPMENT.md) for instructions on how to publish the pack
 
 [Zach Carter](https://github.com/zaach) <hi@znc.dev>
 
-**Contributor**: Casiano Rodríguez León (2026). 
+### Contributors 
+
+-Casiano Rodríguez León (2026). 
+
+## Changelog
 
 - This version fixes a bug with the `--t --module-type` option and uses `commander` instead of `nomnom` for the command line interface. 
 - It also changes the way the function `lex` is exported.
