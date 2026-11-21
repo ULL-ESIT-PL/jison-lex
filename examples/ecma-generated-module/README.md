@@ -28,7 +28,7 @@ ecma-generated-module/
 └── README.md                # This file
 ```
 
-## File Descriptions
+### File Descriptions
 
 - **`browser-example.html`** - Entry point using native module loading
   - Uses `<script type="module">` for ES6 module support
