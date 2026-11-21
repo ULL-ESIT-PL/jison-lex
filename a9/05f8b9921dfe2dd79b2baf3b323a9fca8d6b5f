@@ -1,0 +1,36 @@
+index.js
+  s_e3975aedd30a9d::t_76d077f517dd57 83-88
+  s_e3975aedd30a9d::t_939fc6d3e4cc9f 709-728
+  s_e3975aedd30a9d::t_169d56ccb796ec 552-563
+  s_e3975aedd30a9d::t_22f8daedc2c1e1 153-177
+  s_e3975aedd30a9d::t_44babd6d20b799 10-21
+  s_e3975aedd30a9d::t_8b33f565000890 108-113
+  s_e3975aedd30a9d::t_b6c561a2d838a9 521-544
+  s_e3975aedd30a9d::t_a43d5cb680fa21 586-602
+  s_e3975aedd30a9d::t_036adf11a33b3a 619-625
+  s_e3975aedd30a9d::t_6fb52549d14487 779-799
+  s_e3975aedd30a9d::t_647665aeaa2a72 123-129
+  s_e3975aedd30a9d::t_c2e8181948da90 674-690
+  s_e3975aedd30a9d::t_46e116c8348485 745-764
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "a905f8b9921dfe2dd79b2baf3b323a9fca8d6b5f",
+  "prompts": {},
+  "humans": {
+    "h_a580421f60d2d7": {
+      "author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  },
+  "sessions": {
+    "s_e3975aedd30a9d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b37ecee8-1e3c-4315-8273-33b171a20fc1",
+        "model": "unknown"
+      },
+      "human_author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  }
+}
