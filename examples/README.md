@@ -121,6 +121,7 @@ Modern browser and Node.js example using native ES6 modules.
 - `app.mjs` - Application module using `import`/`export`
 - `styles.css` - Styling
 - `example-es6.mjs` - Generated lexer in ES6 module format
+- `node-main.mjs` - Node.js example using the lexer
 
 **Setup:**
 ```bash
@@ -128,16 +129,9 @@ Modern browser and Node.js example using native ES6 modules.
 jison-lex -t es6 examples/example.l -o examples/ecma-generated-module/example-es6.mjs
 
 # Start HTTP server (required for module security)
-python -m http.server 8000
+npx http-server -p 8000
 # Navigate to: http://localhost:8000/examples/ecma-generated-module/browser-example.html
 ```
-
-**Key Concepts:**
-- ES6 Modules (official JavaScript standard)
-- Native browser support (Chrome 61+, Firefox 67+, Safari 10.1+)
-- `import` and `export` syntax
-- Tree-shaking and bundler optimization
-- Dynamic imports
 
 **Documentation:** See [ecma-generated-module/README.md](./ecma-generated-module/README.md)
 
