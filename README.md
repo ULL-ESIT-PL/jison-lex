@@ -202,7 +202,7 @@ Here is an example using the node.js REPL:
   'export const lex = lexer.lex.bind(lexer);'
 ```
 
-## Use with Jison
+## Use with @ull-esit-pl/jison
 
 Given the grammar:
 
