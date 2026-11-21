@@ -111,20 +111,16 @@ export function tokenize() {
 }
 ```
 
-**Note:** The EOF token is the string `'EOF'` (as defined in the grammar).
-
 ## Running the Example
-
-### Option 1: Using HTTP Server (Recommended)
 
 Since modern browsers enforce security restrictions for local file access:
 
 ```bash
+# Using Node.js
+npx http-server -p 8000
+
 # Using Python
 python -m http.server 8000
-
-# Using Node.js
-npx http-server
 
 # Using Ruby
 ruby -run -ehttpd . -p8000
@@ -132,21 +128,6 @@ ruby -run -ehttpd . -p8000
 
 Then navigate to: `http://localhost:8000/examples/ecma-generated-module/browser-example.html`
 
-### Option 2: Using a Development Server
-
-If you have a development server set up (Vite, webpack-dev-server, etc.):
-
-```bash
-# Example with Vite
-npm run dev
-# Then open the example URL
-```
-
-### Why HTTPS/HTTP is Required
-
-- Browsers block `file://` protocol for security (CORS)
-- ES6 modules require proper HTTP headers
-- Dynamic import resolution needs HTTP
 
 ## Node.js Usage with the Generated Lexer
 
