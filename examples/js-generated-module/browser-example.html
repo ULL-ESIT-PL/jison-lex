@@ -4,59 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>jison-lex Browser Example</title>
-    <style>
-        body {
-            font-family: monospace;
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        h1 {
-            color: #333;
-        }
-        .input-section {
-            margin-bottom: 20px;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            font-size: 14px;
-            font-family: monospace;
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 14px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .results {
-            background-color: white;
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 4px;
-            margin-top: 20px;
-        }
-        .token {
-            padding: 8px;
-            margin: 5px 0;
-            background-color: #e9ecef;
-            border-left: 3px solid #007bff;
-        }
-        .error {
-            color: #d9534f;
-            background-color: #f2dede;
-            padding: 10px;
-            border-radius: 4px;
-        }
-    </style>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
     <h1>jison-lex Browser Example</h1>
@@ -77,62 +25,6 @@
     <!-- Include the generated lexer (compiled with -t js) -->
     <script src="./example-browser.js"></script>
     
-    <script>
-        function tokenize() {
-            const input = document.getElementById('input').value;
-            const resultsDiv = document.getElementById('results');
-            
-            if (!input.trim()) {
-                resultsDiv.innerHTML = '<p class="error">Please enter some input</p>';
-                return;
-            }
-
-            try {
-                // The 'lexer' variable is created globally by the IIFE standalone module
-                lexer.setInput(input);
-                
-                const results = [];
-                let token;
-                
-                while ((token = lexer.lex()) !== 1) { // 1 is EOF
-                    results.push({
-                        type: token,
-                        lexeme: lexer.yytext,
-                        loc: lexer.yylloc
-                    });
-                }
-                // Add EOF token
-                results.push({
-                    type: 'EOF',
-                    lexeme: lexer.yytext,
-                    loc: lexer.yylloc
-                });
-                
-                // Display results
-                let html = '<div class="results"><h3>Tokens:</h3>';
-                results.forEach((result, idx) => {
-                    html += `
-                        <div class="token">
-                            <strong>#${idx}:</strong> ${result.type} 
-                            <br/><small>Lexeme: "${result.lexeme}"</small>
-                            <br/><small>Location: Line ${result.loc.first_line}, Column ${result.loc.first_column}</small>
-                        </div>
-                    `;
-                });
-                html += '</div>';
-                resultsDiv.innerHTML = html;
-                
-            } catch (e) {
-                resultsDiv.innerHTML = `<p class="error">Error: ${e.message}</p>`;
-            }
-        }
-
-        // Allow Enter key to trigger tokenization
-        document.getElementById('input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                tokenize();
-            }
-        });
-    </script>
+    <script src="./app.js"></script>
 </body>
 </html>

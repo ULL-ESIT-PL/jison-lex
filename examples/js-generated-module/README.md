@@ -9,10 +9,10 @@ This example demonstrates how to use jison-lex in a browser environment using th
 First, compile the lexer with the `-t js` option to create an IIFE standalone module:
 
 ```bash
-jison-lex -t js examples/example.l -o examples/example-browser.js
+jison-lex -t js examples/example.l -o examples/js-generated-module/example-browser.js
 ```
 
-**Note:** The module-type flag `-t js` generates a self-executing function that creates a global `lexer` variable, making it suitable for direct inclusion in HTML via `<script>` tags.
+**Note:** The module-type flag `-t js` generates a self-executing function that creates a global `exampleBrowser` variable based in the name of the output file, which contains the lexer. This allows you to use the lexer directly in a browser environment, making it suitable for direct inclusion in HTML via `<script>` tags.
 
 ### 2. Use in HTML
 
