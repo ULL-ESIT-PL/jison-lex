@@ -101,15 +101,6 @@ Try tokenizing inputs like:
 - `10 + /* comment */ 20`
 - `42`
 
-## Module Types Comparison
-
-| Feature | CommonJS | IIFE Standalone (js) | AMD |
-|---------|----------|----------------------|-----|
-| **Command** | `-t commonjs` | `-t js` | `-t amd` |
-| **Environment** | Node.js | Browser | RequireJS |
-| **Export** | `exports.lexer` | Global var | AMD module |
-| **Usage** | `const { lexer } = require()` | `<script>` tag | `require(['lexer'])` |
-
 ## File Descriptions
 
 - **`browser-example.html`** - Clean HTML structure with form and results container

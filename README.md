@@ -285,6 +285,17 @@ lrwxr-xr-x@ 1 casianorodriguezleon  staff  32  1 mar.  22:11 jison-lex -> ../@ul
 lrwxr-xr-x@ 1 casianorodriguezleon  staff  22  1 mar.  22:08 jsonlint -> ../jsonlint/lib/cli.js
 ```
 
+## Module Types Comparison
+
+| Feature | CommonJS | IIFE Standalone (js) | AMD |
+|---------|----------|----------------------|-----|
+| **Command** | `-t commonjs` | `-t js` | `-t amd` |
+| **Environment** | Node.js | Browser | RequireJS |
+| **Export** | `exports.lexer` | Global var | AMD module |
+| **Usage** | `const { lexer } = require()` | `<script>` tag | `require(['lexer'])` |
+
+See [examples/js-generated-module/](examples/js-generated-module/) for an example of using jison-lex in a browser environment with the IIFE standalone module type.
+
 ## Writing a lexer for Jison by hand
 
 See [examples/manual-lexer.js](examples/manual-lexer.js) for an example of a lexer written by hand for use with Jison.
