@@ -1,0 +1,46 @@
+docs/RegExpLexer.html
+  h_a580421f60d2d7 1-337
+docs/fonts/OpenSans-Bold-webfont.svg
+  h_a580421f60d2d7 1-1830
+docs/fonts/OpenSans-BoldItalic-webfont.svg
+  h_a580421f60d2d7 1-1830
+docs/fonts/OpenSans-Italic-webfont.svg
+  h_a580421f60d2d7 1-1830
+docs/fonts/OpenSans-Light-webfont.svg
+  h_a580421f60d2d7 1-1831
+docs/fonts/OpenSans-LightItalic-webfont.svg
+  h_a580421f60d2d7 1-1835
+docs/fonts/OpenSans-Regular-webfont.svg
+  h_a580421f60d2d7 1-1831
+docs/global.html
+  h_a580421f60d2d7 1-2844
+docs/index.html
+  h_a580421f60d2d7 1-463
+docs/index.js.html
+  h_a580421f60d2d7 1-874
+docs/scripts/linenumber.js
+  h_a580421f60d2d7 1-25
+docs/scripts/prettify/Apache-License-2.0.txt
+  h_a580421f60d2d7 1-202
+docs/scripts/prettify/lang-css.js
+  h_a580421f60d2d7 1-2
+docs/scripts/prettify/prettify.js
+  h_a580421f60d2d7 1-28
+docs/styles/jsdoc-default.css
+  h_a580421f60d2d7 1-358
+docs/styles/prettify-jsdoc.css
+  h_a580421f60d2d7 1-111
+docs/styles/prettify-tomorrow.css
+  h_a580421f60d2d7 1-132
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "931f49d7368ca0d9cf22941402b19d0e44c9146d",
+  "prompts": {},
+  "humans": {
+    "h_a580421f60d2d7": {
+      "author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  }
+}
