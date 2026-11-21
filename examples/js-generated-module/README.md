@@ -1,6 +1,6 @@
 # Browser Example: Using jison-lex with IIFE Standalone Module
 
-This example demonstrates how to use jison-lex in a browser environment using the **IIFE standalone** module type (`-t js`).
+This example demonstrates how to use jison-lex in a browser environment using the [**IIFE standalone**](https://developer.mozilla.org/es/docs/Glossary/IIFE) module type (`-t js`).
 
 ## Setup
 
