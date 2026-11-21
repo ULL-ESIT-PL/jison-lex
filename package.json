@@ -36,7 +36,7 @@
     "lex-parser": "0.1.x"
   },
   "devDependencies": {
-    "@ull-esit-pl/jison": "^0.6.5",
+    "@ull-esit-pl/jison": "github:ull-esit-pl/jison",
     "test": "0.4.4"
   },
   "scripts": {

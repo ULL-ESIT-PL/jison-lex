@@ -248,10 +248,18 @@ parser.lexer = lexer;
 
 **The `parser` variable is available in the tail section of the grammar file**, and we can assign the lexer to it. The generated parser will then use the provided lexer to tokenize the input.
 
+First, install the `@ull-esit-pl/jison` package:
+
+```
+npm install --save-dev https://github.com/ull-esit-pl/jison.git
+```
+or
+```
+npm install --save-dev @ull-esit-pl/jison
+```
 We compile it with the following command:
 
 ```
-npm install --save-dev @ull-esit-pl/jison
 npx jison grammar.jison -o parser.js
 ```
 
