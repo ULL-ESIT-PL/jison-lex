@@ -184,26 +184,6 @@ AMD is a module format designed for browser-based applications with asynchronous
    require.config({ paths: { 'module': 'path/to/module' } });
    ```
 
-### RequireJS
-
-RequireJS is the most popular AMD loader. It:
-- Loads modules dynamically
-- Manages dependencies automatically
-- Prevents global namespace pollution
-- Enables better code organization
-
-### When to Use AMD?
-
-**Use AMD when:**
-- ✅ Building large, modular web applications
-- ✅ You want asynchronous module loading
-- ✅ You need to manage complex dependency graphs
-- ✅ Working with legacy projects using RequireJS
-
-**Prefer alternatives for:**
-- Simple browser scripts → Use IIFE standalone (`-t js`)
-- Server-side code → Use CommonJS (`-t commonjs`)
-- Modern web apps → Use ES6 modules (`.mjs` or bundlers like webpack)
 
 ## Advanced Usage
 
