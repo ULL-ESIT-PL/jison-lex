@@ -108,14 +108,6 @@ python -m http.server 8000
 ### 4. **ES6 Native Modules** (`ecma-generated-module/`)
 Modern browser and Node.js example using native ES6 modules.
 
-**Features:**
-- Module type: `-t es6` (ES6/ESM)
-- Native browser support (no loaders needed)
-- Official JavaScript standard
-- Tree-shaking support with bundlers
-- Works in modern browsers and Node.js
-- Uses `.mjs` file extension
-
 **Files:**
 - `browser-example.html` - Native module loading with `<script type="module">`
 - `app.mjs` - Application module using `import`/`export`
