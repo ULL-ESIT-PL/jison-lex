@@ -99,8 +99,6 @@ define(['./example-amd'], function(lexer) {
 
 ## Running the Example
 
-### Option 1: Browser (Requires HTTP Server)
-
 Since modern browsers block local file loading for security reasons, you need an HTTP server:
 
 ```bash
@@ -115,10 +113,6 @@ ruby -run -ehttpd . -p8000
 ```
 
 Then navigate to: `http://localhost:8000/examples/amd-generated-module/browser-example.html`
-
-### Option 2: Using a Development Server
-
-If you have a development server set up (like webpack-dev-server, Vite, etc.), serve from the project root.
 
 ### Why HTTP is Required
 
