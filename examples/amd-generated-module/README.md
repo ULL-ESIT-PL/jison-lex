@@ -27,6 +27,18 @@ amd-generated-module/
     └── README.md                # This file
 ```
 
+- **`browser-example.html`** - Entry point with RequireJS configuration and module loading
+- **`styles.css`** - Styling for the UI
+- **`app.js`** - Application module that depends on the lexer
+  - Declares dependency on `./example-amd`
+  - Implements tokenization logic
+  - Handles UI events
+- **`example-amd.js`** - Generated lexer in AMD format
+  - Wraps lexer in `define([])`
+  - Returns lexer object
+  - Compatible with RequireJS loader
+
+
 ### 3. How AMD Works
 
 AMD modules use `define()` to declare dependencies:
@@ -149,19 +161,6 @@ Try tokenizing inputs like:
 | **Dependencies** | Manual `require()` | None (global) | Declarative in `define()` |
 | **Async Loading** | No | No | Yes |
 | **Use Case** | Server-side | Simple scripts | Complex web apps |
-
-## File Descriptions
-
-- **`browser-example.html`** - Entry point with RequireJS configuration and module loading
-- **`styles.css`** - Styling for the UI
-- **`app.js`** - Application module that depends on the lexer
-  - Declares dependency on `./example-amd`
-  - Implements tokenization logic
-  - Handles UI events
-- **`example-amd.js`** - Generated lexer in AMD format
-  - Wraps lexer in `define([])`
-  - Returns lexer object
-  - Compatible with RequireJS loader
 
 ## Key Concepts
 
