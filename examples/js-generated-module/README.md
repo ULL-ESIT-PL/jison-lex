@@ -20,11 +20,11 @@ The example is organized with separation of concerns:
 
 ```
 js-generated-module/
-├── browser-example.html      # HTML structure
+├── browser-example.html     # HTML structure
 ├── styles.css               # CSS styling
 ├── app.js                   # JavaScript application logic
 ├── example-browser.js       # Generated lexer (IIFE standalone)
-└── README.md               # This file
+└── README.md                # This file
 ```
 
 ### 3. Use in HTML
