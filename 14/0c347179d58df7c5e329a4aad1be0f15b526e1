@@ -1,0 +1,12 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "140c347179d58df7c5e329a4aad1be0f15b526e1",
+  "prompts": {},
+  "humans": {
+    "h_a580421f60d2d7": {
+      "author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  }
+}
