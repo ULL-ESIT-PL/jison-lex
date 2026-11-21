@@ -1,0 +1,24 @@
+examples/js-generated-module/README.md
+  s_e3975aedd30a9d::t_0e4e403572ce86 15,17,19-32,35,37,40,42,44,48,51-52,55-56,59-64,67-68,71-102,113-150
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "135bb1098ae013fa36b22a09d2914e5deb3d772b",
+  "prompts": {},
+  "humans": {
+    "h_a580421f60d2d7": {
+      "author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  },
+  "sessions": {
+    "s_e3975aedd30a9d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b37ecee8-1e3c-4315-8273-33b171a20fc1",
+        "model": "unknown"
+      },
+      "human_author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  }
+}
