@@ -294,9 +294,3 @@ import LexerModule from './lexer.mjs';
 lexer.setInput("text");
 const token = lex();
 ```
-
-
-- [MDN: ES6 Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
-- [Node.js: ES Modules](https://nodejs.org/en/docs/guides/ecmascript-modules/)
-- [Can I Use: ES6 Modules](https://caniuse.com/es6-module)
-- [Vite Documentation](https://vitejs.dev/)
