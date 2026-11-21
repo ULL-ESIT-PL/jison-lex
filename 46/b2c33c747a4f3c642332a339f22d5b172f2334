@@ -1,0 +1,14 @@
+examples/ecma-generated-module/README.md
+  h_a580421f60d2d7 31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "46b2c33c747a4f3c642332a339f22d5b172f2334",
+  "prompts": {},
+  "humans": {
+    "h_a580421f60d2d7": {
+      "author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  }
+}
