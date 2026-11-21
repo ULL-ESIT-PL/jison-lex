@@ -5,6 +5,7 @@ const lexer = {
   yytext: "",
   yylineno: 0,  // base 0 internamente
   yylloc: {},
+  column: 0,    // Current column position
 
   setInput(input) {
     this.input = input;

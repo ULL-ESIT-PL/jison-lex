@@ -189,11 +189,12 @@ node use-manual-lexer.cjs
 **Example code from `use-manual-lexer.cjs`:**
 
 ```javascript
-const { lexer } = require('./manual-lexer.js');
+const lexer = require('./manual-lexer.js');
 const parser = require('./parser.js');
 
 // Connect the manual lexer to the parser
-parser.lexer = lexer;
+// Note: parser.parser is the actual parser object (Jison wraps it)
+parser.parser.lexer = lexer;
 
 // Parse an expression
 const result = parser.parse('2+3');
@@ -210,6 +211,8 @@ console.log(result);
   loc: {...}
 }
 ```
+
+**Important:** Jison wraps the parser object, so you must use `parser.parser.lexer` (not `parser.lexer`) to access the actual parser's lexer property.
 
 ## Why Write Lexers Manually?
 
