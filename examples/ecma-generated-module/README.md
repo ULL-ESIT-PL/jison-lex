@@ -134,6 +134,78 @@ npm run dev
 - ES6 modules require proper HTTP headers
 - Dynamic import resolution needs HTTP
 
+## Node.js Usage with the Generated Lexer
+
+The generated ES6 module works directly in Node.js (12.20+). Try the included example:
+
+```bash
+node node-main.mjs
+```
+
+**Output:**
+```
+==================================================
+ES6 Lexer Module Example - Node.js
+==================================================
+
+Input: "42 + 3 * 7 - 5"
+
+Method 1: Using lexer.lex() bound function
+--------------------------------------------------
+  Token 1: NUMBER     | Value: "42"
+  Token 2: OPERATOR   | Value: "+"
+  Token 3: NUMBER     | Value: "3"
+  Token 4: OPERATOR   | Value: "*"
+  Token 5: NUMBER     | Value: "7"
+  Token 6: OPERATOR   | Value: "-"
+  Token 7: NUMBER     | Value: "5"
+
+Method 2: Using lexer.next()
+--------------------------------------------------
+  Token 1: NUMBER     | Text: "42"
+  Token 2: OPERATOR   | Text: "+"
+  ... (more tokens)
+
+==================================================
+Total tokens recognized: 7
+==================================================
+```
+
+**Code example from `node-main.mjs`:**
+
+```javascript
+import { lexer, lex } from './example-es6.mjs';
+
+const input = '42 + 3 * 7 - 5';
+
+// Method 1: Using the convenient lex() function
+lexer.setInput(input);
+let token;
+
+while ((token = lex()) !== 'EOF') {
+  console.log({
+    token,
+    value: lexer.yytext,
+    line: lexer.yylineno + 1
+  });
+}
+
+// Method 2: Using lexer.next() for more control
+lexer.setInput(input);
+while (!lexer.done) {
+  const result = lexer.next();
+  if (result && result !== 'EOF') {
+    console.log(`${result}: "${lexer.yytext}"`);
+  }
+}
+```
+
+**Key points:**
+- Use `.mjs` extension or add `"type": "module"` to package.json
+- Import both `lexer` and the convenient `lex` function
+- Access token metadata via `lexer.yytext`, `lexer.yylineno`, etc.
+- Two approaches: `lex()` for simplicity or `lexer.next()` for control
+
 ## Lexer Grammar
 
 The example uses the same grammar as other examples:
