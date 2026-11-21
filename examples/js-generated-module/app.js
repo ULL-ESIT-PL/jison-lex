@@ -14,7 +14,7 @@ function tokenize() {
         const results = [];
         let token;
         
-        while ((token = exampleBrowser.lex()) !== 1) { // 1 is EOF
+        while ((token = exampleBrowser.lex()) !== 'EOF') {
             results.push({
                 type: token,
                 lexeme: exampleBrowser.yytext,
