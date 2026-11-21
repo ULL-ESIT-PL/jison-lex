@@ -204,7 +204,7 @@ Here is an example using the node.js REPL:
 
 ## Use with @ull-esit-pl/jison
 
-Given the grammar [`grammar.jison`](examples/grammar.jison) and the lexer generated from [`example.l`](examples/example.l), we can use the lexer in the parser by assigning it to `parser.lexer` in the tail section of the grammar file:
+Given the grammar [`examples/grammar.jison`](examples/grammar.jison) and the lexer generated from [`examples/example.l`](examples/example.l), we can use the lexer in the parser by assigning it to `parser.lexer` in the tail section of the grammar file:
 
 ```
 ➜  test-jison-lex cat grammar.jison 
