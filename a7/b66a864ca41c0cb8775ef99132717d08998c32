@@ -1,0 +1,19 @@
+README.md
+  h_a580421f60d2d7 251,254-256,259-262
+  h_a580421f60d2d7 253
+package-lock.json
+  h_a580421f60d2d7 18,27
+package.json
+  h_a580421f60d2d7 39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "a7b66a864ca41c0cb8775ef99132717d08998c32",
+  "prompts": {},
+  "humans": {
+    "h_a580421f60d2d7": {
+      "author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  }
+}
