@@ -1,0 +1,18 @@
+examples/amd-generated-module/README.md
+  h_a580421f60d2d7 111
+README.md
+  h_a580421f60d2d7 299-300
+examples/amd-generated-module/example-amd.js
+  h_a580421f60d2d7 1,65,148,204,208,242,244,257,324,336-337,340-341,344
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "17d228377d113a9f503754966a0a2bf23ccf661b",
+  "prompts": {},
+  "humans": {
+    "h_a580421f60d2d7": {
+      "author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  }
+}
