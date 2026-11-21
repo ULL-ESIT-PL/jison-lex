@@ -310,6 +310,8 @@ lrwxr-xr-x@ 1 casianorodriguezleon  staff  22  1 mar.  22:08 jsonlint -> ../json
 | **Bundler Support** | ✅ All | ✅ All | ✅ All | ✅ Vite, Webpack, Rollup |
 | **Use Case** | Server-side apps | Simple scripts | Legacy SPAs | Modern apps |
 
+Tree-shaking is a technique of optimization that consists of removing dead code from your final JavaScript bundle.
+
 ### Module Type Examples
 
 **CommonJS (Node.js):**
