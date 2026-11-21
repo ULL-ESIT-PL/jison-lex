@@ -216,23 +216,3 @@ define(function(require) {
   }
 });
 ```
-
-## Troubleshooting
-
-### "Failed to load module"
-
-- Check that files are served over HTTP (not file://)
-- Verify file paths in `require()` are correct
-- Check browser console for detailed error messages
-
-### RequireJS not loading
-
-- Verify CDN link is working
-- Check network tab in DevTools
-- Try updating RequireJS version
-
-### Module dependency errors
-
-- Ensure all required modules are defined
-- Check circular dependencies
-- Verify module names match file paths
