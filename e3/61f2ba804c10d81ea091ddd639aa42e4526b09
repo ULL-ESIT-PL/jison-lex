@@ -1,0 +1,19 @@
+.github/workflows/deploy-docs.yml
+  s_e3975aedd30a9d::t_e936d01a913036 54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "e361f2ba804c10d81ea091ddd639aa42e4526b09",
+  "prompts": {},
+  "sessions": {
+    "s_e3975aedd30a9d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b37ecee8-1e3c-4315-8273-33b171a20fc1",
+        "model": "unknown"
+      },
+      "human_author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  }
+}
