@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>jison-lex</h1>
+<p>A lexical analyzer generator used by <a href="https://github.com/ull-esit-pl/jison">ull-esit-pl/jison</a>. It takes a lexical grammar definition (either in JSON or Bison's lexical grammar format) and outputs a JavaScript lexer.</p>
+<h2>Installation</h2>
+<p>The easiest way is to install the package from the GitHub repository:</p>
+<pre class="prettyprint source"><code>npm install https://github.com/ull-esit-pl/jison-lex.git
+</code></pre>
+<p>The command above will install the latest version from the <code>master</code> branch of the repository and create a dependency like:</p>
+<pre class="prettyprint source lang-json"><code>{
+  &quot;dependencies&quot;: {
+    &quot;@ull-esit-pl/jison-lex&quot;: &quot;github:ull-esit-pl/jison-lex&quot;
+  }
+}
+</code></pre>
+<p>Alternatively, to install from the GitHub Package Registry, configure your <code>~/.npmrc</code> file with:</p>
+<pre class="prettyprint source lang-ini"><code>@ull-esit-pl:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+</code></pre>
+<p>Replace <code>YOUR_GITHUB_TOKEN</code> with your personal GitHub token that has <code>read:packages</code> permissions. Then you can install the package with npm:</p>
+<pre class="prettyprint source lang-console"><code>npm install @ull-esit-pl/jison-lex
+</code></pre>
+<p>For more information see the section : https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#authenticating-with-a-personal-access-token of the GitHub documentation.</p>
+<h2>Usage</h2>
+<pre class="prettyprint source"><code>Usage: jison-lex [file] [options]
+
+file     file containing a lexical grammar
+
+Options:
+   -o FILE, --outfile FILE       Filename and base module name of the generated parser
+   -t TYPE, --module-type TYPE   Module type to generate:
+                                 &quot;commonjs&quot; - CommonJS (Node.js require/exports)
+                                 &quot;js&quot; - IIFE standalone (global variable)
+                                 &quot;amd&quot; - AMD/RequireJS modules
+                                 &quot;es6&quot; (or &quot;esm&quot;) - ES6 Modules (import/export)
+   --version                     print version and exit
+</code></pre>
+<h2>Example</h2>
+<p>Given the following <code>example.l</code> file:</p>
+<pre class="prettyprint source lang-console"><code>➜  test-jison-lex cat example.l
+</code></pre>
+<pre class="prettyprint source lang-flex"><code>comment [/][*](.|[\r\n])*?[*][/]
+%%
+\s+|{comment}         /* skip whitespace */
+[0-9]+                return 'NUMBER';
+[-+*/]                return 'OPERATOR';
+&lt;&lt;EOF>>               return 'EOF';
+.                     return 'INVALID';
+</code></pre>
+<p>Which we compile with the following command:</p>
+<pre class="prettyprint source lang-console"><code>test-jison-lex npx jison-lex -t commonjs example.l  -o example.js
+</code></pre>
+<p>And the following <code>main.js</code> file:</p>
+<pre class="prettyprint source lang-console"><code>➜  test-jison-lex cat main.js 
+</code></pre>
+<pre class="prettyprint source lang-js"><code>const { lexer, lex } = require(&quot;./example.js&quot;);
+const input = process.argv[2] || &quot;2\n-/* a comment*/\n3&quot;;
+lexer.setInput(input);
+
+const results = [];
+
+results.push({ type: lex(), lexeme: lexer.yytext, loc: lexer.yylloc });
+
+results.push({ type: lex(), lexeme: lexer.yytext, loc: lexer.yylloc });
+results.push({ type: lex(), lexeme: lexer.yytext, loc: lexer.yylloc });
+results.push({ type: lex(), lexeme: lexer.yytext, loc: lexer.yylloc });
+
+console.log(results);
+</code></pre>
+<p>The output of running <code>main.js</code> should be the following:</p>
+<pre class="prettyprint source lang-console"><code>➜  test-jison-lex node main.js 
+</code></pre>
+<pre class="prettyprint source lang-js"><code>[
+  {
+    type: 'NUMBER',
+    lexeme: '2',
+    loc: { first_line: 1, last_line: 1, first_column: 0, last_column: 1 }
+  },
+  {
+    type: 'OPERATOR',
+    lexeme: '-',
+    loc: { first_line: 2, last_line: 2, first_column: 0, last_column: 1 }
+  },
+  {
+    type: 'NUMBER',
+    lexeme: '3',
+    loc: { first_line: 3, last_line: 3, first_column: 0, last_column: 1 }
+  },
+  {
+    type: 'EOF',
+    lexeme: '',
+    loc: { first_line: 3, last_line: 3, first_column: 1, last_column: 1 }
+  }
+]
+</code></pre>
+<h2>Programatic usage</h2>
+<p>Here is an example using the node.js REPL:</p>
+<pre class="prettyprint source lang-js"><code>➜  test-jison-lex node
+> JisonLex = require('@ull-esit-pl/jison-lex');
+[Function: RegExpLexer] { generate: [Function: generate] }
+> grammar = {
+|  rules: [
+|     [&quot;x&quot;, &quot;return 'X';&quot; ],
+|     [&quot;y&quot;, &quot;return 'Y';&quot; ],
+|     [&quot;$&quot;, &quot;return 'EOF';&quot; ]
+|   ]
+| };
+> // or load from a file
+> // var grammar = fs.readFileSync('mylexer.l', 'utf8');
+> lexerSource = JisonLex.generate(grammar);
+'/* generated by jison-lex 0.3.5 */\n' +
+  'var lexer = (function(){\n' +
+  'var lexer = ({\n' +
+  '        if (this.conditionStack.length && this.conditionStack[this.co'... 1199 more characters
+> lexer = new JisonLex(grammar);
+{  // The lexer object!
+  EOF: 1,
+  parseError: [Function: parseError],
+  setInput: [Function: setInput],
+  input: [Function: input],
+  unput: [Function: unput],
+  more: [Function: more],
+  reject: [Function: reject],
+  less: [Function: less],
+  pastInput: [Function: pastInput],
+  upcomingInput: [Function: upcomingInput],
+  showPosition: [Function: showPosition],
+  test_match: [Function: test_match],
+  next: [Function: next],
+  lex: [Function: lex],
+  begin: [Function: begin],
+  popState: [Function: popState],
+  _currentRules: [Function: _currentRules],
+  topState: [Function: topState],
+  pushState: [Function: pushState],
+  stateStackSize: [Function: stateStackSize],
+  options: {},
+  performAction: [Function: anonymous],
+  rules: [ /^(?:x)/, /^(?:y)/, /^(?:$)/ ],
+  conditions: { INITIAL: { rules: [Array], inclusive: true } },
+  yy: {},
+  generate: [Function (anonymous)],
+  generateModule: [Function (anonymous)],
+  generateCommonJSModule: [Function (anonymous)],
+  generateAMDModule: [Function (anonymous)]
+}
+> lexer.setInput('xyxxy');
+> lexer.lex();
+'X'
+> lexer.lex();
+'Y'
+> target = lexer.generateCommonJSModule() // Creates a string containing the source code of a CommonJS module that
+> target.length                           // exports the lexer and lex
+11295
+> target.substr(11100) // The last 195 characters of the generated module, which contains the export statements
+'?:y)/,/^(?:$)/],\n' +
+  'conditions: {&quot;INITIAL&quot;:{&quot;rules&quot;:[0,1,2],&quot;inclusive&quot;:true}}\n' +
+  '});\n' +
+  'return lexer;\n' +
+  '})();\n' +
+  'exports.lexer = lexer;\n' +
+  'exports.lex = function () { return lexer.lex.apply(lexer, arguments); };'
+> 
+> // You can also generate ES6 modules
+> target = lexer.generateESModule()
+> target.substr(-100)  // Shows the ES6 export statements
+'})();\n' +
+  '\n' +
+  'export { lexer };\n' +
+  'export const lex = lexer.lex.bind(lexer);'
+</code></pre>
+<h2>Use with @ull-esit-pl/jison</h2>
+<p>Given the grammar <a href="examples/grammar.jison"><code>examples/grammar.jison</code></a> and the lexer generated from <a href="examples/example.l"><code>examples/example.l</code></a>, we can use the lexer in the parser by assigning it to <code>parser.lexer</code> in the tail section of the grammar file:</p>
+<pre class="prettyprint source"><code>➜  test-jison-lex cat grammar.jison 
+</code></pre>
+<pre class="prettyprint source lang-yacc"><code>%locations
+%token NUMBER OPERATOR EOF
+
+%left OPERATOR
+%%
+
+s: expr EOF { return $1; }
+;
+
+expr
+  : expr OPERATOR expr
+      {
+        $$ = {
+          type: &quot;OPERATOR&quot;,
+          lexeme: $2,
+          left: $1,
+          right: $3,
+          loc: @2
+        };
+      }
+  | NUMBER
+      {
+        $$ = {
+          type: &quot;number&quot;,
+          value: Number($1),
+          loc: @1
+        };
+      }
+  ;
+
+%%
+
+const { lexer, lex } = require(&quot;./example.js&quot;);
+parser.lexer = lexer;
+</code></pre>
+<p><strong>The <code>parser</code> variable is available in the tail section of the grammar file</strong>, and we can assign the lexer to it. The generated parser will then use the provided lexer to tokenize the input.</p>
+<p>First, install the <code>@ull-esit-pl/jison</code> package:</p>
+<pre class="prettyprint source"><code>npm install --save-dev https://github.com/ull-esit-pl/jison.git
+</code></pre>
+<p>or</p>
+<pre class="prettyprint source"><code>npm install --save-dev @ull-esit-pl/jison
+</code></pre>
+<p>We compile it with the following command:</p>
+<pre class="prettyprint source"><code>npx jison grammar.jison -o parser.js
+</code></pre>
+<p>And then we can use the generated parser in the node.js REPL:</p>
+<pre class="prettyprint source lang-js"><code>➜  test-jison-lex node                                
+> p = require(&quot;./parser&quot;)
+{
+  parser: { yy: {} },
+  Parser: [Function: Parser],
+  parse: [Function (anonymous)],
+  main: [Function: commonjsMain]
+}
+> p.parse(&quot;3+4&quot;)
+{
+  type: 'OPERATOR',
+  lexeme: '+',
+  left: {
+    type: 'number',
+    value: 3,
+    loc: { first_line: 1, last_line: 1, first_column: 0, last_column: 1 }
+  },
+  right: {
+    type: 'number',
+    value: 4,
+    loc: { first_line: 1, last_line: 1, first_column: 2, last_column: 3 }
+  },
+  loc: { first_line: 1, last_line: 1, first_column: 1, last_column: 2 }
+}
+> 
+</code></pre>
+<h2>Module Types Comparison</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>CommonJS</th>
+<th>IIFE Standalone</th>
+<th>AMD/RequireJS</th>
+<th>ES6 Modules</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Command</strong></td>
+<td><code>-t commonjs</code></td>
+<td><code>-t js</code></td>
+<td><code>-t amd</code></td>
+<td><code>-t es6</code> / <code>-t esm</code></td>
+</tr>
+<tr>
+<td><strong>Environment</strong></td>
+<td>Node.js</td>
+<td>Browser</td>
+<td>Browser + RequireJS</td>
+<td>Browser + Node.js</td>
+</tr>
+<tr>
+<td><strong>Export Syntax</strong></td>
+<td><code>exports.lexer</code></td>
+<td>Global variable</td>
+<td>AMD <code>define()</code></td>
+<td>ES6 <code>export { }</code></td>
+</tr>
+<tr>
+<td><strong>Import Syntax</strong></td>
+<td><code>require()</code></td>
+<td><code>&lt;script&gt;</code> tag</td>
+<td><code>require()</code></td>
+<td><code>import</code></td>
+</tr>
+<tr>
+<td><strong>Tree-shaking</strong></td>
+<td>❌ No</td>
+<td>❌ No</td>
+<td>❌ No</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td><strong>Standard</strong></td>
+<td>Node.js custom</td>
+<td>IIFE pattern</td>
+<td>AMD spec</td>
+<td>ES6/ESM official</td>
+</tr>
+<tr>
+<td><strong>Use Case</strong></td>
+<td>Server-side apps</td>
+<td>Simple scripts</td>
+<td>Legacy SPAs</td>
+<td>Modern apps</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tree-shaking</strong> is a technique of optimization that consists of removing dead code from your final JavaScript bundle.</p>
+<h3>Module Type Examples</h3>
+<p><strong>CommonJS (Node.js):</strong></p>
+<pre class="prettyprint source lang-js"><code>const { lexer, lex } = require('./lexer.js');
+lexer.setInput('input');
+</code></pre>
+<p><strong>IIFE Standalone (Browser):</strong></p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;lexer.js&quot;>&lt;/script>
+&lt;script>
+  lexer.setInput('input');  // lexer is global
+&lt;/script>
+</code></pre>
+<p><strong>AMD/RequireJS (Browser):</strong></p>
+<pre class="prettyprint source lang-js"><code>require(['lexer'], function(lexer) {
+  lexer.setInput('input');
+});
+</code></pre>
+<p><strong>ES6 Modules (Browser + Node.js):</strong></p>
+<pre class="prettyprint source lang-js"><code>import { lexer } from './lexer.mjs';
+lexer.setInput('input');
+</code></pre>
+<h3>Quick Links to Examples</h3>
+<ul>
+<li><strong><a href="examples/README.md">CommonJS Example</a></strong> - Node.js usage</li>
+<li><strong><a href="examples/js-generated-module/">IIFE Standalone Example</a></strong> - Browser with global variable</li>
+<li><strong><a href="examples/amd-generated-module/">AMD/RequireJS Example</a></strong> - Browser with RequireJS</li>
+<li><strong><a href="examples/ecma-generated-module/">ES6 Modules Example</a></strong> - Modern browser and Node.js</li>
+</ul>
+<p>For detailed documentation and setup instructions for each module type, see <a href="examples/README.md">examples/README.md</a>.</p>
+<h2>Manually writing a lexer for Jison</h2>
+<p>See <a href="examples/manual-lexer.js">examples/manual-lexer.js</a> for an example of a lexer written by hand for use with Jison.</p>
+<h2>ES6 Modules Support</h2>
+<p>This version of jison-lex supports generating lexers as ES6 Modules, the official JavaScript module standard.</p>
+<h3>Generate ES6 Module Lexer</h3>
+<pre class="prettyprint source lang-bash"><code>jison-lex -t es6 input.l -o output.mjs
+# or use the esm alias:
+jison-lex -t esm input.l -o output.mjs
+</code></pre>
+<h3>Use in Node.js</h3>
+<pre class="prettyprint source lang-js"><code>import { lexer, lex } from './lexer.mjs';
+
+lexer.setInput('input text');
+const token = lexer.lex();
+</code></pre>
+<h3>Use in Browser</h3>
+<pre class="prettyprint source lang-html"><code>&lt;script type=&quot;module&quot;>
+  import { lexer } from './lexer.mjs';
+  window.lexer = lexer;
+&lt;/script>
+</code></pre>
+<p>For a complete example with HTML, CSS, and application code, see <a href="examples/ecma-generated-module/">examples/ecma-generated-module/</a>.</p>
+<h2>Developers</h2>
+<p>See <a href="DEVELOPMENT.md">DEVELOPMENT.md</a> for instructions on how to publish the package and test it during development.</p>
+<h2>Author</h2>
+<p><a href="https://github.com/zaach">Zach Carter</a> <a href="mailto:hi@znc.dev">hi@znc.dev</a></p>
+<h3>Contributors</h3>
+<ul>
+<li>Casiano Rodríguez León (2026).</li>
+</ul>
+<h2>Changelog</h2>
+<ul>
+<li>This version fixes a bug with the <code>--t --module-type</code> option and uses <code>commander</code> instead of <code>nomnom</code> for the command line interface.</li>
+<li>It also changes the way the function <code>lex</code> is exported.</li>
+</ul>
+<h2>Development</h2>
+<h3>Running Tests</h3>
+<pre class="prettyprint source lang-bash"><code>npm test
+</code></pre>
+<h3>Generating API Documentation</h3>
+<p>JSDoc documentation is available for the main API functions. To generate HTML documentation:</p>
+<pre class="prettyprint source lang-bash"><code>npm run docs
+</code></pre>
+<p>Documentation will be generated in the <code>./docs</code> directory.</p>
+<p>To serve the documentation locally:</p>
+<pre class="prettyprint source lang-bash"><code>npm run docs:serve
+</code></pre>
+<p>Then open <code>http://localhost:8080/docs</code> in your browser.</p>
+<h3>Available npm Scripts</h3>
+<pre class="prettyprint source lang-bash"><code>npm test              # Run test suite
+npm run docs          # Generate JSDoc HTML documentation
+npm run docs:serve    # Serve docs on http://localhost:8080
+npm run grammar       # Regenerate parser grammar (examples/parser.js)
+npm run clean         # Remove generated files (examples/example.js, examples/parser.js)
+npm run pub           # Publish to registry (requires .env configuration)
+</code></pre>
+<h2>license</h2>
+<p>MIT</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="RegExpLexer.html">RegExpLexer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buildActions">buildActions</a></li><li><a href="global.html#generate">generate</a></li><li><a href="global.html#generateAMDModule">generateAMDModule</a></li><li><a href="global.html#generateCommonJSModule">generateCommonJSModule</a></li><li><a href="global.html#generateESModule">generateESModule</a></li><li><a href="global.html#generateFromOpts">generateFromOpts</a></li><li><a href="global.html#generateModule">generateModule</a></li><li><a href="global.html#generateModuleBody">generateModuleBody</a></li><li><a href="global.html#prepareMacros">prepareMacros</a></li><li><a href="global.html#prepareRules">prepareRules</a></li><li><a href="global.html#prepareStartConditions">prepareStartConditions</a></li><li><a href="global.html#processGrammar">processGrammar</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Sat Nov 21 2026 14:53:57 GMT+0000 (Western European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
