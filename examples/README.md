@@ -31,7 +31,7 @@ node examples/main.cjs
 ---
 
 ### 2. **Browser with IIFE Standalone** (`js-generated-module/`)
-Interactive browser example using IIFE standalone modules.
+Interactive browser example using [IIFE](https://developer.mozilla.org/es/docs/Glossary/IIFE) standalone modules.
 See folder [examples/js-generated-module/](/examples/js-generated-module/).
 
 **Files:**
