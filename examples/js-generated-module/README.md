@@ -27,6 +27,17 @@ js-generated-module/
 └── README.md                # This file
 ```
 
+### File Descriptions
+
+- **`browser-example.html`** - Clean HTML structure with form and results container
+- **`styles.css`** - Styling for a professional UI with form inputs and token display
+- **`app.js`** - Application logic including:
+  - `tokenize()` function to process input
+  - Event listeners for button clicks and Enter key
+  - Error handling and token display
+- **`example-browser.js`** - Generated lexer (IIFE standalone module)
+- **`example.l`** - Lexer grammar definition (in parent directory)
+
 ### 3. Use in HTML
 
 Include the generated lexer and application files in your HTML:
@@ -101,16 +112,6 @@ Try tokenizing inputs like:
 - `10 + /* comment */ 20`
 - `42`
 
-## File Descriptions
-
-- **`browser-example.html`** - Clean HTML structure with form and results container
-- **`styles.css`** - Styling for a professional UI with form inputs and token display
-- **`app.js`** - Application logic including:
-  - `tokenize()` function to process input
-  - Event listeners for button clicks and Enter key
-  - Error handling and token display
-- **`example-browser.js`** - Generated lexer (IIFE standalone module)
-- **`example.l`** - Lexer grammar definition (in parent directory)
 
 ## Key Concepts
 
