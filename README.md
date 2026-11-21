@@ -307,10 +307,9 @@ lrwxr-xr-x@ 1 casianorodriguezleon  staff  22  1 mar.  22:08 jsonlint -> ../json
 | **Import Syntax** | `require()` | `<script>` tag | `require()` | `import` |
 | **Tree-shaking** | ❌ No | ❌ No | ❌ No | ✅ Yes |
 | **Standard** | Node.js custom | IIFE pattern | AMD spec | ES6/ESM official |
-| **Bundler Support** | ✅ All | ✅ All | ✅ All | ✅ Vite, Webpack, Rollup |
 | **Use Case** | Server-side apps | Simple scripts | Legacy SPAs | Modern apps |
 
-Tree-shaking is a technique of optimization that consists of removing dead code from your final JavaScript bundle.
+**Tree-shaking** is a technique of optimization that consists of removing dead code from your final JavaScript bundle.
 
 ### Module Type Examples
 
