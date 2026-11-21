@@ -1,0 +1,17 @@
+examples/manual-lexer/README.md
+  h_a580421f60d2d7 164-165
+  h_a580421f60d2d7 167
+examples/manual-lexer/parser.js
+  h_a580421f60d2d7 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "141c2f3597668d7f94a688f0a657db22af5bf74f",
+  "prompts": {},
+  "humans": {
+    "h_a580421f60d2d7": {
+      "author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  }
+}
