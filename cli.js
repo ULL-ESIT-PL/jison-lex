@@ -14,7 +14,7 @@ program
   .description('Lexical analyzer generator used by @ull-esit-pljison.\nSee https://github.com/ULL-ESIT-PL/jison-lex/blob/master/README.md for more information.')
   .argument('[file]', 'file containing a lexical grammar')
   .option('-o, --outfile <FILE>', 'Filename and base module name of the generated parser')
-  .option('-t, --module-type <TYPE>', 'The type of module to generate (commonjs, js)', 'commonjs')
+  .option('-t, --module-type <TYPE>', 'Module type to generate: "commonjs" for Node.js, "js" for IIFE standalone (global var), "amd" for RequireJS', 'commonjs')
   .parse(process.argv);
 
 var args = program.args;
