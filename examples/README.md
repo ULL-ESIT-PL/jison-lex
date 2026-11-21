@@ -32,10 +32,10 @@ node examples/main.cjs
 Interactive browser example using IIFE standalone modules.
 
 **Files:**
-- `browser-example.html` - Main HTML page
-- `app.js` - Application logic
-- `styles.css` - Styling
-- `example-browser.js` - Generated lexer
+- [`browser-example.html`](./js-generated-module/browser-example.html) - Main HTML page
+- [`app.js`](./js-generated-module/app.js) - Application logic
+- [`styles.css`](./js-generated-module/styles.css) - Styling
+- [`example-browser.js`](./js-generated-module/example-browser.js) - Generated lexer
 
 **Setup:**
 ```bash
@@ -55,10 +55,10 @@ python -m http.server 8000
 Modern browser example using AMD modules with RequireJS.
 
 **Files:**
-- `browser-example.html` - RequireJS configuration
-- `app.js` - Application module (depends on lexer)
-- `styles.css` - Styling
-- `example-amd.js` - Generated lexer in AMD format
+- [`browser-example.html`](./amd-generated-module/browser-example.html) - RequireJS configuration
+- [`app.js`](./amd-generated-module/app.js) - Application module (depends on lexer)
+- [`styles.css`](./amd-generated-module/styles.css) - Styling
+- [`example-amd.js`](./amd-generated-module/example-amd.js) - Generated lexer in AMD format
 
 **Setup:**
 ```bash
@@ -78,11 +78,11 @@ python -m http.server 8000
 Modern browser and Node.js example using native ES6 modules.
 
 **Files:**
-- `browser-example.html` - Native module loading with `<script type="module">`
-- `app.mjs` - Application module using `import`/`export`
-- `styles.css` - Styling
-- `example-es6.mjs` - Generated lexer in ES6 module format
-- `node-main.mjs` - Node.js example using the lexer
+- [`browser-example.html`](./ecma-generated-module/browser-example.html) - Native module loading with `<script type="module">`
+- [`app.mjs`](./ecma-generated-module/app.mjs) - Application module using `import`/`export`
+- [`styles.css`](./ecma-generated-module/styles.css) - Styling
+- [`example-es6.mjs`](./ecma-generated-module/example-es6.mjs) - Generated lexer in ES6 module format
+- [`node-main.mjs`](./ecma-generated-module/node-main.mjs) - Node.js example using the lexer
 
 **Setup:**
 ```bash
