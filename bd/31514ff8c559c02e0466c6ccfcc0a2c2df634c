@@ -1,0 +1,32 @@
+README.md
+  h_a580421f60d2d7 356-364
+examples/manual-lexer/grammar.jison
+  h_a580421f60d2d7 1-36
+examples/manual-lexer/README.md
+  s_e3975aedd30a9d::t_ae59ae20f2145c 1-423
+examples/manual-lexer/use-manual-lexer.cjs
+  h_a580421f60d2d7 1-6
+examples/manual-lexer/parser.js
+  h_a580421f60d2d7 1-288
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "bd31514ff8c559c02e0466c6ccfcc0a2c2df634c",
+  "prompts": {},
+  "humans": {
+    "h_a580421f60d2d7": {
+      "author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  },
+  "sessions": {
+    "s_e3975aedd30a9d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b37ecee8-1e3c-4315-8273-33b171a20fc1",
+        "model": "unknown"
+      },
+      "human_author": "Casiano Rodriguez-Leon <crguezl@ull.edu.es>"
+    }
+  }
+}
