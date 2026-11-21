@@ -129,7 +129,76 @@ ruby -run -ehttpd . -p8000
 Then navigate to: `http://localhost:8000/examples/ecma-generated-module/browser-example.html`
 
 
-## Node.js Usage with the Generated Lexer
+## Lexer Grammar
+
+The example uses the same grammar as other examples:
+
+```flex
+comment [/][*](.|[\r\n])*?[*][/]
+%%
+\s+|{comment}         /* skip whitespace and comments */
+[0-9]+                return 'NUMBER';
+[-+*/]                return 'OPERATOR';
+<<EOF>>               return 'EOF';
+.                     return 'INVALID';
+```
+
+Try tokenizing inputs like:
+- `2 - 3`
+- `10 + /* comment */ 20`
+- `42 * 5 / 2`
+
+## Module System Comparison
+
+| Feature | CommonJS | IIFE | AMD | ES6 Modules |
+|---------|----------|------|-----|-------------|
+| **Command** | `-t commonjs` | `-t js` | `-t amd` | `-t es6` |
+| **Environment** | Node.js | Browser | Browser | Browser + Node.js |
+| **Syntax** | `require()`, `exports` | Global var | `define()`, `require()` | `import`, `export` |
+| **Extension** | `.js` | `.js` | `.js` | `.mjs` or `.js` |
+| **Loading** | Synchronous | Synchronous | Asynchronous | Async (browsers) |
+| **Standard** | Node.js custom | None (IIFE) | AMD spec | ES6/ESM standard |
+| **Tree-shaking** | ❌ No | ❌ No | ❌ No | ✅ Yes |
+| **Native Support** | Node.js | ✅ Browser | No (needs RequireJS) | ✅ Modern browsers |
+| **Complexity** | Low | Very low | Moderate | Low-Moderate |
+
+## Node.js Usage
+
+ES6 modules can also be used in Node.js:
+
+### Method 1: Use `.mjs` extension
+```javascript
+// lexer.mjs
+export { lexer };
+
+// app.mjs
+import { lexer } from './lexer.mjs';
+lexer.setInput("2 + 3");
+```
+
+Run with:
+```bash
+node app.mjs
+```
+
+### Method 2: Use `"type": "module"` in package.json
+
+```json
+{
+  "type": "module",
+  "name": "my-app"
+}
+```
+
+Then use `.js` files with ES6 syntax:
+```javascript
+// lexer.js (with "type": "module")
+export { lexer };
+```
+
+
+
+### Example of Node.js usage with the Generated Lexer
 
 The generated ES6 module works directly in Node.js (12.20+). Try the included example:
 
@@ -200,73 +269,6 @@ while (!lexer.done) {
 - Import both `lexer` and the convenient `lex` function
 - Access token metadata via `lexer.yytext`, `lexer.yylineno`, etc.
 - Two approaches: `lex()` for simplicity or `lexer.next()` for control
-
-## Lexer Grammar
-
-The example uses the same grammar as other examples:
-
-```flex
-comment [/][*](.|[\r\n])*?[*][/]
-%%
-\s+|{comment}         /* skip whitespace and comments */
-[0-9]+                return 'NUMBER';
-[-+*/]                return 'OPERATOR';
-<<EOF>>               return 'EOF';
-.                     return 'INVALID';
-```
-
-Try tokenizing inputs like:
-- `2 - 3`
-- `10 + /* comment */ 20`
-- `42 * 5 / 2`
-
-## Module System Comparison
-
-| Feature | CommonJS | IIFE | AMD | ES6 Modules |
-|---------|----------|------|-----|-------------|
-| **Command** | `-t commonjs` | `-t js` | `-t amd` | `-t es6` |
-| **Environment** | Node.js | Browser | Browser | Browser + Node.js |
-| **Syntax** | `require()`, `exports` | Global var | `define()`, `require()` | `import`, `export` |
-| **Extension** | `.js` | `.js` | `.js` | `.mjs` or `.js` |
-| **Loading** | Synchronous | Synchronous | Asynchronous | Async (browsers) |
-| **Standard** | Node.js custom | None (IIFE) | AMD spec | ES6/ESM standard |
-| **Tree-shaking** | ❌ No | ❌ No | ❌ No | ✅ Yes |
-| **Native Support** | Node.js | ✅ Browser | No (needs RequireJS) | ✅ Modern browsers |
-| **Complexity** | Low | Very low | Moderate | Low-Moderate |
-
-## Node.js Usage
-
-ES6 modules can also be used in Node.js:
-
-### Method 1: Use `.mjs` extension
-```javascript
-// lexer.mjs
-export { lexer };
-
-// app.mjs
-import { lexer } from './lexer.mjs';
-lexer.setInput("2 + 3");
-```
-
-Run with:
-```bash
-node app.mjs
-```
-
-### Method 2: Use `"type": "module"` in package.json
-
-```json
-{
-  "type": "module",
-  "name": "my-app"
-}
-```
-
-Then use `.js` files with ES6 syntax:
-```javascript
-// lexer.js (with "type": "module")
-export { lexer };
-```
 
 ## Advanced Usage
 
