@@ -5,7 +5,7 @@ This directory contains examples demonstrating different ways to use jison-lex i
 ## Learning Path
 
 1. **Start with** [main.cjs](./main.cjs) and [example.l](./example.l) - Understand basic lexer API. See next section for details.
-2. **Then try** [ecma-generated-module/](./ecma-generated-module/) - Learn modern ES6 modules approach
+2. **Then try** [ecma-generated-module/](./ecma-generated-module/) - Learn modern ES6 modules approach.
 3. **Optionally** try [js-generated-module/](./js-generated-module/) - Learn browser usage with global vars
 4. **Optionally** try [amd-generated-module/](./amd-generated-module/) - Understand modular architecture with RequireJS
 
