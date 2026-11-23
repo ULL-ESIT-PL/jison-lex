@@ -1,21 +1,23 @@
-%locations
 %token NUMBER OPERATOR EOF
 
-%left OPERATOR
 %%
 
 s: expr EOF { return $1; }
 ;
 
 expr
-  : expr OPERATOR expr
+  : expr NUMBER OPERATOR
       {
         $$ = {
-          type: "OPERATOR",
-          lexeme: $2,
+          type: "operator",
+          lexeme: $3,
           left: $1,
-          right: $3,
-          loc: @2
+          right: {
+            type: "number",
+            value: Number($2),
+            loc: @2
+          },
+          loc: @3
         };
       }
   | NUMBER

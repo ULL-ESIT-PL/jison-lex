@@ -46,6 +46,9 @@ ecma-generated-module/
   - Exports `lexer` object
   - Exports `lex` convenience function
   - Uses `.mjs` extension (ES6 Module JavaScript)
+- **`node-main.mjs`** - Node.js example using the generated lexer
+  - Imports lexer and `lex()` function
+  - Demonstrates tokenization in Node.js environment
 
 ### 3. How ES6 Modules Work
 
@@ -148,54 +151,9 @@ Try tokenizing inputs like:
 - `10 + /* comment */ 20`
 - `42 * 5 / 2`
 
-## Module System Comparison
-
-| Feature | CommonJS | IIFE | AMD | ES6 Modules |
-|---------|----------|------|-----|-------------|
-| **Command** | `-t commonjs` | `-t js` | `-t amd` | `-t es6` |
-| **Environment** | Node.js | Browser | Browser | Browser + Node.js |
-| **Syntax** | `require()`, `exports` | Global var | `define()`, `require()` | `import`, `export` |
-| **Extension** | `.js` | `.js` | `.js` | `.mjs` or `.js` |
-| **Loading** | Synchronous | Synchronous | Asynchronous | Async (browsers) |
-| **Standard** | Node.js custom | None (IIFE) | AMD spec | ES6/ESM standard |
-| **Tree-shaking** | ❌ No | ❌ No | ❌ No | ✅ Yes |
-| **Native Support** | Node.js | ✅ Browser | No (needs RequireJS) | ✅ Modern browsers |
-| **Complexity** | Low | Very low | Moderate | Low-Moderate |
-
 ## Node.js Usage
 
 ES6 modules can also be used in Node.js:
-
-### Method 1: Use `.mjs` extension
-```javascript
-// lexer.mjs
-export { lexer };
-
-// app.mjs
-import { lexer } from './lexer.mjs';
-lexer.setInput("2 + 3");
-```
-
-Run with:
-```bash
-node app.mjs
-```
-
-### Method 2: Use `"type": "module"` in package.json
-
-```json
-{
-  "type": "module",
-  "name": "my-app"
-}
-```
-
-Then use `.js` files with ES6 syntax:
-```javascript
-// lexer.js (with "type": "module")
-export { lexer };
-```
-
 
 
 ### Example of Node.js usage with the Generated Lexer

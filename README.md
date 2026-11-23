@@ -72,7 +72,7 @@ comment [/][*](.|[\r\n])*?[*][/]
 Which we compile with the following command:
 
 ```console
-test-jison-lex npx jison-lex -t commonjs example.l  -o example.js
+npx jison-lex -t commonjs examples/example.l  -o examples/lexer.js
 ```
 
 And the following `main.js` file:
