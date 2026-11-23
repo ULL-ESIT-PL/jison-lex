@@ -2,6 +2,13 @@
 
 This directory contains examples demonstrating different ways to use jison-lex in various environments.
 
+## Learning Path
+
+1. **Start with** `main.cjs` - Understand basic lexer API
+2. **Then try** `js-generated-module/` - Learn browser usage with global vars
+3. **Next explore** `amd-generated-module/` - Understand modular architecture with RequireJS
+4. **Finally** `ecma-generated-module/` - Learn modern ES6 modules approach
+
 ## Examples Overview
 
 ### 1. **Node.js / CommonJS** (`main.cjs`)
@@ -201,12 +208,6 @@ lexer.yyleng;       // Length of matched text
 lexer.matched;      // All matched text so far
 ```
 
-## Learning Path
-
-1. **Start with** `main.cjs` - Understand basic lexer API
-2. **Then try** `js-generated-module/` - Learn browser usage with global vars
-3. **Next explore** `amd-generated-module/` - Understand modular architecture with RequireJS
-4. **Finally** `ecma-generated-module/` - Learn modern ES6 modules approach
 
 ## Further Reading
 
