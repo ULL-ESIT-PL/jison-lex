@@ -155,7 +155,7 @@ When running `node examples/commonjs-generated-module/main-next.cjs`, the output
 ```
 ## Programatic usage
 
-Here is an example using the node.js REPL:
+Here is an example using the node.js REPL. First we require the `@ull-esit-pl/jison-lex` package and create a lexer from a simple grammar:
 
 ```js
 ➜  test-jison-lex node
@@ -175,6 +175,11 @@ Here is an example using the node.js REPL:
   'var lexer = (function(){\n' +
   'var lexer = ({\n' +
   '        if (this.conditionStack.length && this.conditionStack[this.co'... 1199 more characters
+```
+
+The `JisonLex.generate(grammar)` method returns a string containing the source code of a lexer. We can create a lexer object from the grammar using the constructor `new JisonLex(grammar)`:
+
+```
 > lexer = new JisonLex(grammar);
 {  // The lexer object!
   EOF: 1,
