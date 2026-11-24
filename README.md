@@ -55,7 +55,7 @@ Options:
 
 ## Example 
 
-Given the following `[examples/example.l](examples/example.l)` file:
+Given the following [examples/example.l](examples/example.l) file:
 
 ```flex
 comment [/][*](.|[\r\n])*?[*][/]
