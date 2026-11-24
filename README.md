@@ -66,7 +66,7 @@ comment [/][*](.|[\r\n])*?[*][/]
 <<EOF>>               return 'EOF';
 .                     return 'INVALID';
 ```
-Which we compile with the following command:
+Which we can compile with the following command:
 
 ```console
 npx jison-lex -t commonjs examples/example.l  -o examples/commonjs-generated-module/lexer.js
