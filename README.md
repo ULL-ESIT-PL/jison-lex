@@ -55,11 +55,8 @@ Options:
 
 ## Example 
 
-Given the following `example.l` file:
+Given the following `[examples/example.l](examples/example.l)` file:
 
-```console
-➜  test-jison-lex cat example.l
-```
 ```flex
 comment [/][*](.|[\r\n])*?[*][/]
 %%
@@ -72,56 +69,39 @@ comment [/][*](.|[\r\n])*?[*][/]
 Which we compile with the following command:
 
 ```console
-npx jison-lex -t commonjs examples/example.l  -o examples/lexer.js
+npx jison-lex -t commonjs examples/example.l  -o examples/commonjs-generated-module/lexer.js
 ```
 
-And the following `main.js` file:
+And the following [main.js](examples/commonjs-generated-module/main.js) file:
 
-```console
-➜  test-jison-lex cat main.js 
-```
+
 ```js
-const { lexer, lex } = require("./example.js");
+// Compile first `npx jison-lex -t commonjs examples/example.l  -o examples/commonjs-generated-module/lexer.js` and 
+// then run `node examples/commonjs-generated-module/main.js 
+const { lexer, lex } = require("./lexer.js");
 const input = process.argv[2] || "2\n-/* a comment*/\n3";
 lexer.setInput(input);
+let token;
+let tokens = [];
 
-const results = [];
-
-results.push({ type: lex(), lexeme: lexer.yytext, loc: lexer.yylloc });
-
-results.push({ type: lex(), lexeme: lexer.yytext, loc: lexer.yylloc });
-results.push({ type: lex(), lexeme: lexer.yytext, loc: lexer.yylloc });
-results.push({ type: lex(), lexeme: lexer.yytext, loc: lexer.yylloc });
-
-console.log(results);
+while ((token = lex()) !== 'EOF') {
+    tokens.push({
+        token,
+        lexeme: lexer.yytext,
+        loc: lexer.yylloc, // { first_line, last_line, first_column, last_column }
+        line: lexer.yylineno + 1
+    });
+}
+tokens.forEach((t, index) => {
+    console.log(`  Token ${index + 1}: ${t.token.padEnd(10)} | Lexeme: "${t.lexeme}" | Location: ${t.loc.first_line}:${t.loc.first_column}`);
+});
 ```
-The output of running `main.js` should be the following:
-```console
-➜  test-jison-lex node main.js 
-```
+The output of running `node examples/commonjs-generated-module/main.cjs` should be the following:
+
 ```js
-[
-  {
-    type: 'NUMBER',
-    lexeme: '2',
-    loc: { first_line: 1, last_line: 1, first_column: 0, last_column: 1 }
-  },
-  {
-    type: 'OPERATOR',
-    lexeme: '-',
-    loc: { first_line: 2, last_line: 2, first_column: 0, last_column: 1 }
-  },
-  {
-    type: 'NUMBER',
-    lexeme: '3',
-    loc: { first_line: 3, last_line: 3, first_column: 0, last_column: 1 }
-  },
-  {
-    type: 'EOF',
-    lexeme: '',
-    loc: { first_line: 3, last_line: 3, first_column: 1, last_column: 1 }
-  }
-]
+  Token 1: NUMBER     | Lexeme: "2" | Location: 1:0
+  Token 2: OPERATOR   | Lexeme: "-" | Location: 2:0
+  Token 3: NUMBER     | Lexeme: "3" | Location: 3:0
 ```
 
 ## Programatic usage
