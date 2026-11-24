@@ -204,7 +204,7 @@ We can create a lexer object from the grammar using the constructor `new JisonLe
 }
 ```
 
-We already seen how to use the `lexer.setInput', `lexer.lex()` and `lexer.next()` methods:
+We already seen how to use the `lexer.setInput`, `lexer.lex()` and `lexer.next()` methods:
 
 ```
 > lexer.setInput('xyxxy');
