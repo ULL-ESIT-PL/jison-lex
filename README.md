@@ -53,7 +53,7 @@ Options:
    --version                     print version and exit
 ```
 
-## Example 
+## The `lex()` function 
 
 Given the following [examples/example.l](examples/example.l) file:
 
@@ -104,6 +104,54 @@ The output of running `node examples/commonjs-generated-module/main.cjs` should 
   Token 3: NUMBER     | Lexeme: "3" | Location: 3:0
 ```
 
+## The `next()` function
+
+Given the following [examples/commonjs-generated-module/main-next.cjs](examples/commonjs-generated-module/main-next.cjs) file:
+
+```js
+// Compile first `npx jison-lex -t commonjs examples/example.l  -o examples/commonjs-generated-module/lexer.js` and 
+// then run `node examples/commonjs-generated-module/main-next.cjs 
+const { lexer, lex } = require("./lexer.js");
+const input = process.argv[2] || "2\n-/* a comment*/\n3";
+lexer.setInput(input);
+let token;
+let tokens = [];
+
+while (!lexer.done) {
+    token = lexer.next(); // next returns even for comments and white spaces but in such case returns false
+    
+    if (!token) {
+        tokens.push({
+            token: "WHITE",  
+            lexeme: /* escape new lines and carriage returns for better console output */ lexer.yytext.replace(/\n/g, "\\\\n").replace(/\r/g, "\\r"),
+            loc: lexer.yylloc,
+            line: lexer.yylineno
+        });
+    }
+    else { // New token available
+        tokens.push({
+            token,
+            lexeme: lexer.yytext.replace(/\n/g, "\\\\n").replace(/\r/g, "\\r"), // Replace newlines and carriage returns for better console output
+            loc: lexer.yylloc, // { first_line, last_line, first_column, last_column }
+            line: lexer.yylineno + 1
+        });
+    }
+}
+tokens.forEach((t, index) => {
+    console.log(`  Token ${index + 1}: ${t.token.padEnd(8)} | Lexeme: "${t.lexeme.padEnd(15)}" | Location: ${t.loc.first_line}:${t.loc.first_column}`);
+});
+```
+When running `node examples/commonjs-generated-module/main-next.cjs`, the output should be:
+
+```
+  Token 1: NUMBER   | Lexeme: "2              " | Location: 1:0
+  Token 2: WHITE    | Lexeme: "\\n            " | Location: 1:1
+  Token 3: OPERATOR | Lexeme: "-              " | Location: 2:0
+  Token 4: WHITE    | Lexeme: "/* a comment*/ " | Location: 2:1
+  Token 5: WHITE    | Lexeme: "\\n            " | Location: 2:15
+  Token 6: NUMBER   | Lexeme: "3              " | Location: 3:0
+  Token 7: EOF      | Lexeme: "               " | Location: 3:1
+```
 ## Programatic usage
 
 Here is an example using the node.js REPL:
