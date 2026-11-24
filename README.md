@@ -72,7 +72,7 @@ Which we can compile with the following command:
 npx jison-lex -t commonjs examples/example.l  -o examples/commonjs-generated-module/lexer.js
 ```
 
-And the following [main.js](examples/commonjs-generated-module/main.js) file:
+And the following [main.cjs](examples/commonjs-generated-module/main.cjs) file:
 
 
 ```js
