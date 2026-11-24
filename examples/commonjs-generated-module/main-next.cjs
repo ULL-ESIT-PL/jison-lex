@@ -1,13 +1,14 @@
 // Compile first `npx jison-lex -t commonjs examples/example.l  -o examples/commonjs-generated-module/lexer.js` and 
 // then run `node examples/commonjs-generated-module/main-next.cjs 
-const { lexer, lex } = require("./lexer.js");
+const { lexer } = require("./lexer.js");
+const next = lexer.next.bind(lexer);
 const input = process.argv[2] || "2\n-/* a comment*/\n3";
 lexer.setInput(input);
 let token;
 let tokens = [];
 
 while (!lexer.done) {
-    token = lexer.next(); // next returns even for comments and white spaces but in such case returns false
+    token = next(); // next returns even for comments and white spaces but in such case returns false
     
     if (!token) {
         tokens.push({
