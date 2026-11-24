@@ -179,7 +179,7 @@ Here is an example using the node.js REPL. First we require the `@ull-esit-pl/ji
 
 The `JisonLex.generate(grammar)` method returns a string containing the source code of a lexer. We can create a lexer object from the grammar using the constructor `new JisonLex(grammar)`:
 
-```
+```js
 > lexer = new JisonLex(grammar);
 {  // The lexer object!
   EOF: 1,
