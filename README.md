@@ -304,7 +304,7 @@ For detailed documentation and setup instructions for each module type, see [exa
 
 ## Manually writing a lexer for Jison
 
-See [examples/manual-lexer.js](examples/manual-lexer) for an example of a lexer written by hand for use with Jison.
+See folder [examples/manual-lexer](examples/manual-lexer) for an example of a hand written lexer compatible with a @ull-esit-pl/jison parser.
 
 ## ES6 Modules Support
 
