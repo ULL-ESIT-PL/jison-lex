@@ -24,7 +24,7 @@ manual-lexer/
 
 ## Execution
 
-Generate the parser from the postfix arithmetic grammar file in [/examples/grammar.jison](/examples/grammar.jisonusing @ull-esit-pl/jison:
+Generate the parser from the postfix arithmetic grammar file in [/examples/grammar.jison](/examples/grammar.jison) using @ull-esit-pl/jison:
 
 ```
 npx jison examples/grammar.jison -o examples/parser.js 
