@@ -271,6 +271,8 @@ const { lexer, lex } = require('./lexer.js');
 lexer.setInput('input');
 ```
 
+- See **[CommonJS Example](examples/commonjs-generated-module/)** - Node.js usage
+
 **IIFE Standalone (Browser):**
 ```html
 <script src="lexer.js"></script>
@@ -279,6 +281,8 @@ lexer.setInput('input');
 </script>
 ```
 
+- See **[IIFE Standalone Example](examples/js-generated-module/)** - Browser with global variable
+
 **AMD/RequireJS (Browser):**
 ```js
 require(['lexer'], function(lexer) {
@@ -286,18 +290,15 @@ require(['lexer'], function(lexer) {
 });
 ```
 
+- See **[AMD/RequireJS Example](examples/amd-generated-module/)** - Browser with RequireJS
+  
 **ES6 Modules (Browser + Node.js):**
 ```js
 import { lexer } from './lexer.mjs';
 lexer.setInput('input');
 ```
 
-### Quick Links to Examples
-
-- **[CommonJS Example](examples/commonjs-generated-module/)** - Node.js usage
-- **[IIFE Standalone Example](examples/js-generated-module/)** - Browser with global variable
-- **[AMD/RequireJS Example](examples/amd-generated-module/)** - Browser with RequireJS
-- **[ES6 Modules Example](examples/ecma-generated-module/)** - Modern browser and Node.js
+- See **[ES6 Modules Example](examples/ecma-generated-module/)** - Modern browser and Node.js
 
 For detailed documentation and setup instructions for each module type, see [examples/README.md](examples/README.md).
 
