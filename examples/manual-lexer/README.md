@@ -22,18 +22,6 @@ manual-lexer/
 └── README.md            # This file
 ```
 
-## Execution
-
-Generate the parser from the postfix arithmetic grammar file in [/examples/grammar.jison](/examples/grammar.jison) using @ull-esit-pl/jison:
-
-```
-npx jison examples/grammar.jison -o examples/parser.js 
-```
-and then run the driver that uses the [manual-lexer.js](./manual-lexer.js) example:
-```
-node examples/manual-lexer/use-manual-lexer.cjs '2 3 + 5 *'
-```
-
 ## The Manual Lexer
 
 ### Core Components
@@ -121,74 +109,19 @@ The lexer maintains several properties that parsers depend on:
 | `index` | number | Current position in input string |
 | `column` | number | Current column number |
 
-## Token Recognition
-
-The lexer recognizes two token types:
-
-### 1. **OPERATOR**
-Matches: `+`, `-`, `*`, `/`
-
-```javascript
-if (/[-+*\/]/.test(char)) {
-  this.yytext = char;      // Single character
-  this.advance(char);
-  return "OPERATOR";
-}
-```
-
-### 2. **NUMBER**
-Matches: One or more consecutive digits
-
-```javascript
-if (/\d/.test(char)) {
-  let num = "";
-  while (/\d/.test(this.input[this.index])) {
-    num += this.input[this.index];
-    this.advance(this.input[this.index]);
-  }
-  this.yytext = num;      // e.g., "123"
-  return "NUMBER";
-}
-```
-
-## Grammar
-
-The `grammar.jison` file defines how tokens combine into expressions:
-
-```jison
-s: expr EOF { return $1; }
-;
-
-expr
-  : expr OPERATOR expr  { return { type: "OPERATOR", lexeme: $2, left: $1, right: $3 }; }
-  | NUMBER              { return { type: "number", value: Number($1) }; }
-  ;
-```
-
-This creates a simple calculator AST for expressions like:
-- `2 + 3` → `{ type: "OPERATOR", lexeme: "+", left: {type: "number", value: 2}, right: {type: "number", value: 3} }`
-- `10 * 5 - 2` → Nested structure with left-to-right evaluation
 
 ## Usage
 
 ### Running the Example
 
-Use `@ull-esit-pl/jison` to generate the parser and run the example (`npm i -g @ull-esit-pl/jison` if not installed):
+Generate the parser from the postfix arithmetic grammar file in [/examples/grammar.jison](/examples/grammar.jison) using @ull-esit-pl/jison:
 
-```bash
-jison grammar.jison -o parser.js
-node use-manual-lexer.cjs
 ```
-
-**Output:**
-```javascript
-{
-  type: "OPERATOR",
-  lexeme: "+",
-  left: { type: "number", value: 2, loc: {...} },
-  right: { type: "number", value: 3, loc: {...} },
-  loc: {...}
-}
+npx jison examples/grammar.jison -o examples/parser.js 
+```
+and then run the driver [/examples/manual-lexer/use-manual-lexer.cjs](./use-manual-lexer.cjs) that uses the [manual-lexer.js](./manual-lexer.js) example:
+```
+node examples/manual-lexer/use-manual-lexer.cjs '2 3 + 5 *'
 ```
 
 **Important:** Jison wraps the parser object, so you must use `parser.parser.lexer` (not `parser.lexer`) to access the actual parser's lexer property.
