@@ -1,12 +1,12 @@
 // Example of use of this.more() in a lexer rule action to continue 
 // matching input until a certain condition is met.
-var RegExpLexer = require("../index");
+var RegExpLexer = require("../../index");
 
 var test_more = function() {
     var dict = {
         rules: [
            ["x", "return 'X';" ],
-           ['"[^"]*', function(){ // match a " followed by any number ofno double quotes"
+           ['"[^"]*', function(){ // match a " followed by any number of no double quote characters"
                if(yytext.charAt(yyleng-1) == '\\') { // if the last character is a backslash, we want to continue matching
                    yytext += this.input(); // swallow the backslash and the next character
                    this.more(); // continue matching the input with the same rule

@@ -17,6 +17,7 @@
     "flex",
     "tokenizer"
   ],
+  "exports": "./index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ULL-ESIT-PL/jison-lex.git"
