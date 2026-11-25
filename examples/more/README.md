@@ -1,27 +1,11 @@
 # Introduction to some of the lexer methods
 
-The lexical specification at file [examples/more/more.l](./more.l) demonstrates the use of some of the lexer methods:
+The lexical specification at file [examples/more/more.l](./more.l) 
+and the driver [examples/more/main.cjs](examples/more/main.cjs) demonstrate 
+the use of some of the lexer methods and attributes, such as the use of 
+`this`, the methods `input()`, and `more()`, the attributes `matched` and `_input`.
 
-```js
-%%
-x             { return 'X'; }
-y             { return 'Y'; }
-\"[^"]*       {  // When executed with node examples/more/main.cjs 'x"he\"l\"lo"x'
-                 if(yytext.charAt(yyleng-1) == '\\') { // The first time the match will be '"he\\'
-                   this.more(); 
-                 } else {
-                    yytext += this.input(); // swallow end quote
-                    return "STRING";
-                 }
-               } 
-.              return 'INVALID';
-$              return 'EOF';
-
-%%
-
-```
-
-We compile the lexer with the command:
+Compile the lexer with the command:
 
 ```
 npx jison-lex examples/more/more.l -t commonjs -o examples/more/lexer.js
@@ -32,27 +16,29 @@ and run the driver [examples/more/main.cjs](examples/more/main.cjs) with the com
 ```
 node examples/more/main.cjs 'x"he\"l\"lo"x'
 ```
-```
-{"yytext":"x","matched":"x","_input":"\"he\\\"l\\\"lo\"x"}
-{"yytext":"\"he\\","matched":"x\"he\\","_input":"\"l\\\"lo\"x"}
-{"yytext":"\"he\\\"l\\","matched":"x\"he\\\"l\\","_input":"\"lo\"x"}
-{"yytext":"\"he\\\"l\\\"lo\"","matched":"x\"he\\\"l\\\"lo\"","_input":"x"}
-{"yytext":"x","matched":"x\"he\\\"l\\\"lo\"x","_input":""}
-[
+You should see the following output:
+
+```json
   {
     type: 'X',
     lexeme: 'x',
-    loc: { first_line: 1, last_line: 1, first_column: 0, last_column: 1 }
+    loc: { first_line: 1, last_line: 1, first_column: 0, last_column: 1 },
+    matched: 'x',
+    _input: '"hello\\"world\\""y'
   },
   {
     type: 'STRING',
-    lexeme: '"he\\"l\\"lo"',
-    loc: { first_line: 1, last_line: 1, first_column: 8, last_column: 12 }
+    lexeme: '"hello\\"world\\""',
+    loc: { first_line: 1, last_line: 1, first_column: 15, last_column: 17 },
+    matched: 'x"hello\\"world\\""',
+    _input: 'y'
   },
   {
-    type: 'X',
-    lexeme: 'x',
-    loc: { first_line: 1, last_line: 1, first_column: 12, last_column: 13 }
+    type: 'Y',
+    lexeme: 'y',
+    loc: { first_line: 1, last_line: 1, first_column: 17, last_column: 18 },
+    matched: 'x"hello\\"world\\""y',
+    _input: ''
   }
 ]
 ```
