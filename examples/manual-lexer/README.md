@@ -110,9 +110,7 @@ The lexer maintains several properties that parsers depend on:
 | `column` | number | Current column number |
 
 
-## Usage
-
-### Running the Example
+## Running the example
 
 Generate the parser from the postfix arithmetic grammar file in [/examples/grammar.jison](/examples/grammar.jison) using @ull-esit-pl/jison:
 
@@ -210,8 +208,4 @@ if (char === '"') {
 }
 ```
 
-## Further Reading
-
-- [jison-lex README](../../README.md)
-- [Other Examples](../README.md)
 
