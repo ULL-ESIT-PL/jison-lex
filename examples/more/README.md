@@ -19,26 +19,42 @@ node examples/more/main.cjs 'x"he\"l\"lo"x'
 You should see the following output:
 
 ```json
+[
   {
-    type: 'X',
-    lexeme: 'x',
-    loc: { first_line: 1, last_line: 1, first_column: 0, last_column: 1 },
-    matched: 'x',
-    _input: '"hello\\"world\\""y'
+    "type": "X",
+    "lexeme": "x",
+    "loc": {
+      "first_line": 1,
+      "last_line": 1,
+      "first_column": 0,
+      "last_column": 1
+    },
+    "matched": "x",
+    "_input": "\"hello\\\"world\\\"\"y"
   },
   {
-    type: 'STRING',
-    lexeme: '"hello\\"world\\""',
-    loc: { first_line: 1, last_line: 1, first_column: 15, last_column: 17 },
-    matched: 'x"hello\\"world\\""',
-    _input: 'y'
+    "type": "STRING",
+    "lexeme": "\"hello\\\"world\\\"\"",
+    "loc": {
+      "first_line": 1,
+      "last_line": 1,
+      "first_column": 15,
+      "last_column": 17
+    },
+    "matched": "x\"hello\\\"world\\\"\"",
+    "_input": "y"
   },
   {
-    type: 'Y',
-    lexeme: 'y',
-    loc: { first_line: 1, last_line: 1, first_column: 17, last_column: 18 },
-    matched: 'x"hello\\"world\\""y',
-    _input: ''
+    "type": "Y",
+    "lexeme": "y",
+    "loc": {
+      "first_line": 1,
+      "last_line": 1,
+      "first_column": 17,
+      "last_column": 18
+    },
+    "matched": "x\"hello\\\"world\\\"\"y",
+    "_input": ""
   }
 ]
 ```
