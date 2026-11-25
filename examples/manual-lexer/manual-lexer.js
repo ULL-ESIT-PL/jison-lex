@@ -3,7 +3,7 @@ const lexer = {
   index: 0,
 
   yytext: "",
-  yylineno: 0,  // base 0 internamente
+  yylineno: 0,  
   yylloc: {},
   column: 0,    // Current column position
 
@@ -29,14 +29,13 @@ const lexer = {
       return this.EOF;
     }
 
-    const startLine = this.yylineno + 1;   // Jison usa base 1
+    const startLine = this.yylineno + 1;   
     const startColumn = this.column;
 
     const char = this.input[this.index];
 
     // OPERATOR
     if (/[-+*\/]/.test(char)) {
-        console.log(`Recognized operator: ${char} at line ${startLine}, column ${startColumn}`);
       this.yytext = char;
       this.advance(char);
 

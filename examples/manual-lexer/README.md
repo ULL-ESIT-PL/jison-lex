@@ -22,6 +22,17 @@ manual-lexer/
 └── README.md            # This file
 ```
 
+## Execution
+
+Compile the parser:
+```
+npx jison examples/grammar.jison -o examples/parser.js 
+```
+and then run the example:
+```
+node examples/manual-lexer/use-manual-lexer.cjs '2 3 + 5 *'
+```
+
 ## The Manual Lexer
 
 ### Core Components
@@ -31,7 +42,7 @@ manual-lexer/
 #### 1. **Lexer Object Properties**
 ```javascript
 const lexer = {
-  input: "",           // Input string being processed
+  input: "",          // Input string being processed
   index: 0,           // Current position in input
   yytext: "",         // Matched text for current token
   yylineno: 0,        // Current line number (0-based internally)
