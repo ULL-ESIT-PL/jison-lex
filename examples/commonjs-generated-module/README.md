@@ -8,8 +8,13 @@ See files [/examples/example.l](/examples/example.l) and [main.cjs](main.cjs).
 
 ```bash
 # First compile the lexer
-jison-lex -t commonjs examples/example.l -o examples/commonjs-generated-module/example.js
+jison-lex -t commonjs examples/example.l -o examples/commonjs-generated-module/lexer.js
 
 # Then run the example
 node examples/commonjs-generated-module/main.cjs
+
+## Run also the "next" version
+
+node examples/commonjs-generated-module/main-next.cjs 
 ```
+
