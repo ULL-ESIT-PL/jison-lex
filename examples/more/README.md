@@ -4,20 +4,64 @@ The lexical specification at file [examples/more/more.l](./more.l) demonstrates 
 
 ```js
 %%
-x             return 'X';
-y             return 'Y';
+x             { console.log(getInfo(this)); return 'X'; }
+y             { console.log(getInfo(this)); return 'Y'; }
 \"[^"]*       {  // When executed with node examples/more/main.cjs 'x"he\"l\"lo"x'
-                 if(yytext.charAt(yyleng-1) == '\\') { 
-                   this.more(); // this.matched contains the matched text so far, and this._input contains the rest of the input string
-                   console.log("yytext: "+yytext+" matched: " + this.matched + " _input: " + this._input);
+                 if(yytext.charAt(yyleng-1) == '\\') { // The first time the match will be '"he\\'
+                   this.more(); 
+                   console.log(getInfo(this));
                  } else {
-                    console.log("yytext: "+yytext+" matched: " + this.matched + " _input: " + this._input);
                     yytext += this.input(); // swallow end quote
+                    console.log(getInfo(this));
                     return "STRING";
                  }
                } 
 .              return 'INVALID';
 $              return 'EOF';
+
+%%
+function getInfo(lexer) {
+    // this.matched contains the matched text so far, and 
+    // this._input contains the rest of the input string. 
+    const { yytext, matched, _input } = lexer;
+    return JSON.stringify({ yytext, matched, _input }, null, 0);
+}
+```
+
+We compile the lexer with the command:
+
+```
+npx jison-lex examples/more/more.l -t commonjs -o examples/more/lexer.js
+```
+
+and run the driver `examples/more/main.cjs` with the command:
+
+```
+node examples/more/main.cjs 'x"he\"l\"lo"x'
+```
+```
+{"yytext":"x","matched":"x","_input":"\"he\\\"l\\\"lo\"x"}
+{"yytext":"\"he\\","matched":"x\"he\\","_input":"\"l\\\"lo\"x"}
+{"yytext":"\"he\\\"l\\","matched":"x\"he\\\"l\\","_input":"\"lo\"x"}
+{"yytext":"\"he\\\"l\\\"lo\"","matched":"x\"he\\\"l\\\"lo\"","_input":"x"}
+{"yytext":"x","matched":"x\"he\\\"l\\\"lo\"x","_input":""}
+[
+  {
+    type: 'X',
+    lexeme: 'x',
+    loc: { first_line: 1, last_line: 1, first_column: 0, last_column: 1 }
+  },
+  {
+    type: 'STRING',
+    lexeme: '"he\\"l\\"lo"',
+    loc: { first_line: 1, last_line: 1, first_column: 8, last_column: 12 }
+  },
+  {
+    type: 'X',
+    lexeme: 'x',
+    loc: { first_line: 1, last_line: 1, first_column: 12, last_column: 13 }
+  }
+]
 ```
 
 1. to access the lexer object via `this`
