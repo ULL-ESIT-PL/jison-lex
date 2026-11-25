@@ -2,7 +2,10 @@
 
 Simple Node.js example using the default CommonJS module format.
 
-See files [/examples/example.l](/examples/example.l), [/examples/commonjs-generated-module/lexer.js](/examples/commonjs-generated-module/lexer.js), [main.cjs](main.cjs) and [main-next.cjs](main-next.cjs).
+See files 
+- the source file [/examples/example.l](/examples/example.l), 
+- the generated lexical analyzer [/examples/commonjs-generated-module/lexer.js](/examples/commonjs-generated-module/lexer.js), 
+- the drivers [main.cjs](main.cjs) and [main-next.cjs](main-next.cjs).
 
 **Usage:**
 
