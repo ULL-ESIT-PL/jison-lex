@@ -1,4 +1,4 @@
-# Introduction to some of the lexer methods
+# Introduction to some advanced lexer methods and attributes
 
 The lexical specification at file [examples/more/more.l](./more.l) 
 and the driver [examples/more/main.cjs](examples/more/main.cjs) demonstrate 
