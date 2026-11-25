@@ -59,8 +59,9 @@ You should see the following output:
 ]
 ```
 
-1. to access the lexer object via `this`
-2. The use of the `input()` method to get the next incoming input
+
+1. Inside an action you can access the lexer object via `this`
+2. Use the `input()` method to get the next incoming character from the input stream
 
    ```js
    { 
@@ -87,7 +88,7 @@ You should see the following output:
      }
    }
    ```
-3. The use of the `more()` method to indicate that the next matched text should be appended to the current `yytext` instead of replacing it. When called from action, caches matched text and appends it on next action
+3. Use the `more()` method to indicate that the next matched text should be appended to the current `yytext` instead of replacing it.
 
    ```js
    {
