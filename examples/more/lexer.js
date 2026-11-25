@@ -326,28 +326,36 @@ options: {"moduleType":"commonjs","moduleName":"lexer"},
 performAction: function anonymous(yy,yy_,$avoiding_name_collisions,YY_START) {
 var YYSTATE=YY_START;
 switch($avoiding_name_collisions) {
-case 0:return 'X';
+case 0: console.log(getInfo(this)); return 'X'; 
 break;
-case 1:return 'Y';
+case 1: console.log(getInfo(this)); return 'Y'; 
 break;
-case 2:
-                 if(yy_.yytext.charAt(yy_.yyleng-1) == '\\') {
-                   this.more();
+case 2:  // When executed with node examples/more/main.cjs 'x"he\"l\"lo"x'
+                 if(yy_.yytext.charAt(yy_.yyleng-1) == '\\') { // The first time the match will be '"he\\'
+                   this.more(); 
+                   console.log(getInfo(this));
                  } else {
                     yy_.yytext += this.input(); // swallow end quote
+                    console.log(getInfo(this));
                     return "STRING";
                  }
                
 break;
 case 3:return 'INVALID';
 break;
-case 4:return       'EOF';
+case 4:return 'EOF';
 break;
 }
 },
 rules: [/^(?:x\b)/,/^(?:y\b)/,/^(?:"[^"]*)/,/^(?:.)/,/^(?:$)/],
 conditions: {"INITIAL":{"rules":[0,1,2,3,4],"inclusive":true}}
 });
+function getInfo(lexer) {
+    // this.matched contains the matched text so far, and 
+    // this._input contains the rest of the input string. 
+    const { yytext, matched, _input } = lexer;
+    return JSON.stringify({ yytext, matched, _input }, null, 0);
+};
 return lexer;
 })();
 exports.lexer = lexer;
