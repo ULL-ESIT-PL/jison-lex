@@ -24,11 +24,12 @@ manual-lexer/
 
 ## Execution
 
-Compile the parser:
+Generate the parser from the grammar file using @ull-esit-pl/jison:
+
 ```
 npx jison examples/grammar.jison -o examples/parser.js 
 ```
-and then run the example:
+and then run the driver that uses the [manual-lexer.js](./manual-lexer.js) example:
 ```
 node examples/manual-lexer/use-manual-lexer.cjs '2 3 + 5 *'
 ```
