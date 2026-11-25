@@ -17,4 +17,4 @@ while ((token = lex()) !== 'EOF') {
     });
 }
 
-console.log(results);
+console.log(JSON.stringify(results), null, 2);
