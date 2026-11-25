@@ -1,6 +1,6 @@
 # Manual Lexer Example: Building a Custom Lexer by Hand
 
-This example demonstrates how to **manually write a lexer** compatible with [@ull-esit-pl/jison](https://github.com/ull-esit-pl/jison) without generating it with @ull-esit-pl/jison-lex. It shows the fundamental concepts behind lexical analysis and how lexers work internally.
+This example demonstrates how to **manually write a lexer** compatible with [@ull-esit-pl/jison](https://github.com/ull-esit-pl/jison) without generating it with `@ull-esit-pl/jison-lex`. It shows the fundamental concepts behind lexical analysis and how lexers work internally.
 
 ## Overview
 
