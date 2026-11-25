@@ -294,7 +294,7 @@ lexer.setInput('input');
 
 ### Quick Links to Examples
 
-- **[CommonJS Example](examples/README.md)** - Node.js usage
+- **[CommonJS Example](examples/)** - Node.js usage
 - **[IIFE Standalone Example](examples/js-generated-module/)** - Browser with global variable
 - **[AMD/RequireJS Example](examples/amd-generated-module/)** - Browser with RequireJS
 - **[ES6 Modules Example](examples/ecma-generated-module/)** - Modern browser and Node.js
