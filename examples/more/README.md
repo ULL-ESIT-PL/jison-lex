@@ -4,15 +4,13 @@ The lexical specification at file [examples/more/more.l](./more.l) demonstrates 
 
 ```js
 %%
-x             { console.log(getInfo(this)); return 'X'; }
-y             { console.log(getInfo(this)); return 'Y'; }
+x             { return 'X'; }
+y             { return 'Y'; }
 \"[^"]*       {  // When executed with node examples/more/main.cjs 'x"he\"l\"lo"x'
                  if(yytext.charAt(yyleng-1) == '\\') { // The first time the match will be '"he\\'
                    this.more(); 
-                   console.log(getInfo(this));
                  } else {
                     yytext += this.input(); // swallow end quote
-                    console.log(getInfo(this));
                     return "STRING";
                  }
                } 
@@ -20,12 +18,7 @@ y             { console.log(getInfo(this)); return 'Y'; }
 $              return 'EOF';
 
 %%
-function getInfo(lexer) {
-    // lexer.matched contains the matched text so far, and 
-    // lexer._input contains the rest of the input string. 
-    const { yytext, matched, _input } = lexer;
-    return JSON.stringify({ yytext, matched, _input }, null, 0);
-}
+
 ```
 
 We compile the lexer with the command:
@@ -34,7 +27,7 @@ We compile the lexer with the command:
 npx jison-lex examples/more/more.l -t commonjs -o examples/more/lexer.js
 ```
 
-and run the driver `examples/more/main.cjs` with the command:
+and run the driver [examples/more/main.cjs](examples/more/main.cjs) with the command:
 
 ```
 node examples/more/main.cjs 'x"he\"l\"lo"x'

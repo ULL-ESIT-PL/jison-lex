@@ -330,8 +330,8 @@ case 0: return 'X';
 break;
 case 1: return 'Y'; 
 break;
-case 2:  // When executed with node examples/more/main.cjs 'x"he\"l\"lo"x'
-                 if(yy_.yytext.charAt(yy_.yyleng-1) == '\\') { // The first time the match will be '"he\\'
+case 2:  
+                 if(yy_.yytext.charAt(yy_.yyleng-1) == '\\') { 
                    this.more(); 
                  } else {
                     yy_.yytext += this.input(); // swallow end quote
