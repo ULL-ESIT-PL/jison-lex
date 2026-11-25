@@ -21,8 +21,8 @@ $              return 'EOF';
 
 %%
 function getInfo(lexer) {
-    // this.matched contains the matched text so far, and 
-    // this._input contains the rest of the input string. 
+    // lexer.matched contains the matched text so far, and 
+    // lexer._input contains the rest of the input string. 
     const { yytext, matched, _input } = lexer;
     return JSON.stringify({ yytext, matched, _input }, null, 0);
 }
