@@ -139,7 +139,15 @@ showPosition:function () {
         return pre + this.upcomingInput() + "\n" + c + "^";
     },
 
-// test the lexed token: return FALSE when not a match, otherwise return token
+/**
+ * Updates the lexer state to reflect the match found, and then calls the lexer action function.
+ * 
+ * @internal                      // Marca como no-pública
+ * @param {Array} match           // [fullMatch, group1, ...]
+ * @param {number} indexed_rule   // Índice de la regla
+ * @returns {string|number|false} // Token o false si rechazado
+ * @see next, performAction, reject
+ */
 test_match:function(match, indexed_rule) {
         var token,
             lines,

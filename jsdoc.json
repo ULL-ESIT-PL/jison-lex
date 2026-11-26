@@ -2,7 +2,8 @@
   "source": {
     "include": [
       "index.js",
-      "cli.js"
+      "cli.js",
+      "examples/more/lexer.js"
     ],
     "includePattern": ".+\\.js(doc|on)?$",
     "excludePattern": "(^|/)node_modules/|tests/"

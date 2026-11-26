@@ -8,3 +8,4 @@ tests/
 tmp/
 *.js~
 .DS_Store
+jsdoc.json

@@ -79,10 +79,8 @@ Options:
                                  &quot;es6&quot; (or &quot;esm&quot;) - ES6 Modules (import/export)
    --version                     print version and exit
 </code></pre>
-<h2>Example</h2>
-<p>Given the following <code>example.l</code> file:</p>
-<pre class="prettyprint source lang-console"><code>➜  test-jison-lex cat example.l
-</code></pre>
+<h2>The <code>lexer.lex()</code> function</h2>
+<p>Given the following <a href="examples/example.l">examples/example.l</a> file:</p>
 <pre class="prettyprint source lang-flex"><code>comment [/][*](.|[\r\n])*?[*][/]
 %%
 \s+|{comment}         /* skip whitespace */
@@ -91,73 +89,91 @@ Options:
 &lt;&lt;EOF>>               return 'EOF';
 .                     return 'INVALID';
 </code></pre>
-<p>Which we compile with the following command:</p>
-<pre class="prettyprint source lang-console"><code>test-jison-lex npx jison-lex -t commonjs example.l  -o example.js
+<p>Which we can compile with the following command:</p>
+<pre class="prettyprint source lang-console"><code>npx jison-lex -t commonjs examples/example.l  -o examples/commonjs-generated-module/lexer.js
 </code></pre>
-<p>And the following <code>main.js</code> file:</p>
-<pre class="prettyprint source lang-console"><code>➜  test-jison-lex cat main.js 
-</code></pre>
-<pre class="prettyprint source lang-js"><code>const { lexer, lex } = require(&quot;./example.js&quot;);
+<p>And the following <a href="examples/commonjs-generated-module/main.cjs">main.cjs</a> file:</p>
+<pre class="prettyprint source lang-js"><code>// Compile first `npx jison-lex -t commonjs examples/example.l  -o examples/commonjs-generated-module/lexer.js` and 
+// then run `node examples/commonjs-generated-module/main.js 
+const { lexer, lex } = require(&quot;./lexer.js&quot;);
 const input = process.argv[2] || &quot;2\n-/* a comment*/\n3&quot;;
 lexer.setInput(input);
+let token;
+let tokens = [];
 
-const results = [];
-
-results.push({ type: lex(), lexeme: lexer.yytext, loc: lexer.yylloc });
-
-results.push({ type: lex(), lexeme: lexer.yytext, loc: lexer.yylloc });
-results.push({ type: lex(), lexeme: lexer.yytext, loc: lexer.yylloc });
-results.push({ type: lex(), lexeme: lexer.yytext, loc: lexer.yylloc });
-
-console.log(results);
+while ((token = lex()) !== 'EOF') {
+    tokens.push({
+        token,
+        lexeme: lexer.yytext,
+        loc: lexer.yylloc, // { first_line, last_line, first_column, last_column }
+        line: lexer.yylineno + 1
+    });
+}
+tokens.forEach((t, index) => {
+    console.log(`  Token ${index + 1}: ${t.token.padEnd(10)} | Lexeme: &quot;${t.lexeme}&quot; | Location: ${t.loc.first_line}:${t.loc.first_column}`);
+});
 </code></pre>
-<p>The output of running <code>main.js</code> should be the following:</p>
-<pre class="prettyprint source lang-console"><code>➜  test-jison-lex node main.js 
+<p>The output of running <code>node examples/commonjs-generated-module/main.cjs</code> should be the following:</p>
+<pre class="prettyprint source lang-js"><code>  Token 1: NUMBER     | Lexeme: &quot;2&quot; | Location: 1:0
+  Token 2: OPERATOR   | Lexeme: &quot;-&quot; | Location: 2:0
+  Token 3: NUMBER     | Lexeme: &quot;3&quot; | Location: 3:0
 </code></pre>
-<pre class="prettyprint source lang-js"><code>[
-  {
-    type: 'NUMBER',
-    lexeme: '2',
-    loc: { first_line: 1, last_line: 1, first_column: 0, last_column: 1 }
-  },
-  {
-    type: 'OPERATOR',
-    lexeme: '-',
-    loc: { first_line: 2, last_line: 2, first_column: 0, last_column: 1 }
-  },
-  {
-    type: 'NUMBER',
-    lexeme: '3',
-    loc: { first_line: 3, last_line: 3, first_column: 0, last_column: 1 }
-  },
-  {
-    type: 'EOF',
-    lexeme: '',
-    loc: { first_line: 3, last_line: 3, first_column: 1, last_column: 1 }
-  }
-]
+<h2>The <code>lexer.next()</code> function</h2>
+<p>Given the following <a href="examples/commonjs-generated-module/main-next.cjs">examples/commonjs-generated-module/main-next.cjs</a> file:</p>
+<pre class="prettyprint source lang-js"><code>// Compile first `npx jison-lex -t commonjs examples/example.l  -o examples/commonjs-generated-module/lexer.js` and 
+// then run `node examples/commonjs-generated-module/main-next.cjs 
+const { lexer } = require(&quot;./lexer.js&quot;);
+const next = lexer.next.bind(lexer);
+const input = process.argv[2] || &quot;2\n-/* a comment*/\n3&quot;;
+lexer.setInput(input);
+let token;
+let tokens = [];
+
+while (!lexer.done) {
+    token = next(); // next returns even for comments and white spaces but in such case returns false
+    
+    if (!token) {
+        tokens.push({
+            token: &quot;WHITE&quot;,  
+            lexeme: /* escape new lines and carriage returns for better console output */ lexer.yytext.replace(/\n/g, &quot;\\\\n&quot;).replace(/\r/g, &quot;\\r&quot;),
+            loc: lexer.yylloc,
+            line: lexer.yylineno
+        });
+    }
+    else { // New token available
+        tokens.push({
+            token,
+            lexeme: lexer.yytext.replace(/\n/g, &quot;\\\\n&quot;).replace(/\r/g, &quot;\\r&quot;), // Replace newlines and carriage returns for better console output
+            loc: lexer.yylloc, // { first_line, last_line, first_column, last_column }
+            line: lexer.yylineno + 1
+        });
+    }
+}
+tokens.forEach((t, index) => {
+    console.log(`  Token ${index + 1}: ${t.token.padEnd(8)} | Lexeme: &quot;${t.lexeme.padEnd(15)}&quot; | Location: ${t.loc.first_line}:${t.loc.first_column}`);
+});
+</code></pre>
+<p>When running <code>node examples/commonjs-generated-module/main-next.cjs</code>, the output should be:</p>
+<pre class="prettyprint source"><code>  Token 1: NUMBER   | Lexeme: &quot;2              &quot; | Location: 1:0
+  Token 2: WHITE    | Lexeme: &quot;\\n            &quot; | Location: 1:1
+  Token 3: OPERATOR | Lexeme: &quot;-              &quot; | Location: 2:0
+  Token 4: WHITE    | Lexeme: &quot;/* a comment*/ &quot; | Location: 2:1
+  Token 5: WHITE    | Lexeme: &quot;\\n            &quot; | Location: 2:15
+  Token 6: NUMBER   | Lexeme: &quot;3              &quot; | Location: 3:0
+  Token 7: EOF      | Lexeme: &quot;               &quot; | Location: 3:1
 </code></pre>
 <h2>Programatic usage</h2>
-<p>Here is an example using the node.js REPL:</p>
+<p>Here is an example using the node.js REPL. First we require the <code>@ull-esit-pl/jison-lex</code> package and create a lexer from a simple grammar:</p>
 <pre class="prettyprint source lang-js"><code>➜  test-jison-lex node
 > JisonLex = require('@ull-esit-pl/jison-lex');
 [Function: RegExpLexer] { generate: [Function: generate] }
-> grammar = {
-|  rules: [
-|     [&quot;x&quot;, &quot;return 'X';&quot; ],
-|     [&quot;y&quot;, &quot;return 'Y';&quot; ],
-|     [&quot;$&quot;, &quot;return 'EOF';&quot; ]
-|   ]
-| };
+> grammar = { rules: [ [&quot;x&quot;, &quot;return 'X';&quot; ], [&quot;y&quot;, &quot;return 'Y';&quot;], [&quot;$&quot;, &quot;return 'EOF'&quot;] ] } 
 > // or load from a file
 > // var grammar = fs.readFileSync('mylexer.l', 'utf8');
-> lexerSource = JisonLex.generate(grammar);
-'/* generated by jison-lex 0.3.5 */\n' +
-  'var lexer = (function(){\n' +
-  'var lexer = ({\n' +
-  '        if (this.conditionStack.length && this.conditionStack[this.co'... 1199 more characters
-> lexer = new JisonLex(grammar);
-{  // The lexer object!
+</code></pre>
+<p>We can create a lexer object from the grammar using the constructor <code>new JisonLex(grammar)</code>:</p>
+<pre class="prettyprint source lang-js"><code>> lexer = new JisonLex(grammar);
+{
   EOF: 1,
   parseError: [Function: parseError],
   setInput: [Function: setInput],
@@ -186,14 +202,26 @@ console.log(results);
   generate: [Function (anonymous)],
   generateModule: [Function (anonymous)],
   generateCommonJSModule: [Function (anonymous)],
-  generateAMDModule: [Function (anonymous)]
+  generateAMDModule: [Function (anonymous)],
+  generateESModule: [Function (anonymous)]
 }
-> lexer.setInput('xyxxy');
+</code></pre>
+<p>We already seen how to use the <code>lexer.setInput</code>, <code>lexer.lex()</code> and <code>lexer.next()</code> methods:</p>
+<pre class="prettyprint source"><code>> lexer.setInput('xyxxy');
 > lexer.lex();
 'X'
 > lexer.lex();
 'Y'
-> target = lexer.generateCommonJSModule() // Creates a string containing the source code of a CommonJS module that
+</code></pre>
+<p>The <code>lexer.generate*Module()</code> methods can be used to generate a string containing the source code of a module in the corresponding format that exports the lexer and the <code>lex</code> function.</p>
+<p>The <code>JisonLex.generate(grammar)</code> method returns a string containing the source code of a lexer.</p>
+<pre class="prettyprint source lang-js"><code>> lexerSource = JisonLex.generate(grammar);
+'/* generated by jison-lex 0.3.13 */\n' +
+  'var lexer = (function(){\n' +
+  'var lexer = ({\n' +
+  '        if (this.conditionStack.length && this.conditionStack[this.co'... 1199 more characters
+</code></pre>
+<pre class="prettyprint source lang-js"><code>> target = lexer.generateCommonJSModule() // Creates a string containing the source code of a CommonJS module that
 > target.length                           // exports the lexer and lex
 11295
 > target.substr(11100) // The last 195 characters of the generated module, which contains the export statements
@@ -212,82 +240,6 @@ console.log(results);
   '\n' +
   'export { lexer };\n' +
   'export const lex = lexer.lex.bind(lexer);'
-</code></pre>
-<h2>Use with @ull-esit-pl/jison</h2>
-<p>Given the grammar <a href="examples/grammar.jison"><code>examples/grammar.jison</code></a> and the lexer generated from <a href="examples/example.l"><code>examples/example.l</code></a>, we can use the lexer in the parser by assigning it to <code>parser.lexer</code> in the tail section of the grammar file:</p>
-<pre class="prettyprint source"><code>➜  test-jison-lex cat grammar.jison 
-</code></pre>
-<pre class="prettyprint source lang-yacc"><code>%locations
-%token NUMBER OPERATOR EOF
-
-%left OPERATOR
-%%
-
-s: expr EOF { return $1; }
-;
-
-expr
-  : expr OPERATOR expr
-      {
-        $$ = {
-          type: &quot;OPERATOR&quot;,
-          lexeme: $2,
-          left: $1,
-          right: $3,
-          loc: @2
-        };
-      }
-  | NUMBER
-      {
-        $$ = {
-          type: &quot;number&quot;,
-          value: Number($1),
-          loc: @1
-        };
-      }
-  ;
-
-%%
-
-const { lexer, lex } = require(&quot;./example.js&quot;);
-parser.lexer = lexer;
-</code></pre>
-<p><strong>The <code>parser</code> variable is available in the tail section of the grammar file</strong>, and we can assign the lexer to it. The generated parser will then use the provided lexer to tokenize the input.</p>
-<p>First, install the <code>@ull-esit-pl/jison</code> package:</p>
-<pre class="prettyprint source"><code>npm install --save-dev https://github.com/ull-esit-pl/jison.git
-</code></pre>
-<p>or</p>
-<pre class="prettyprint source"><code>npm install --save-dev @ull-esit-pl/jison
-</code></pre>
-<p>We compile it with the following command:</p>
-<pre class="prettyprint source"><code>npx jison grammar.jison -o parser.js
-</code></pre>
-<p>And then we can use the generated parser in the node.js REPL:</p>
-<pre class="prettyprint source lang-js"><code>➜  test-jison-lex node                                
-> p = require(&quot;./parser&quot;)
-{
-  parser: { yy: {} },
-  Parser: [Function: Parser],
-  parse: [Function (anonymous)],
-  main: [Function: commonjsMain]
-}
-> p.parse(&quot;3+4&quot;)
-{
-  type: 'OPERATOR',
-  lexeme: '+',
-  left: {
-    type: 'number',
-    value: 3,
-    loc: { first_line: 1, last_line: 1, first_column: 0, last_column: 1 }
-  },
-  right: {
-    type: 'number',
-    value: 4,
-    loc: { first_line: 1, last_line: 1, first_column: 2, last_column: 3 }
-  },
-  loc: { first_line: 1, last_line: 1, first_column: 1, last_column: 2 }
-}
-> 
 </code></pre>
 <h2>Module Types Comparison</h2>
 <table>
@@ -358,31 +310,36 @@ parser.lexer = lexer;
 <pre class="prettyprint source lang-js"><code>const { lexer, lex } = require('./lexer.js');
 lexer.setInput('input');
 </code></pre>
+<ul>
+<li>See <strong><a href="examples/commonjs-generated-module/">CommonJS Example</a></strong> - Node.js usage</li>
+</ul>
 <p><strong>IIFE Standalone (Browser):</strong></p>
 <pre class="prettyprint source lang-html"><code>&lt;script src=&quot;lexer.js&quot;>&lt;/script>
 &lt;script>
   lexer.setInput('input');  // lexer is global
 &lt;/script>
 </code></pre>
+<ul>
+<li>See <strong><a href="examples/js-generated-module/">IIFE Standalone Example</a></strong> - Browser with global variable</li>
+</ul>
 <p><strong>AMD/RequireJS (Browser):</strong></p>
 <pre class="prettyprint source lang-js"><code>require(['lexer'], function(lexer) {
   lexer.setInput('input');
 });
 </code></pre>
+<ul>
+<li>See <strong><a href="examples/amd-generated-module/">AMD/RequireJS Example</a></strong> - Browser with RequireJS</li>
+</ul>
 <p><strong>ES6 Modules (Browser + Node.js):</strong></p>
 <pre class="prettyprint source lang-js"><code>import { lexer } from './lexer.mjs';
 lexer.setInput('input');
 </code></pre>
-<h3>Quick Links to Examples</h3>
 <ul>
-<li><strong><a href="examples/README.md">CommonJS Example</a></strong> - Node.js usage</li>
-<li><strong><a href="examples/js-generated-module/">IIFE Standalone Example</a></strong> - Browser with global variable</li>
-<li><strong><a href="examples/amd-generated-module/">AMD/RequireJS Example</a></strong> - Browser with RequireJS</li>
-<li><strong><a href="examples/ecma-generated-module/">ES6 Modules Example</a></strong> - Modern browser and Node.js</li>
+<li>See <strong><a href="examples/ecma-generated-module/">ES6 Modules Example</a></strong> - Modern browser and Node.js</li>
 </ul>
 <p>For detailed documentation and setup instructions for each module type, see <a href="examples/README.md">examples/README.md</a>.</p>
 <h2>Manually writing a lexer for Jison</h2>
-<p>See <a href="examples/manual-lexer.js">examples/manual-lexer.js</a> for an example of a lexer written by hand for use with Jison.</p>
+<p>See folder <a href="examples/manual-lexer">examples/manual-lexer</a> for an example of a hand written lexer compatible with a <a href="https://github.com/ull-esit-pl/jison">@ull-esit-pl/jison parser</a>.</p>
 <h2>ES6 Modules Support</h2>
 <p>This version of jison-lex supports generating lexers as ES6 Modules, the official JavaScript module standard.</p>
 <h3>Generate ES6 Module Lexer</h3>
@@ -403,6 +360,8 @@ const token = lexer.lex();
 &lt;/script>
 </code></pre>
 <p>For a complete example with HTML, CSS, and application code, see <a href="examples/ecma-generated-module/">examples/ecma-generated-module/</a>.</p>
+<h2>Introduction to some advanced lexer methods and attributes</h2>
+<p>See folder <a href="examples/more/">examples/more/</a> for an example demonstrating the use of some of the lexer methods and attributes, such as the use of <code>this</code>, the methods <code>input()</code>, and <code>more()</code>, the attributes <code>matched</code> and <code>_input</code>.</p>
 <h2>Developers</h2>
 <p>See <a href="DEVELOPMENT.md">DEVELOPMENT.md</a> for instructions on how to publish the package and test it during development.</p>
 <h2>Author</h2>
@@ -456,7 +415,7 @@ npm run pub           # Publish to registry (requires .env configuration)
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Sat Nov 21 2026 15:53:38 GMT+0000 (Western European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Nov 26 2026 10:32:22 GMT+0000 (Western European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
