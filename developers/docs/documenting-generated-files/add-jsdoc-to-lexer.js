@@ -83,13 +83,13 @@ const jsdocComments = {
  */`,
 
     'test_match': `/**
- * Evalúa si un patrón coincide con la entrada y procesa el token.
- * Este es el método nuclear del análisis léxico.
- * @internal
- * @param {Array} match - Resultado del match del regex
- * @param {number} indexed_rule - Índice de la regla
- * @returns {string|number|false} Token o false si rechazado
- * @throws {Error} Si se llama reject() fuera de modo backtrack_lexer
+ * Updates the lexer state to reflect the match found, and then calls the lexer action function.
+ * 
+ * @internal                      // Marca como no-pública
+ * @param {Array} match           // [fullMatch, group1, ...]
+ * @param {number} indexed_rule   // Índice de la regla
+ * @returns {string|number|false} // Token o false si rechazado
+ * @see next, performAction, reject
  */`,
 
     'next': `/**
@@ -157,11 +157,16 @@ function addJSDocToLexer(filePath) {
     let modified = false;
     let replacements = 0;
 
+    // Función para escapar caracteres especiales en regex
+    const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
     // Procesar cada función conocida
     for (const [functionName, jsdoc] of Object.entries(jsdocComments)) {
+        const escapedName = escapeRegex(functionName);
+        
         // Patrón 1: Función con comentario de línea previo
         const pattern1 = new RegExp(
-            `\\/\\/ [^\\n]+\\n(\\s*${functionName}:\\s*function\\s*\\(`,
+            `\\/\\/ [^\\n]+\\n(\\s*${escapedName}:\\s*function\\s*\\(\\))`,
             'g'
         );
         
@@ -176,7 +181,7 @@ function addJSDocToLexer(filePath) {
         } else {
             // Patrón 2: Función sin comentario previo
             const pattern2 = new RegExp(
-                `(\\n\\s*)${functionName}:\\s*function\\s*\\(`,
+                `(\\n\\s*)${escapedName}:\\s*function\\s*\\(`,
                 'g'
             );
             
@@ -275,12 +280,12 @@ Ejemplos:
         process.exit(0);
     }
 
-    const filePath = args[0];
-
     if (args.includes('--help')) {
         console.log('Ver arriba para ayuda');
         process.exit(0);
     }
+
+    const filePath = args[0];
 
     if (args.includes('--generate-types')) {
         const typeDefs = generateTypeDefinitions();
