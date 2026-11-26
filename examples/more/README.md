@@ -121,4 +121,18 @@ You should see the following output:
      }
    }
    ```
+   and in the `next`method we can see:
+   ```js
+   next:function () {
+        if (this.done) { return this.EOF; }
+        if (!this._input) { this.done = true; }
+
+        var token, match, tempMatch, index;
+        if (!this._more) { // only reset the position tracking if we're not continuing a previous match
+            this.yytext = '';
+            this.match = '';
+        }
+        ...
+        }
+    ```
 4. The `matched` attribute contains the entire matched text so far, including any text matched in previous calls to `more()`. The `_input` attribute contains the remaining input that has not yet been processed by the lexer.
