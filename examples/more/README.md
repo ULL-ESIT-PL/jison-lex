@@ -89,7 +89,7 @@ This example demonstrates the following points:
 2. Use the `input()` method to get the next incoming character from the input stream
 
    ```js
-   { 
+   { // File `lexer.js` within the generated lexer
      input: function () {
        var ch = this._input[0];
        this.yytext += ch;
