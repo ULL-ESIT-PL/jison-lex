@@ -257,7 +257,7 @@ function generateTypeDefinitions() {
 if (require.main === module) {
     const args = process.argv.slice(2);
     
-    if (args.length === 0) {
+    if (args.length === 0 || args.includes('--help')) {
         console.log(`
 Uso: node add-jsdoc-to-lexer.js [archivo-lexer.js] [--generate-types] [--help]
 
