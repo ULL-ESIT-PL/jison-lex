@@ -3,6 +3,7 @@
 .gitignore
 .npmrc
 DEVELOPMENT.md
+developers/
 examples/
 tests/
 tmp/
