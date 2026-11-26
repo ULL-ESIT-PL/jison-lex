@@ -22,6 +22,8 @@ y un subconjunto de los datos va a una base de datos SQLite local llamada "sessi
 -rw-------@ 1 casianorodriguezleon  staff  1040384 Nov 24 10:43 /Users/casianorodriguezleon/.copilot/session-store.db
 ```
 
+### Estructura de la carpeta de sesión
+
 Cada sesión tiene su propia carpeta con esta estructura:
 
 ```
@@ -47,7 +49,22 @@ drwx------@ 2 casianorodriguezleon  staff    64 Mar 25  2026 research
 drwx------@ 2 casianorodriguezleon  staff    64 Mar 25  2026 files
 ```
 
-Algunos detalles útiles:
+### La carpeta files
+
+La carpeta `files` contiene los archivos generados durante la sesión, como código, documentación, etc:
+
+```
+  jison-lex git:(master) ls -l ~/.copilot/session-state/e3c61602-ccf2-4029-837c-221c36921192/fi
+les
+total 152
+-rw-r--r--@ 1 casianorodriguezleon  staff   6599 Nov 26 10:40 QUICK_REFERENCE.md
+-rw-r--r--@ 1 casianorodriguezleon  staff   9216 Nov 26 10:37 add-jsdoc-to-lexer.js
+-rw-r--r--@ 1 casianorodriguezleon  staff  10629 Nov 26 10:35 jsdoc-guia-lexer-interno.md
+-rw-r--r--@ 1 casianorodriguezleon  staff  11867 Nov 26 10:37 jsdoc-patrones-comunes.md
+-rw-r--r--@ 1 casianorodriguezleon  staff  16798 Nov 26 10:36 lexer-documented-example.js
+-rw-r--r--@ 1 casianorodriguezleon  staff  10183 Nov 26 10:39 tutorial-paso-a-paso.md
+```
+### Algunos detalles útiles
 
 - **Cambiar la ubicación:** se puede sustituir `~/.copilot` con la variable de entorno `COPILOT_HOME`. Si lo haces, tendrás que copiar el contenido anterior para no perder el historial.
 - **Logs:** cada sesión también genera un log con nombre `process-{timestamp}-{pid}.log`, útil para depurar.
