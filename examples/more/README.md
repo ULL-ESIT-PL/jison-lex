@@ -1,7 +1,30 @@
 # Introduction to some advanced lexer methods and attributes
 
 The lexical specification at file [examples/more/more.l](./more.l) 
-and the driver [examples/more/main.cjs](examples/more/main.cjs) demonstrate 
+and the driver [examples/more/main.cjs](examples/more/main.cjs) 
+
+```js
+const { lexer, lex } = require("./lexer.js");
+const input = process.argv[2] || 'x"h\\nello\\"world\\""y';
+lexer.setInput(input);
+
+const results = [];
+
+while ((token = lex()) !== 'EOF') {
+    results.push({ 
+        type: token, 
+        lexeme: lexer.yytext, 
+        loc: lexer.yylloc, 
+        matched: lexer.matched,
+        _input: lexer._input, 
+
+    });
+}
+
+console.log(JSON.stringify(results, null, 2));
+```
+
+demonstrate 
 the use of some of the lexer methods and attributes, such as the use of 
 `this`, the methods `input()`, and `more()`, the attributes `matched` and `_input`.
 
@@ -98,3 +121,4 @@ You should see the following output:
      }
    }
    ```
+4. The `matched` attribute contains the entire matched text so far, including any text matched in previous calls to `more()`. The `_input` attribute contains the remaining input that has not yet been processed by the lexer.
