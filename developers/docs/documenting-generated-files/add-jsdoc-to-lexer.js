@@ -262,12 +262,15 @@ if (require.main === module) {
 Uso: node add-jsdoc-to-lexer.js [archivo-lexer.js] [--generate-types] [--help]
 
 Opciones:
-  --generate-types     Genera un archivo con definiciones de tipos
+  --generate-types    Genera un archivo con definiciones de tipos
   --help              Muestra esta ayuda
 
 Ejemplos:
   node add-jsdoc-to-lexer.js examples/more/lexer.js
   node add-jsdoc-to-lexer.js lexer.js --generate-types
+
+1. El archivo archivo-lexer.js debe ser un archivo JavaScript generado por @ull-esit-pl/jison-lex. 
+2. El fichero es sobreescrito con los comentarios JSDoc agregados a funciones internas críticas sin modificar su lógica.  
         `);
         process.exit(0);
     }
