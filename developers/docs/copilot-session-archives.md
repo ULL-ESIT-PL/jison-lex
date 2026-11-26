@@ -89,6 +89,12 @@ En Copilot CLI, el identificador de la carpeta de sesión no es un hash sino un 
 ```bash
 ls -t ~/.copilot/session-state/ | head -1
 ```
+Ejemplo: 
+
+```
+➜  jison-lex git:(master) ls -t ~/.copilot/session-state/ | head -1
+e3c61602-ccf2-4029-837c-221c36921192
+```
 
 Con ese ID puedes ir directamente a los archivos de la sesión (`~/.copilot/session-state/<ID>/events.jsonl`, etc.) o retomarla con `copilot --resume <ID>`. También se admite un prefijo del ID o el nombre exacto de la sesión. Si le pones nombre con `/rename`, luego puedes buscarla por ese nombre.
 
