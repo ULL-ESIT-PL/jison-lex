@@ -142,3 +142,4 @@ This example demonstrates the following points:
         }
     ```
 4. The `matched` attribute contains the entire matched text so far, including any text matched in previous calls to `more()`. The `_input` attribute contains the remaining input that has not yet been processed by the lexer.
+5. Notice how we set the `ranges` option inside the driver `lexer.options.ranges = true;` to enable range tracking.
