@@ -2,6 +2,7 @@
 // then run `node examples/more/main.cjs` 
 const { lexer, lex } = require("./lexer.js");
 const input = process.argv[2] || 'x"h\\nello\\"world\\""y';
+lexer.options.ranges = true; // Enable range tracking
 lexer.setInput(input);
 
 const results = [];
