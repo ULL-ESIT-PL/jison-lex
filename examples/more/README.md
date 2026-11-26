@@ -42,8 +42,7 @@ npx jison-lex examples/more/more.l -t commonjs -o examples/more/lexer.js
 and run the driver [examples/more/main.cjs](examples/more/main.cjs) with the command:
 
 ```
-node examples/more/main.cjs 'x"he\"l\"lo"x'
-```
+node main.cjs 'x"he\nl\"lo"x'```
 You should see the following output:
 
 ```json
@@ -55,33 +54,45 @@ You should see the following output:
       "first_line": 1,
       "last_line": 1,
       "first_column": 0,
-      "last_column": 1
+      "last_column": 1,
+      "range": [
+        0,
+        1
+      ]
     },
     "matched": "x",
-    "_input": "\"hello\\\"world\\\"\"y"
+    "_input": "\"he\\nl\\\"lo\"x"
   },
   {
     "type": "STRING",
-    "lexeme": "\"hello\\\"world\\\"\"",
+    "lexeme": "\"he\\nl\\\"lo\"",
     "loc": {
       "first_line": 1,
       "last_line": 1,
-      "first_column": 15,
-      "last_column": 17
+      "first_column": 8,
+      "last_column": 12,
+      "range": [
+        8,
+        19
+      ]
     },
-    "matched": "x\"hello\\\"world\\\"\"",
-    "_input": "y"
+    "matched": "x\"he\\nl\\\"lo\"",
+    "_input": "x"
   },
   {
-    "type": "Y",
-    "lexeme": "y",
+    "type": "X",
+    "lexeme": "x",
     "loc": {
       "first_line": 1,
       "last_line": 1,
-      "first_column": 17,
-      "last_column": 18
+      "first_column": 12,
+      "last_column": 13,
+      "range": [
+        19,
+        20
+      ]
     },
-    "matched": "x\"hello\\\"world\\\"\"y",
+    "matched": "x\"he\\nl\\\"lo\"x",
     "_input": ""
   }
 ]
