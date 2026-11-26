@@ -1,28 +1,29 @@
 # Introduction to some advanced lexer methods and attributes
 
-The lexical specification at file [examples/more/more.l](./more.l) 
-and the driver [examples/more/main.cjs](examples/more/main.cjs) 
+The lexical specification at file 
+- [examples/more/more.l](./more.l) 
+- and the driver [examples/more/main.cjs](examples/more/main.cjs) 
 
-```js
-const { lexer, lex } = require("./lexer.js");
-const input = process.argv[2] || 'x"h\\nello\\"world\\""y';
-lexer.setInput(input);
+    ```js
+    const { lexer, lex } = require("./lexer.js");
+    const input = process.argv[2] || 'x"h\\nello\\"world\\""y';
+    lexer.setInput(input);
 
-const results = [];
+    const results = [];
 
-while ((token = lex()) !== 'EOF') {
-    results.push({ 
-        type: token, 
-        lexeme: lexer.yytext, 
-        loc: lexer.yylloc, 
-        matched: lexer.matched,
-        _input: lexer._input, 
+    while ((token = lex()) !== 'EOF') {
+        results.push({ 
+            type: token, 
+            lexeme: lexer.yytext, 
+            loc: lexer.yylloc, 
+            matched: lexer.matched,
+            _input: lexer._input, 
 
-    });
-}
+        });
+    }
 
-console.log(JSON.stringify(results, null, 2));
-```
+    console.log(JSON.stringify(results, null, 2));
+    ```
 
 demonstrate 
 the use of some of the lexer methods and attributes, such as the use of 
