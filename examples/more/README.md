@@ -96,9 +96,9 @@ This example demonstrates the following points:
        this.yyleng++;
        this.offset++;
        this.match += ch;
-       this.matched += ch;
+       this.matched += ch; // Append to the matched text so far
        var lines = ch.match(/(?:\r\n?|\n).*/g);
-       if (lines) {
+       if (lines) { // Update line and column tracking if we matched newlines
            this.yylineno++;
            this.yylloc.last_line++;
        } else {
@@ -108,7 +108,7 @@ This example demonstrates the following points:
            this.yylloc.range[1]++;
        }
 
-       this._input = this._input.slice(1);
+       this._input = this._input.slice(1); // Remove the matched character from the input stream
        return ch;
      }
    }
