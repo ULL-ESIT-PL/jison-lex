@@ -1,6 +1,6 @@
 # Conversacion con Claude sobre GitHub Copilot
 
-## Question 1
+## Question 1: ¿Donde quedan los archivos de sesión?
 
 Cuando estoy aprendiendo de github copilot ¿Donde quedan los archivos de sesión?
 
@@ -8,7 +8,7 @@ Cuando estoy aprendiendo de github copilot ¿Donde quedan los archivos de sesió
 
 Si te refieres a **GitHub Copilot CLI**, los archivos de sesión están en tu directorio personal, en `~/.copilot/session-state/`. El registro completo de cada sesión se guarda ahí:
 
-```
+```bash
 ➜  jison-lex git:(master) ✗ ls -lt ~/.copilot/session-state | tail -2
 drwx------@ 10 casianorodriguezleon  staff  320 Jul 28 13:10 55c554ba-6c5c-4a5d-87d3-eed903c35257
 drwx------@  9 casianorodriguezleon  staff  288 Mar 25  2026 61bb1dca-2981-47d2-9742-6694d0651b3e
@@ -57,7 +57,7 @@ Algunos detalles útiles:
 
 Si tu pregunta es por el **chat de Copilot en VS Code** (no el CLI), el almacenamiento es distinto. Por lo que sé, el historial de chat se guarda por espacio de trabajo dentro de la carpeta de datos de usuario de VS Code (`workspaceStorage/<hash>/`), pero no lo he verificado ahora mismo. Si es tu caso, dímelo y lo compruebo.
 
-## Question 2
+## Question 2: ¿Como obtengo el hash de la sesión actual?
 
 ¿Como obtengo el hash de la sesión actual?
 
