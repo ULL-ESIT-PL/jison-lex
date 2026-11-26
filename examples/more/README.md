@@ -116,7 +116,7 @@ This example demonstrates the following points:
 3. Use the `more()` method to indicate that the next matched text should be appended to the current `yytext` instead of replacing it.
 
    ```js
-   {
+   { // File `lexer.js` within the generated lexer
      more: function () {
        this._more = true;
        return this;
