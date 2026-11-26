@@ -83,6 +83,7 @@ You should see the following output:
 ]
 ```
 
+This example demonstrates the following points:
 
 1. Inside an action you can access the lexer object via `this`
 2. Use the `input()` method to get the next incoming character from the input stream
