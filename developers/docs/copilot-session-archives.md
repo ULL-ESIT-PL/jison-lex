@@ -1,4 +1,4 @@
-# Conversacion con Claude sobre GitHub Copilot
+# Conversacion con Claude sobre GitHub Copilot (folder `~/.copilot`)
 
 ## Question 1: ¿Donde quedan los archivos de sesión?
 
