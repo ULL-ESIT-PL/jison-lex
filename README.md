@@ -2,8 +2,6 @@
 
 A lexical analyzer generator used by [ull-esit-pl/jison](https://github.com/ull-esit-pl/jison). It takes a lexical grammar definition (either in JSON or Bison's lexical grammar format) and outputs a JavaScript lexer.
 
-**📚 [API Documentation](https://ull-esit-pl.github.io/jison-lex/docs/global.html)** - View complete JSDoc API reference 
-
 ## Installation
 
 The easiest way is to install the package from the GitHub repository:

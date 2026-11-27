@@ -2,8 +2,7 @@
   "source": {
     "include": [
       "index.js",
-      "cli.js",
-      "developers/docs/documenting-generated-files/lexer-documented-example.js"
+      "cli.js"
     ],
     "includePattern": ".+\\.js(doc|on)?$",
     "excludePattern": "(^|/)node_modules/|tests/"

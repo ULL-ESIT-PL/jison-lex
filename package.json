@@ -45,8 +45,7 @@
     "pub": "source .env && npm publish",
     "grammar": "jison examples/grammar.jison -o examples/parser.js",
     "clean": "rm -f examples/example.js examples/parser.js",
-    "docs:generate": "node developers/scripts/generate-docs-with-jsdoc.js",
-    "docs:quick": "jsdoc -c jsdoc.json",
+    "docs": "jsdoc -c jsdoc.json",
     "docs:serve": "npx http-server ./docs -p 8080"
   },
   "directories": {
