@@ -383,18 +383,5 @@ npm run docs:serve
 
 Then open `http://localhost:8080/docs` in your browser.
 
-**📖 Online Documentation:** Documentation is automatically deployed to GitHub Pages on every push to `master`/`main` branch. View it at: **[https://ull-esit-pl.github.io/jison-lex/](https://ull-esit-pl.github.io/jison-lex/)**
-
-### Available npm Scripts
-
-```bash
-npm test              # Run test suite
-npm run docs          # Generate JSDoc HTML documentation
-npm run docs:serve    # Serve docs on http://localhost:8080
-npm run grammar       # Regenerate parser grammar (examples/parser.js)
-npm run clean         # Remove generated files (examples/example.js, examples/parser.js)
-npm run pub           # Publish to registry (requires .env configuration)
-```
-
 ## license
 MIT
