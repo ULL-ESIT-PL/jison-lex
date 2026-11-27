@@ -84,7 +84,15 @@ parseError: function parseError(str, hash) {
  * // o con contexto del parser
  * lexer.setInput(input, parserContext);
  */
-setInput: function (input, yy) {
+/**
+ * Reinicia el lexer y configura una nueva entrada.
+ * @internal
+ * @param {string} input - Cadena de entrada a analizar
+ * @param {Object} [yy] - Contexto compartido del parser
+ * @returns {Object} Retorna this para encadenamiento de métodos
+ */
+
+setInput: function(input, yy) {
     this.yy = yy || this.yy || {};
     this._input = input;
     this._more = this._backtrack = this.done = false;
@@ -163,7 +171,14 @@ input: function () {
  * this.input();  // Consumir un carácter
  * this.unput(ch);  // Devolverlo para la siguiente regla
  */
-unput: function (ch) {
+/**
+ * Retrocede caracteres en la entrada.
+ * @internal
+ * @param {string} ch - Carácter(es) a retroceder
+ * @returns {Object} Retorna this
+ */
+
+unput: function(ch) {
     var len = ch.length;
     var lines = ch.split(/(?:\r\n?|\n)/g);
 
@@ -283,7 +298,13 @@ reject: function () {
  * // Regla que solo quiere los primeros 2 caracteres de una coincidencia de 4
  * this.less(2);  // Mantiene 2 chars, retrocede 2
  */
-less: function (n) {
+/**
+ * Retiene solo los primeros n caracteres de la coincidencia actual.
+ * @internal
+ * @param {number} n - Número de caracteres a retener
+ */
+
+less: function(n) {
     this.unput(this.match.slice(n));
 },
 
@@ -376,6 +397,16 @@ showPosition: function () {
  * @see next
  * @see performAction
  */
+/**
+ * Updates the lexer state to reflect the match found, and then calls the lexer action function.
+ * 
+ * @internal                      // Marca como no-pública
+ * @param {Array} match           // [fullMatch, group1, ...]
+ * @param {number} indexed_rule   // Índice de la regla
+ * @returns {string|number|false} // Token o false si rechazado
+ * @see next, performAction, reject
+ */
+
 test_match: function(match, indexed_rule) {
     var token,
         lines,

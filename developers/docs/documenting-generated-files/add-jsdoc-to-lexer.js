@@ -147,7 +147,7 @@ const methodPattern = /(\w+):\s*function\s*\(/g;
 
 function addJSDocToLexer(filePath) {
     console.log(`📄 Procesando: ${filePath}`);
-    
+
     if (!fs.existsSync(filePath)) {
         console.error(`❌ Archivo no encontrado: ${filePath}`);
         process.exit(1);
@@ -157,19 +157,43 @@ function addJSDocToLexer(filePath) {
     let modified = false;
     let replacements = 0;
 
+    // Agregar @fileoverview al inicio si no existe
+    const fileoverviewComment = `/**
+ * @fileoverview Analizador léxico generado por jison-lex.
+ * Proporciona funciones para tokenizar entrada según reglas léxicas definidas.
+ * @internal
+ */
+`;
+
+    if (!content.includes('@fileoverview')) {
+        content = fileoverviewComment + content;
+        modified = true;
+        console.log(`  ✓ @fileoverview: agregado al inicio del archivo`);
+    }
+
     // Función para escapar caracteres especiales en regex
     const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
     // Procesar cada función conocida
     for (const [functionName, jsdoc] of Object.entries(jsdocComments)) {
         const escapedName = escapeRegex(functionName);
-        
+
+        // We need to check first if the function already has a JSDoc comment above it
+        const jsdocPattern = new RegExp(
+            `\\/\\*\\*[\\s\\S]*?)\\*\\/(\\s*${escapedName}:\\s*function\\s*\\(\\))`,
+            'g'
+        );
+        if (jsdocPattern.test(content)) {
+            console.log(`  ⊘ ${functionName}: ya documentado`);
+            continue;
+        }
+
         // Patrón 1: Función con comentario de línea previo
         const pattern1 = new RegExp(
             `\\/\\/ [^\\n]+\\n(\\s*${escapedName}:\\s*function\\s*\\(\\))`,
             'g'
         );
-        
+
         if (pattern1.test(content)) {
             content = content.replace(
                 pattern1,
@@ -184,7 +208,7 @@ function addJSDocToLexer(filePath) {
                 `(\\n\\s*)${escapedName}:\\s*function\\s*\\(`,
                 'g'
             );
-            
+
             if (pattern2.test(content)) {
                 content = content.replace(
                     pattern2,
@@ -261,7 +285,7 @@ function generateTypeDefinitions() {
 // Punto de entrada del script
 if (require.main === module) {
     const args = process.argv.slice(2);
-    
+
     if (args.length === 0 || args.includes('--help')) {
         console.log(`
 Uso: node add-jsdoc-to-lexer.js [archivo-lexer.js] [--generate-types] [--help]

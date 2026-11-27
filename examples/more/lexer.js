@@ -13,16 +13,7 @@ parseError:function parseError(str, hash) {
     },
 
 // resets the lexer, sets new input
-
-/**
- * Reinicia el lexer y configura una nueva entrada.
- * @internal
- * @param {string} input - Cadena de entrada a analizar
- * @param {Object} [yy] - Contexto compartido del parser
- * @returns {Object} Retorna this para encadenamiento de métodos
- */
-
-setInput: function(input, yy) {
+setInput:function (input, yy) {
         this.yy = yy || this.yy || {};
         this._input = input;
         this._more = this._backtrack = this.done = false;
@@ -42,13 +33,8 @@ setInput: function(input, yy) {
         return this;
     },
 
-/**
- * Consume y retorna un carácter de la entrada.
- * @internal
- * @returns {string} El carácter consumido
- */
-
-input: function() {
+// consumes and returns one char from the input
+input:function () {
         var ch = this._input[0];
         this.yytext += ch;
         this.yyleng++;
@@ -71,15 +57,7 @@ input: function() {
     },
 
 // unshifts one char (or a string) into the input
-
-/**
- * Retrocede caracteres en la entrada.
- * @internal
- * @param {string} ch - Carácter(es) a retroceder
- * @returns {Object} Retorna this
- */
-
-unput: function(ch) {
+unput:function (ch) {
         var len = ch.length;
         var lines = ch.split(/(?:\r\n?|\n)/g);
 
@@ -113,28 +91,14 @@ unput: function(ch) {
         return this;
     },
 
-/**
- * Señala al lexer que debe continuar acumulando texto en el token actual.
- * @internal
- * @returns {Object} Retorna this
- */
-
-
-more: function() {
+// When called from action, caches matched text and appends it on next action
+more:function () {
         this._more = true;
         return this;
     },
 
-
-/**
- * Rechaza el token actual e intenta la siguiente regla de lexing.
- * Solo funciona si options.backtrack_lexer está habilitado.
- * @internal
- * @returns {false|Error} Retorna false o lanza Error
- * @throws {Error} Si se llama sin backtrack_lexer habilitado
- */
-
-reject: function() {
+// When called from action, signals the lexer that this rule fails to match the input, so the next matching rule (regex) should be tested instead.
+reject:function () {
         if (this.options.backtrack_lexer) {
             this._backtrack = true;
         } else {
@@ -149,39 +113,18 @@ reject: function() {
     },
 
 // retain first n characters of the match
-
-/**
- * Retiene solo los primeros n caracteres de la coincidencia actual.
- * @internal
- * @param {number} n - Número de caracteres a retener
- */
-
-
-
-less: function(n) {
+less:function (n) {
         this.unput(this.match.slice(n));
     },
 
-
-/**
- * Retorna el texto ya procesado y consumido.
- * @internal
- * @returns {string} Texto consumido hasta ahora (máximo 20 caracteres)
- */
-
-pastInput: function() {
+// displays already matched input, i.e. for error messages
+pastInput:function () {
         var past = this.matched.substr(0, this.matched.length - this.match.length);
         return (past.length > 20 ? '...':'') + past.substr(-20).replace(/\n/g, "");
     },
 
-/**
- * Retorna el texto próximo a ser procesado.
- * @internal
- * @returns {string} Texto pendiente (máximo 20 caracteres)
- */
-
-
-upcomingInput: function() {
+// displays upcoming input, i.e. for error messages
+upcomingInput:function () {
         var next = this.match;
         if (next.length < 20) {
             next += this._input.substr(0, 20-next.length);
@@ -189,31 +132,15 @@ upcomingInput: function() {
         return (next.substr(0,20) + (next.length > 20 ? '...' : '')).replace(/\n/g, "");
     },
 
-
-/**
- * Muestra la posición exacta del error de análisis léxico.
- * @internal
- * @returns {string} Representación visual del error
- */
-
-showPosition: function() {
+// displays the character position where the lexing error occurred, i.e. for error messages
+showPosition:function () {
         var pre = this.pastInput();
         var c = new Array(pre.length + 1).join("-");
         return pre + this.upcomingInput() + "\n" + c + "^";
     },
 
-
-/**
- * Updates the lexer state to reflect the match found, and then calls the lexer action function.
- * 
- * @internal                      // Marca como no-pública
- * @param {Array} match           // [fullMatch, group1, ...]
- * @param {number} indexed_rule   // Índice de la regla
- * @returns {string|number|false} // Token o false si rechazado
- * @see next, performAction, reject
- */
-
-test_match: function(match, indexed_rule) {
+// test the lexed token: return FALSE when not a match, otherwise return token
+test_match:function(match, indexed_rule) {
         var token,
             lines,
             backup;
@@ -284,15 +211,8 @@ test_match: function(match, indexed_rule) {
         return false;
     },
 
-/**
- * Retorna el siguiente token del flujo de entrada.
- * Este es el método principal del lexer.
- * @internal
- * @returns {string|number|boolean} Token coincidente o EOF (1)
- */
-
-
-next: function() {
+// return next match in input
+next:function () {
         if (this.done) {
             return this.EOF;
         }
