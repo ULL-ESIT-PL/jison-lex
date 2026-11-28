@@ -359,7 +359,7 @@ You can also generate ES6 modules using the `lexer.generateESModule()` method:
 
 This version of jison-lex supports generating lexers as ES6 Modules, the official JavaScript module standard.
 
-#### Generate ES6 Module Lexer
+Generate ES6 Module Lexer
 
 ```bash
 jison-lex -t es6 input.l -o output.mjs
@@ -367,7 +367,7 @@ jison-lex -t es6 input.l -o output.mjs
 jison-lex -t esm input.l -o output.mjs
 ```
 
-#### Use in Node.js
+Use in Node.js
 
 ```js
 import { lexer, lex } from './lexer.mjs';
@@ -376,7 +376,7 @@ lexer.setInput('input text');
 const token = lexer.lex();
 ```
 
-#### Use in Browser
+Use in Browser
 
 ```html
 <script type="module">
