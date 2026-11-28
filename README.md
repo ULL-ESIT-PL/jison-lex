@@ -254,11 +254,32 @@ Now the internal state of the lexer has changed:
   matches: [ 'x', index: 0, input: 'xyxxy', groups: undefined ]
 }
 ```
-
+We can call `lexer.lex()` again to get the next token:
 ```js
 > lexer.lex();
 'Y'
 ```
+And the internal state of the lexer has changed again:
+
+```js
+{
+  ... /* other properties as before */
+  _input: 'xxy',
+  done: false,
+  _backtrack: false,
+  _more: false,
+  yyleng: 1,
+  yylineno: 0,
+  match: 'y',
+  matched: 'xy',
+  yytext: 'y',
+  conditionStack: [ 'INITIAL' ],
+  yylloc: { first_line: 1, last_line: 1, first_column: 1, last_column: 2 },
+  offset: 0,
+  matches: [ 'y', index: 0, input: 'yxxy', groups: undefined ]
+}
+```
+
 The `lexer.generate*Module()` methods can be used to generate a string containing the source code of a module in the corresponding format that exports the lexer and the `lex` function. 
 
 The `JisonLex.generate(grammar)` method returns a string containing the source code of a lexer. 
