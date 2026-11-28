@@ -466,11 +466,6 @@ See details at
 - https://github.com/zaach/jison-lex/graphs/contributors?all=1
 - https://github.com/ULL-ESIT-PL/jison-lex/blame/master/index.js
 
-## Changelog
-
-- This version fixes a bug with the `--t --module-type` option and uses `commander` instead of `nomnom` for the command line interface. 
-- It also changes the way the function `lex` is exported.
-
 ## Development
 
 ### Running Tests
