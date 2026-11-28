@@ -288,6 +288,30 @@ And the internal state of the lexer has changed again:
   matches: [ 'y', index: 0, input: 'yxxy', groups: undefined ]
 }
 ```
+Let us consume the rest of the input:
+
+```js
+
+> while (lexer.lex() !== 'EOF') ;
+undefined
+> lexer
+{
+  /* ... other properties as before */
+  done: true,
+  yytext: '',
+  match: '',
+  _input: '',
+  _backtrack: false,
+  _more: false,
+  yyleng: 0,
+  yylineno: 0,
+  matched: 'xyxxy',
+  conditionStack: [ 'INITIAL' ],
+  yylloc: { first_line: 1, last_line: 1, first_column: 5, last_column: 5 },
+  offset: 0,
+  matches: [ '', index: 0, input: '', groups: undefined ]
+}
+```
 
 The `lexer.generate*Module()` methods can be used to generate a string containing the source code of a module in the corresponding format that exports the lexer and the `lex` function. 
 
