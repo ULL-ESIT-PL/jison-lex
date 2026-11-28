@@ -464,6 +464,7 @@ Casiano Rodríguez León (2026-).
 See details at
 -  https://github.com/ULL-ESIT-PL/jison-lex/graphs/contributors?all=1
 - https://github.com/zaach/jison-lex/graphs/contributors?all=1
+- https://github.com/ULL-ESIT-PL/jison-lex/blame/master/index.js
 
 ## Changelog
 
