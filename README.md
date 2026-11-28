@@ -449,9 +449,6 @@ For a complete example with HTML, CSS, and application code, see [examples/ecma-
 
 See folder [examples/more/](examples/more/) for an example demonstrating the use of some of the lexer methods and attributes, such as the use of `this`, the methods `input()`, and `more()`, the attributes `matched` and `_input`.
 
-## Developers
-
-See [DEVELOPMENT.md](DEVELOPMENT.md) for instructions on how to publish the package and test it during development.
 
 ## Author
 
@@ -494,9 +491,9 @@ Then open `http://localhost:8080/docs` in your browser.
 
 ### See also
 
-- [DEVELOPMENT.md]
+- See [DEVELOPMENT.md](DEVELOPMENT.md) for instructions on how to publish the package and test it during development.
 -  Folder[developers](developers)
-   
+  
 
 ## license
 MIT
