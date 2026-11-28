@@ -313,6 +313,8 @@ undefined
 }
 ```
 
+### The `lexer.generate*Module()` methods
+
 The `lexer.generate*Module()` methods can be used to generate a string containing the source code of a module in the corresponding format that exports the lexer and the `lex` function. 
 
 The `JisonLex.generate(grammar)` method returns a string containing the source code of a lexer. 
