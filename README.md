@@ -297,7 +297,7 @@ undefined
 > lexer
 {
   /* ... other properties as before */
-  done: true,
+  done: true, // indicates that the lexer has reached the end of the input
   yytext: '',
   match: '',
   _input: '',
