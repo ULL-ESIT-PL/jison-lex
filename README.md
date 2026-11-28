@@ -204,8 +204,33 @@ We can create a lexer object from the grammar using the constructor `new JisonLe
 
 We already seen how to use the `lexer.setInput`, `lexer.lex()` and `lexer.next()` methods:
 
-```
+```js
 > lexer.setInput('xyxxy');
+```
+
+La forma en la que el lexer trabaja es modificando su estado interno. Por ejemplo la llamada anterior a `lexer.setInput('xyxxy')` modifica o introduce nuevas propiedades en el objeto `lexer` como `_input`, `done`, `yylineno`, `yytext`, `yylloc`, etc.:
+
+```js
+> lexer
+{ 
+  ... /* other properties */
+  _input: 'xyxxy', // internal input string
+  done: false,     // indicates if the lexer has reached the end of the input
+  yylineno: 0,     // current line number (0-based)
+  _backtrack: false,
+  _more: false, // indicates if the lexer is in "more" mode
+  yyleng: 0,
+  yylineno: 0,
+  match: '', // the last matched string
+  matched: '', // the entire matched string so far
+  yytext: '',  // the current matched text
+  conditionStack: [ 'INITIAL' ],
+  yylloc: { first_line: 1, first_column: 0, last_line: 1, last_column: 0 },
+  offset: 0 // the current offset in the input string
+}
+```
+
+```js
 > lexer.lex();
 'X'
 > lexer.lex();
