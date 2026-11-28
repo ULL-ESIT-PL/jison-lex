@@ -264,7 +264,7 @@ And the internal state of the lexer has changed again:
 ```js
 {
   ... /* other properties as before */
-  _input: 'xxy',
+  _input: 'xxy', // remaining input after matching 'y'
   done: false,
   _backtrack: false,
   _more: false,
