@@ -459,7 +459,7 @@ See [DEVELOPMENT.md](DEVELOPMENT.md) for instructions on how to publish the pack
 
 ### Contributors 
 
-- Casiano Rodríguez León (2026). See the full list at https://github.com/ULL-ESIT-PL/jison-lex/graphs/contributors
+- Casiano Rodríguez León (2026-). See the full list at https://github.com/ULL-ESIT-PL/jison-lex/graphs/contributors
 
 ## Changelog
 
