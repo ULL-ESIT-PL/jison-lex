@@ -228,10 +228,34 @@ The way the lexer works is by modifying its internal state. For example, the pre
   offset: 0 // the current offset in the input string
 }
 ```
-
+When we call `lexer.lex()` it will return the next token and update the internal state of the lexer accordingly:
 ```js
 > lexer.lex();
 'X'
+```
+Now the internal state of the lexer has changed:
+
+```js 
+> lexer
+{
+   ... /* other properties as before */
+  _input: 'yxxy',
+  done: false,
+  _backtrack: false,
+  _more: false,
+  yyleng: 1,
+  yylineno: 0,
+  match: 'x',
+  matched: 'x',
+  yytext: 'x',
+  conditionStack: [ 'INITIAL' ],
+  yylloc: { first_line: 1, last_line: 1, first_column: 0, last_column: 1 },
+  offset: 0,
+  matches: [ 'x', index: 0, input: 'xyxxy', groups: undefined ]
+}
+```
+
+```js
 > lexer.lex();
 'Y'
 ```
