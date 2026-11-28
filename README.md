@@ -326,10 +326,11 @@ The `JisonLex.generate(grammar)` method returns a string containing the source c
   'var lexer = ({\n' +
   '        if (this.conditionStack.length && this.conditionStack[this.co'... 1199 more characters
 ```
+The `lexer.generateCommonJSModule()` method creates a string containing the source code of a CommonJS module that exports the `lexer` object and the `lex` function:
 
 ```js
-> target = lexer.generateCommonJSModule() // Creates a string containing the source code of a CommonJS module that
-> target.length                           // exports the lexer and lex
+> target = lexer.generateCommonJSModule() 
+> target.length                           
 11295
 > target.substr(11100) // The last 195 characters of the generated module, which contains the export statements
 '?:y)/,/^(?:$)/],\n' +
@@ -339,8 +340,12 @@ The `JisonLex.generate(grammar)` method returns a string containing the source c
   '})();\n' +
   'exports.lexer = lexer;\n' +
   'exports.lex = function () { return lexer.lex.apply(lexer, arguments); };'
-> 
-> // You can also generate ES6 modules
+>
+```
+
+You can also generate ES6 modules using the `lexer.generateESModule()` method:
+
+```js
 > target = lexer.generateESModule()
 > target.substr(-100)  // Shows the ES6 export statements
 '})();\n' +
