@@ -271,10 +271,10 @@ And the internal state of the lexer has changed again:
   yyleng: 1,
   yylineno: 0,
   match: 'y',
-  matched: 'xy',
+  matched: 'xy', // the entire matched string so far
   yytext: 'y',
   conditionStack: [ 'INITIAL' ],
-  yylloc: { first_line: 1, last_line: 1, first_column: 1, last_column: 2 },
+  yylloc: { first_line: 1, last_line: 1, first_column: 1, last_column: 2 }, // Now the last_column is 2 because we have matched two characters so far
   offset: 0,
   matches: [ 'y', index: 0, input: 'yxxy', groups: undefined ]
 }
