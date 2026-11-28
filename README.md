@@ -164,6 +164,13 @@ Here is an example using the node.js REPL. First we require the `@ull-esit-pl/ji
 > grammar = { rules: [ ["x", "return 'X';" ], ["y", "return 'Y';"], ["$", "return 'EOF'"] ] } 
 > // or load from a file
 > // var grammar = fs.readFileSync('mylexer.l', 'utf8');
+{
+  rules: [
+    [ 'x', "return 'X';" ],
+    [ 'y', "return 'Y';" ],
+    [ '$', "return 'EOF'" ]
+  ]
+}
 ```
 
 We can create a lexer object from the grammar using the constructor `new JisonLex(grammar)`:
