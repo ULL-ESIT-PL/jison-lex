@@ -355,6 +355,38 @@ You can also generate ES6 modules using the `lexer.generateESModule()` method:
 ```
 
 
+### ES6 Modules Support
+
+This version of jison-lex supports generating lexers as ES6 Modules, the official JavaScript module standard.
+
+#### Generate ES6 Module Lexer
+
+```bash
+jison-lex -t es6 input.l -o output.mjs
+# or use the esm alias:
+jison-lex -t esm input.l -o output.mjs
+```
+
+#### Use in Node.js
+
+```js
+import { lexer, lex } from './lexer.mjs';
+
+lexer.setInput('input text');
+const token = lexer.lex();
+```
+
+#### Use in Browser
+
+```html
+<script type="module">
+  import { lexer } from './lexer.mjs';
+  window.lexer = lexer;
+</script>
+```
+
+For a complete example with HTML, CSS, and application code, see [examples/ecma-generated-module/](examples/ecma-generated-module/).
+
 
 ### Module Types Comparison
 
@@ -412,38 +444,6 @@ For detailed documentation and setup instructions for each module type, see [exa
 ## Manually writing a lexer for Jison
 
 See folder [examples/manual-lexer](examples/manual-lexer) for an example of a hand written lexer compatible with a [@ull-esit-pl/jison parser](https://github.com/ull-esit-pl/jison).
-
-## ES6 Modules Support
-
-This version of jison-lex supports generating lexers as ES6 Modules, the official JavaScript module standard.
-
-### Generate ES6 Module Lexer
-
-```bash
-jison-lex -t es6 input.l -o output.mjs
-# or use the esm alias:
-jison-lex -t esm input.l -o output.mjs
-```
-
-### Use in Node.js
-
-```js
-import { lexer, lex } from './lexer.mjs';
-
-lexer.setInput('input text');
-const token = lexer.lex();
-```
-
-### Use in Browser
-
-```html
-<script type="module">
-  import { lexer } from './lexer.mjs';
-  window.lexer = lexer;
-</script>
-```
-
-For a complete example with HTML, CSS, and application code, see [examples/ecma-generated-module/](examples/ecma-generated-module/).
 
 ## Introduction to some advanced lexer methods and attributes
 
