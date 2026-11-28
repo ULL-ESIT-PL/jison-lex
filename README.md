@@ -151,7 +151,9 @@ When running `node examples/commonjs-generated-module/main-next.cjs`, the output
   Token 6: NUMBER   | Lexeme: "3              " | Location: 3:0
   Token 7: EOF      | Lexeme: "               " | Location: 3:1
 ```
-## Programatic usage
+## The way it works
+
+The way it works is that the lexer maintains an internal state, including the current input, the position in the input, and the matched text so far. 
 
 Here is an example using the node.js REPL. First we require the `@ull-esit-pl/jison-lex` package and create a lexer from a simple grammar:
 
