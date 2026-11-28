@@ -313,11 +313,11 @@ undefined
 }
 ```
 
-### The `lexer.generate*Module()` methods
+## The `lexer.generate*Module()` methods
 
 The `lexer.generate*Module()` methods can be used to generate a string containing the source code of a module in the corresponding format that exports the lexer and the `lex` function. 
 
-The `JisonLex.generate(grammar)` method returns a string containing the source code of a lexer. 
+The `JisonLex.generate(grammar)` method returns a string containing the source code of a lexer. Continuing with the previous example:
 
 ```js
 > lexerSource = JisonLex.generate(grammar);
@@ -351,7 +351,7 @@ The `JisonLex.generate(grammar)` method returns a string containing the source c
 
 
 
-## Module Types Comparison
+### Module Types Comparison
 
 | Feature | CommonJS | IIFE Standalone | AMD/RequireJS | ES6 Modules |
 |---------|----------|-----------------|---------------|-------------|
