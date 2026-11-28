@@ -207,13 +207,12 @@ We already seen how to use the `lexer.setInput`, `lexer.lex()` and `lexer.next()
 ```js
 > lexer.setInput('xyxxy');
 ```
-
-La forma en la que el lexer trabaja es modificando su estado interno. Por ejemplo la llamada anterior a `lexer.setInput('xyxxy')` modifica o introduce nuevas propiedades en el objeto `lexer` como `_input`, `done`, `yylineno`, `yytext`, `yylloc`, etc.:
+The way the lexer works is by modifying its internal state. For example, the previous call to `lexer.setInput('xyxxy')` modifies or introduces new properties in the `lexer` object such as `_input`, `done`, `yylineno`, `yytext`, `yylloc`, etc.:
 
 ```js
 > lexer
 { 
-  ... /* other properties */
+  ... /* other properties as before */
   _input: 'xyxxy', // internal input string
   done: false,     // indicates if the lexer has reached the end of the input
   yylineno: 0,     // current line number (0-based)
